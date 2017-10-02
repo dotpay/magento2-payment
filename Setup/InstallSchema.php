@@ -52,7 +52,7 @@ class InstallSchema implements InstallSchemaInterface
      *
      * @param \Dotpay\Payment\Setup\SchemaSetupInterface $installer
      */
-    private function installCardBrandsTable(SchemaSetupInterface $installer)
+    private function installCardBrandsTable(\Magento\Framework\Setup\SchemaSetupInterface $installer)
     {
         $table = $installer->getConnection()
             ->newTable($installer->getTable('dotpay_card_brands'))
@@ -70,7 +70,7 @@ class InstallSchema implements InstallSchemaInterface
      *
      * @param \Dotpay\Payment\Setup\SchemaSetupInterface $installer
      */
-    private function installCreditCardsTable(SchemaSetupInterface $installer)
+    private function installCreditCardsTable(\Magento\Framework\Setup\SchemaSetupInterface $installer)
     {
         $table = $installer->getConnection()
             ->newTable($installer->getTable('dotpay_credit_cards'))
@@ -127,7 +127,7 @@ class InstallSchema implements InstallSchemaInterface
      *
      * @param \Dotpay\Payment\Setup\SchemaSetupInterface $installer
      */
-    private function installInstructionsTable(SchemaSetupInterface $installer)
+    private function installInstructionsTable(\Magento\Framework\Setup\SchemaSetupInterface $installer)
     {
         $table = $installer->getConnection()
             ->newTable($installer->getTable('dotpay_instructions'))
