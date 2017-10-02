@@ -1,0 +1,56 @@
+<h1 class="back-title"><?php echo __('Waiting for confirmation...'); ?></h1>
+
+<div id="statusMessageContainer">
+    <?php if($this->getPageData('error_message') != null): ?>
+        <div class="message error">
+            <p><?php echo $this->getPageData('error_message'); ?></p>
+        </div>
+    <?php endif; ?>
+</div>
+<?php if($this->getPageData('error_message') == null): ?>
+    <script type="text/javascript">
+        function ready(fn) {
+            if (document.readyState !== 'loading'){
+                fn();
+            } else if (document.addEventListener) {
+                document.addEventListener('DOMContentLoaded', fn);
+            } else {
+                document.attachEvent('onreadystatechange', function() {
+                    if (document.readyState !== 'loading')
+                        fn();
+                });
+            }
+        }
+        window.backConfig = {
+            messages: {
+                notFound: "<?php echo __('Order was not found.'); ?>",
+                basic: "<?php echo __('You have came back to the shop site.'); ?>",
+                status: "<?php echo __('Status of the order'); ?>",
+                timeout: "<?php echo __('Time intended for waiting for payment confirmation has elapsed. When transaction will be confirmed we will notify you on email. If payment will not be confirmed, please contact with shop owner and give him the order number:').' '.$this->getPageData('order_id'); ?>",
+                pending: "<?php echo __('Waiting for confirm your payment...').'<br />'.__('It make take up to 2 minutes.'); ?>",
+                success: "<?php echo __('Thank you! The process of payment completed correctly. In a moment you will be able to check the status of your order.'); ?>",
+                error: "<?php echo __('Payment was rejected. Please contact with the seller.'); ?>",
+                tooMany: "<?php echo __('Warning! Payment for this order have already registered. If you bank account has been charged, please contact to seller and give him a name of the order:').' '.$this->getPageData('order_id'); ?>",
+                unknown: "<?php echo __('It\'s impossible to interprete the response from server.'); ?>"
+            },
+            target: "<?php echo $this->getPageData('target_url'); ?>",
+            redirect: "<?php echo $this->getPageData('redirect_url'); ?>",
+            orderId: <?php echo $this->getPageData('order_id'); ?>,
+            interval: 5,
+            timeout: 2*60
+        };
+        require(
+            [
+                'jquery'
+            ],
+            function (
+                $
+            ) {
+                'use strict';
+                $(document).ready(function(){
+                    DotpayStatusChecker($('#statusMessageContainer'), window.backConfig);
+                });
+            }
+        );
+    </script>
+<?php endif; ?>

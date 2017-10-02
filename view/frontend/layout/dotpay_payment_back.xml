@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Dotpay_Payment::css/back.css" />
+        <css src="Dotpay_Payment::css/loading.css" />
+        <script src="Dotpay_Payment::js/view/payment/check-status.js" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Dotpay\Payment\Block\Payment\Back" name="dotpay.payment.back" template="payment/back.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

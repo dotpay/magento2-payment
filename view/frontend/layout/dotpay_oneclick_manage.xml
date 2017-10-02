@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+        <css src="Dotpay_Payment::css/ocmanage.css" />
+        <script src="Dotpay_Payment::js/view/oneclick/manage.js" />
+    </head>
+    <body>
+        <referenceBlock name="head.components">
+            <block class="Magento\Framework\View\Element\Js\Components" name="customer_account_edit_head_components" template="Magento_Customer::js/components.phtml"/>
+        </referenceBlock>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Manage your saved credit cards</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Dotpay\Payment\Block\Oneclick\Manage" name="dotpay.oneclick.manage" template="oneclick/manage.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

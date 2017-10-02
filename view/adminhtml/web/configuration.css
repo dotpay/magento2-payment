@@ -1,0 +1,56 @@
+/* Main elements */
+.dotpay-configuration-panel {
+    position: relative;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: solid 1px #d3d8db;
+    background-color: #fff;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+.dotpay-configuration-panel h3 {
+    border: none;
+    font-size: 1.2em;
+    line-height: 2.2em;
+    height: 2.2em;
+    text-transform: uppercase;
+    border-bottom: solid 1px #eee;
+    padding: 0 0 0 5px;
+    margin: -20px -16px 15px -16px;
+}
+.dotpay-configuration-panel ul {
+    padding-left: 40px;
+}
+.dotpay-configuration-panel.dotpay-error {
+    border: 1px solid #b40000;
+    background-color: #fff4f4;
+}
+.dotpay-configuration-panel.dotpay-success {
+    border: 1px solid #00b41c;
+    background-color: #f5fff4;
+}
+
+/* Update field */
+.dotpay-alert-error {
+    margin: 15px;
+    color: #da0000;
+    border: 1px solid #b40000;
+    padding: 10px;
+    background-color: #ffdae1;
+}
+
+/* Register field */
+.dp-button-container {
+    text-align: center;
+}
+.dp-button {
+    border-radius: 3px;
+    color: #FFF !important;
+    background-color: #881920;
+    border: medium none;
+    font-size: 20px;
+    padding: 15px 50px;
+    margin: 5px 0px;
+    display: inline-block !important;
+    text-decoration: none !important;
+}

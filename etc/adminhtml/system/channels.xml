@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="dotpay_channels" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label><![CDATA[Additional channels]]></label>
+        <frontend_model>Magento\Config\Block\System\Config\Form\Fieldset</frontend_model>
+        <field id="dp_mp_active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Activate Masterpass</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <config_path>payment/dotpay_mp/active</config_path>
+            <comment><![CDATA[You can select Masterpass method as visible in main view of checkout]]></comment>
+        </field>
+        <field id="dp_blik_active" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Activate BLIK</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <config_path>payment/dotpay_blik/active</config_path>
+            <comment><![CDATA[You can select BLIK method as visible in main view of checkout]]></comment>
+        </field>
+        <field id="dp_paypal_active" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Activate PayPal</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <config_path>payment/dotpay_paypal/active</config_path>
+            <comment><![CDATA[You can select PayPal method as visible in main view of checkout]]></comment>
+        </field>
+    </group>
+</include>

@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="dotpay_cards" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label><![CDATA[Card's payments settings]]></label>
+        <frontend_model>Magento\Config\Block\System\Config\Form\Fieldset</frontend_model>
+        <field id="dp_oc_active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Activate One Click payments</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <config_path>payment/dotpay_oc/active</config_path>
+            <tooltip><![CDATA[This setting requires to contact to Dotpay service before using it]]></tooltip>
+            <comment><![CDATA[<a target="_blank" href="https://www.dotpay.pl/kontakt/biuro-obslugi-klienta/">Contact to Dotpay service</a>]]></comment>
+        </field>
+        <field id="dp_cc_active" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Activate credit cards payments via Dotpay</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <config_path>payment/dotpay_cc/active</config_path>
+            <comment><![CDATA[Activate credit card payments as a separate channel]]></comment>
+        </field>
+        <field id="dp_fcc_active" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Separate Dotpay account for payments with specific currencies</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <config_path>payment/dotpay_cc/fcc_active</config_path>
+            <comment><![CDATA[Allow to use different Dotpay account for payment using credit cards with specific currencies]]></comment>
+            <depends>
+                <field id="dp_cc_active">1</field>
+            </depends>
+        </field>
+        <field id="dp_fcc_id" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Id</label>
+            <config_path>payment/dotpay_cc/fcc_id</config_path>
+            <comment><![CDATA[Seller id for payments using credit cards with specific currencies]]></comment>
+            <depends>
+                <field id="dp_cc_active">1</field>
+                <field id="dp_fcc_active">1</field>
+            </depends>
+        </field>
+        <field id="dp_fcc_pin" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Pin</label>
+            <config_path>payment/dotpay_cc/fcc_pin</config_path>
+            <comment><![CDATA[Seller pin for payments using credit cards with specific currencies]]></comment>
+            <depends>
+                <field id="dp_cc_active">1</field>
+                <field id="dp_fcc_active">1</field>
+            </depends>
+        </field>
+        <field id="dp_fcc_currencies" translate="label" type="multiselect" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Currencies for separated Dotpay account</label>
+            <source_model>Dotpay\Payment\Model\Adminhtml\System\Config\Currency</source_model>
+            <config_path>payment/dotpay_cc/fcc_currencies</config_path>
+            <tooltip><![CDATA[You can select more than one currency]]></tooltip>
+            <comment><![CDATA[For every of selected currencies the payment channel will be enabled.]]></comment>
+            <depends>
+                <field id="dp_cc_active">1</field>
+                <field id="dp_fcc_active">1</field>
+            </depends>
+        </field>
+    </group>
+</include>

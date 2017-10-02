@@ -1,0 +1,100 @@
+<?php try { ?>
+<?php if($block->isNewerVersion()): ?>
+<div class="dotpay-configuration-panel dotpay-error">
+    <div class="dotpay-offer">
+        <h3><?php echo __('Module update'); ?></h3>
+        <p><?php echo __('Version of your Dotpay payment module is'); ?>: <?php echo $block->getModuleVersion(); ?></p>
+        <p><?php echo __('The newest version is'); ?>: <?php echo $block->getAvailableVersion()->getNumber(); ?></p>
+        <p>
+            <?php echo __('You can download the latest version from this link'); ?>:&nbsp;
+            <a href="<?php echo $block->getAvailableVersion()->getZip(); ?>" target="_blank"><?php echo __('DOWNLOAD'); ?></a>
+        </p>
+        <p>
+            <?php echo __('More details about the newest version'); ?>:&nbsp;
+            <a href="<?php echo $block->getAvailableVersion()->getUrl(); ?>" target="_blank"><?php echo __('DETAILS'); ?></a>
+        </p>
+    </div>
+</div>
+<?php else: ?>
+<div class="dotpay-configuration-panel dotpay-success">
+    <div class="dotpay-offer">
+        <h3><?php echo __('Version information'); ?></h3>
+        <p><?php echo __('Congratulations!. Your Dotpay payment module is up to date.'); ?></p>
+        <p><?php echo __('Version of the module is'); ?>: <?php echo $block->getModuleVersion(); ?></p>
+        <p>
+            <?php echo __('More details about this version'); ?>:&nbsp;
+            <a href="<?php echo $block->getAvailableVersion()->getUrl(); ?>" target="_blank"><?php echo __('DETAILS'); ?></a>
+        </p>
+    </div>
+</div>
+<?php endif; ?>
+<?php } catch(\Exception $e) { ?>
+<div class="dotpay-alert-error">
+    <?php echo $e->getMessage(); ?>
+</div>
+<?php } ?>
+
+<?php if(!$block->checkId()): ?>
+    <div class="dotpay-configuration-panel dotpay-error">
+        <div class="dotpay-offer">
+            <h3><?php echo __('Error'); ?></h3>
+            <p><?php echo __('Your seller id is wrong. Please fix it.'); ?></p>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if(!$block->checkFccId()): ?>
+    <div class="dotpay-configuration-panel dotpay-error">
+        <div class="dotpay-offer">
+            <h3><?php echo __('Error'); ?></h3>
+            <p><?php echo __('Your seller id for foreign currencies is wrong. Please fix it.'); ?></p>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if(!$block->checkAccountData()): ?>
+    <div class="dotpay-configuration-panel dotpay-error">
+        <div class="dotpay-offer">
+            <h3><?php echo __('Error'); ?></h3>
+            <p><?php echo __('Your account data (username and password) is wrong. Please fix it.'); ?></p>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if(!$block->checkPin()): ?>
+    <div class="dotpay-configuration-panel dotpay-error">
+        <div class="dotpay-offer">
+            <h3><?php echo __('Error'); ?></h3>
+            <p><?php echo __('Your seller pin is wrong. Please fix it.'); ?></p>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if(!$block->checkFccPin()): ?>
+    <div class="dotpay-configuration-panel dotpay-error">
+        <div class="dotpay-offer">
+            <h3><?php echo __('Error'); ?></h3>
+            <p><?php echo __('Your seller pin for foreign currencies is wrong. Please fix it.'); ?></p>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if($block->isRegisterDisplayed()): ?>
+    <div class="dotpay-configuration-panel">
+        <div class="dotpay-offer">
+            <h3><?php echo __('Registration'); ?></h3>
+            <p><?php echo __('In response to the market\'s needs Dotpay has been delivering innovative Internet payment services providing the widest e-commerce solution offer for years. The domain is money transfers between a buyer and a merchant within a complex service based on counselling and additional security. Within an offer of Internet payments Dotpay offers over 140 payment channels including: mobile payments, instalments, cash, e-wallets, transfers and credit card payments.'); ?></p>
+            <p><?php echo __('To all new clients who have filled in a form and wish to accept payments we offer promotional conditions:'); ?></p>
+            <ul>
+                <li><b>1,9%</b> <?php echo __('commission on Internet payments (not less than PLN 0.30)'); ?></li>
+                <li><?php echo __('instalment payments'); ?> <b><?php echo __('without any commission!'); ?></b></li>
+                <li><?php echo __('an activation fee - only PLN 10'); ?></li>
+                <li><b><?php echo __('without any additional fees'); ?></b> <?php echo __('for refunds and withdrawals!'); ?></li>
+            </ul>
+            <p><?php echo __('In short, minimizing effort and work time you will increase your sales possibilities. Do not hesitate and start your account now!'); ?></p>
+            <div class="dp-button-container">
+                <a href="http://www.dotpay.pl/" target="_blank" class="dp-button"><?php echo __('Register now!'); ?></a>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

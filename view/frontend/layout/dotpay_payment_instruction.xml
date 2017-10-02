@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Dotpay_Payment::css/instruction.css" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Dotpay\Payment\Block\Payment\Instruction" name="dotpay.payment.instruction" template="payment/instruction.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,20 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_place_after">
+        <observer name="dotpay_change_status_after_place" instance="Dotpay\Payment\Observer\ChangeStatusAfterPlace" />
+    </event>
+    <event name="payment_method_assign_data_dotpay_oc">
+        <observer name="dotpay_oc_gateway_data_assign" instance="Dotpay\Payment\Observer\OcDataAssign" />
+    </event>
+    <event name="payment_method_assign_data_dotpay_widget">
+        <observer name="dotpay_widget_gateway_data_assign" instance="Dotpay\Payment\Observer\WidgetDataAssign" />
+    </event>
+    <event name="payment_method_assign_data_dotpay_blik">
+        <observer name="dotpay_blik_gateway_data_assign" instance="Dotpay\Payment\Observer\BlikDataAssign" />
+    </event>
+    <event name="shortcut_buttons_container">
+        <observer name="dotpay_shortcuts" instance="Dotpay\Payment\Observer\AddDotpayShortcuts"/>
+    </event>
+    <event name="customer_delete_after">
+        <observer name="dotpay_oneclick_delete-customer" instance="Dotpay\Payment\Observer\DeleteCustomer" />
+    </event>
+</config>

@@ -1,0 +1,107 @@
+/**
+ * NOTICE OF LICENSE.
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ *
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to tech@dotpay.pl so we can send you a copy immediately.
+ *
+ * @author    Dotpay Team <tech@dotpay.pl>
+ * @copyright Dotpay
+ * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.column {
+    flex: 1 auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px auto;
+}
+
+.field-group {
+    display: flex;
+    flex-flow: row wrap;
+    min-width: 300px;
+    padding: 5px 10px;
+}
+
+.field-label {
+    flex: 1 100%;
+    margin-bottom: 3px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.single-input {
+    flex: 1 auto;
+    padding: 2px 5px;
+    border: 1px solid #7d1315;
+    border-radius: 0px;
+    color: #7d1315;
+    background-color: #ffffff;
+    padding: 5px;
+    font-size: 1.5em;
+}
+
+.label-after {
+    flex: 0 100px;
+    padding: 5px 5px;
+    text-align: center;
+    border: 1px solid #7d1315;
+    border-left: none;
+    background: #f4f4f4;
+}
+
+/* -------------------------------------------- */
+#instruction-content {
+    margin: 20px 0;
+}
+
+#blankiet-download-form {
+    max-width: 300px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #7d1315;
+    background: #f4f4f4;
+    font-size: 1.2em;
+    color: #7d1315;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#blankiet-download-form img {
+    width: 120px;
+}
+
+#blankiet-download-form span {
+    display: block;
+}
+
+.alert {
+    padding: 10px;
+    border-width: 1px;
+    border-style: solid;
+    width: 600px;
+    margin: 10px auto;
+}
+
+.alert.info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #0c6d79;
+}

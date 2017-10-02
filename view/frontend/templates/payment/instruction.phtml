@@ -1,0 +1,93 @@
+<?php
+    if($block->getPageData('error_message') === null): 
+    $instruction = $block->getPageData('instruction');
+?>
+    <div id="dotpay-instruction" class="container">
+        <div class="row">
+            <div id="instruction-content">
+                <?php if($instruction->getIsCash()) {
+                    echo __('You can make the payment at post office or bank.');
+                    echo "<br />";
+                    echo __('To pay with cash download and print the form below.');
+                    echo "<br />";
+                    echo __('You can also use this data for online transfer or to fill your own form.');
+                } else {
+                    echo __('In order to pay login to your bank system and make a money transfer, using the following data:');
+                } ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <div class="field-group">
+                    <label for="field1" class="field-label"><?php echo __('Name'); ?></label>
+                    <input id="field1" class="single-input" value="<?php echo $instruction::RECIPIENT_NAME; ?>" readonly >
+                </div>
+                <div class="field-group">
+                    <label for="field2" class="field-label"><?php echo __('Street'); ?></label>
+                    <input id="field2" class="single-input" value="<?php echo $instruction::RECIPIENT_STREET; ?>" readonly />
+                </div>
+                <div class="field-group">
+                    <label for="field3" class="field-label"><?php echo __('Postcode, city'); ?></label>
+                    <input id="field3" class="single-input" value="<?php echo $instruction::RECIPIENT_CITY; ?>" readonly />
+                </div>
+            </div>
+            <div class="column">
+                <?php if(!$instruction->getIsCash()): ?>
+                    <div class="field-group">
+                        <label for="field4" class="field-label"><?php echo __('Number of bank account'); ?></label>
+                        <input id="field4" class="single-input" value="<?php echo $instruction->getBankAccount(); ?>" readonly />
+                    </div>
+                <?php endif; ?>
+                <div class="field-group with-label-after">
+                    <label for="field5" class="field-label"><?php echo __('Amount'); ?></label>
+                    <input id="field5" class="single-input" value="<?php echo $instruction->getAmount(); ?>" readonly />
+                    <span class="label-after"><?php echo $instruction->getCurrency(); ?></span>
+                </div>
+                <div class="field-group">
+                    <label for="field6" class="field-label"><?php echo __('Title of payment'); ?></label>
+                    <input id="field6" class="single-input" value="<?php echo $instruction->getNumber(); ?>" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <a id="blankiet-download-form" href="<?php echo $block->getPageData('target_url'); ?>" target="_blank">
+                <img src="<?php echo $block->getPageData('channel_logo'); ?>" alt="<?php echo __('Logo of payment channel'); ?>"/>
+                <span>
+                    <?php if($instruction->getIsCash()) {
+                        echo __('Download form');
+                    } else {
+                        echo __('Make a money transfer');
+                    } ?>
+                </span>
+            </a>
+        </div>
+        <?php if(!$instruction->getIsCash()): ?>
+            <div class="row">
+                <div class="alert info">
+                    <?php echo __('Not following the above procedure (e.g. changing the amount or payment title) will make your payment not handled automatically, and therefore lengthen finalization time of the transaction.'); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php else: ?>
+    <div class="message error">
+        <p><?php echo $this->getPageData('error_message'); ?></p>
+    </div>
+<?php endif; ?>
+<script type="text/javascript">
+    require(
+        [
+            'jquery'
+        ],
+        function (
+            $
+        ) {
+            'use strict';
+            $(document).ready(function(){
+                $('#dotpay-instruction input').focus(function(e){
+                    $(this).select();
+                });
+            });
+        }
+    );
+</script>

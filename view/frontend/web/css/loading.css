@@ -1,0 +1,60 @@
+/**
+ * NOTICE OF LICENSE.
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ *
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to tech@dotpay.pl so we can send you a copy immediately.
+ *
+ * @author    Dotpay Team <tech@dotpay.pl>
+ * @copyright Dotpay
+ * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/* Loader */
+.loading {
+    position: relative;
+    width: 100%;
+    height: 70px;
+}
+
+.loading:after {
+    font-family: Sans-Serif !important;
+    box-sizing: border-box;
+    content: '';
+    position: absolute;
+    z-index: 100;
+    left: 50%;
+    top: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+    border-right: 3px solid #9e191d;
+    border-bottom: 1px solid #ebebeb;
+    border-top: 2px solid #9e191d;
+    border-radius: 100px;
+    margin: -30px 0 0 -20px; 
+    animation: spin .75s infinite linear;
+    -webkit-animation: spin .75s infinite linear;
+    -moz-animation: spin .75s infinite linear;
+    -o-animation: spin .75s infinite linear;
+}
+
+.spin {
+    -webkit-animation: spin 1000ms infinite linear;
+    animation: spin 1000ms infinite linear;
+}
+
+@keyframes spin {
+    from { transform:rotate(0deg); }
+    to { transform:rotate(360deg); }
+}
+
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}

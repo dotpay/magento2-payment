@@ -1,0 +1,46 @@
+<?php
+$labelPosition = '';
+if ($block->isOrPositionBefore()) {
+    $labelPosition = ' before';
+} elseif ($block->isOrPositionAfter()) {
+    $labelPosition = ' after';
+}
+$shortcutHtmlId = $block->escapeHtml($block->getShortcutHtmlId());
+$confirmationUrl = '';
+$isInCatalogProduct = false;
+if ($block->getConfirmationUrl() || $block->getIsInCatalogProduct()) {
+    $confirmationUrl = $block->escapeUrl($block->getConfirmationUrl());
+    $isInCatalogProduct = $block->getIsInCatalogProduct();
+}
+?>
+<div data-label="<?php echo $block->escapeHtml(__('or')); ?>"
+     class="dotpay checkout <?php /* @noEscape */ echo $labelPosition; ?> dotpay-logo
+        <?php /* @noEscape */ echo $shortcutHtmlId; ?>"
+     data-mage-init='{
+     "dotpayCheckout": {
+                "confirmMessage": "<?php /* @noEscape */ echo $block->escapeJsQuote($block->getConfirmationMessage()); ?>",
+                "confirmUrl": "<?php /* @noEscape */ echo !empty($confirmationUrl) ? $confirmationUrl : false; ?>",
+                "isCatalogProduct": "<?php /* @noEscape */ echo !empty($isInCatalogProduct) ? (bool)$isInCatalogProduct : false;?>",
+                "shortcutContainerClass": "<?php /* @noEscape */ echo "." . $shortcutHtmlId; ?>"
+            }
+     }'
+    >
+    <?php if (!$block->getIsInCatalogProduct()) : ?>
+    <style scoped>
+        .dotpay.dotpay-logo input[type="image"]{
+            max-width: 100%;
+            border: 1px solid #7d1315;
+            border-radius: 5px;
+        }
+    </style>
+    <?php endif; ?>
+    <br>
+    <input type="image" data-action="checkout-form-submit"
+           data-checkout-url="<?php echo $block->escapeUrl($block->getCheckoutUrl()); ?>"
+           src="<?php echo $block->escapeUrl($block->getViewFileUrl('Dotpay_Payment::images/dotpay_logo.png')); ?>"
+           alt="<?php echo $block->escapeHtml(__('Pay with Dotpay')); ?>"
+           title="<?php echo $block->escapeHtml(__('Pay with Dotpay')); ?>"/>
+    <br>
+    <br>
+    <br>
+</div>

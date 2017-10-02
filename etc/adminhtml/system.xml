@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment" translate="label" type="text" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="dotpay_payments" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Dotpay payments</label>
+                <comment><![CDATA[Payment solution offered by Dotpay]]></comment>
+                <attribute type="expanded">1</attribute>
+                <fieldset_css>complex</fieldset_css>
+                <include path="Dotpay_Payment::system/information.xml"/>
+                <include path="Dotpay_Payment::system/basic.xml"/>
+                <include path="Dotpay_Payment::system/advanced.xml"/>
+                <include path="Dotpay_Payment::system/cards.xml"/>
+                <include path="Dotpay_Payment::system/channels.xml"/>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,37 @@
+<?php if(count($block->getPageData('cards'))): ?>
+<div class="message info">
+    <p><?php echo __('Below is a list of your credit cards registered in this shop. Data identifying these cards are stored in a secure manner in Dotpay. This allows you to make payments with one click. At any time, you can deregister their cards.'); ?></p>
+</div>
+<table id="credit-cards-list">
+    <tr class="ocheader">
+        <th><?php echo __('Logo'); ?></th>
+        <th><?php echo __('Card brand'); ?></th>
+        <th><?php echo __('Card number'); ?></th>
+        <th><?php echo __('Register date'); ?></th>
+        <th><?php echo __('Delete'); ?></th>
+    </tr>
+    <?php foreach ($block->getPageData('cards') as $card): ?>
+    <tr> 
+        <td><img class="dotpay-card-brand-logo" src="<?php echo $card->getBrand()->getLogo(); ?>" /></td>
+        <td><?php echo $card->getBrand()->getName(); ?></td>
+        <td class="dotpay-card-mask"><?php echo $card->getMask(); ?></td>
+        <td><?php echo $card->getRegisterDate(); ?></td>
+        <td>
+            <button data-id="<?php echo $card->getId(); ?>" class="card-remove" title="<?php echo __('Deregister card'); ?>">
+                X
+            </button>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+<?php else: ?>
+<div class="message warning">
+    <p><?php echo __('You have not saved any card.'); ?></p>
+</div>
+<?php endif; ?>
+<script type="text/javascript">
+    var onRemoveMessage = '<?php echo $block->getPageData('onRemoveMessage'); ?>';
+    var onDoneMessage = '<?php echo $block->getPageData('onDoneMessage'); ?>';
+    var onFailureMessage = '<?php echo $block->getPageData('onFailureMessage'); ?>';
+    var removeUrl = '<?php echo $block->getPageData('removeUrl'); ?>';
+</script>
