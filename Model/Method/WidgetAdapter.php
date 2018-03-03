@@ -28,11 +28,11 @@ class WidgetAdapter extends AbstractAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return boolean
      */
     public function isActive($storeId = null)
     {
-        return $this->isMainActive($storeId);
+        return (bool) $this->isMainActive($storeId);
     }
 
     /**
@@ -41,11 +41,11 @@ class WidgetAdapter extends AbstractAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return boolean
      */
     public function getVisible($storeId = null)
     {
-        return $this->getConfigData('widget', $storeId);
+        return (bool) $this->getConfigData('widget', $storeId);
     }
 
     /**
@@ -54,7 +54,7 @@ class WidgetAdapter extends AbstractAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return string
      */
     public function getDisableCurrencies($storeId = null)
     {

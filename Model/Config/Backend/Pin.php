@@ -18,7 +18,6 @@
 
 namespace Dotpay\Payment\Model\Config\Backend;
 
-use Magento\Framework\App\Config\Value;
 use Dotpay\Validator\Pin as PinValidator;
 use Dotpay\Exception\BadParameter\IdException;
 
@@ -37,7 +36,7 @@ class Pin extends Value
     public function beforeSave()
     {
         $value = $this->getValue();
-        if (!PinValidator::validate($value)) {
+        if ($this->isEnabled() && !PinValidator::validate($value)) {
             throw new IdException($value);
         }
 

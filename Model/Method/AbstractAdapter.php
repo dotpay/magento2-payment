@@ -66,9 +66,9 @@ class AbstractAdapter extends PaymentAdapter
      * @param ManagerInterface          $eventManager
      * @param ValueHandlerPoolInterface $valueHandlerPool
      * @param PaymentDataObjectFactory  $paymentDataObjectFactory
-     * @param type                      $code
-     * @param type                      $formBlockType
-     * @param type                      $infoBlockType
+     * @param string                    $code
+     * @param string                      $formBlockType
+     * @param string                      $infoBlockType
      * @param ModuleListInterface       $moduleList
      * @param ScopeConfigInterface      $scopeConfig
      * @param Session                   $customerSession
@@ -114,7 +114,7 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return boolean
      */
     public function isMainActive($storeId = null)
     {
@@ -127,11 +127,11 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return boolean
      */
     public function isActive($storeId = null)
     {
-        return $this->isMainActive($storeId) && parent::isActive($storeId);
+        return (bool) $this->isMainActive($storeId) && parent::isActive($storeId);
     }
 
     /**
@@ -139,7 +139,7 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return int
      */
     public function getSellerId($storeId = null)
     {
@@ -151,7 +151,7 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return string
      */
     public function getSellerPin($storeId = null)
     {
@@ -163,7 +163,7 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return string
      */
     public function getSellerUsername($storeId = null)
     {
@@ -175,7 +175,7 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return string
      */
     public function getSellerPassword($storeId = null)
     {
@@ -187,11 +187,11 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return boolean
      */
     public function isTestMode($storeId = null)
     {
-        return $this->getConfiguredMainValue('test', $storeId);
+        return (bool) $this->getConfiguredMainValue('test', $storeId);
     }
 
     /**
@@ -199,11 +199,11 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return boolean
      */
     public function isInstructionAvailable($storeId = null)
     {
-        return $this->getConfiguredMainValue('instruction', $storeId);
+        return (bool) $this->getConfiguredMainValue('instruction', $storeId);
     }
 
     /**
@@ -211,7 +211,7 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return boolean
      */
     public function isLogoDisplayed($storeId = null)
     {
@@ -223,7 +223,7 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return string
      */
     public function getRedirectUrl($storeId = null)
     {
@@ -235,7 +235,7 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return string
      */
     public function getInstructionUrl($storeId = null)
     {
@@ -247,7 +247,7 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return string
      */
     public function getBackUrl($storeId = null)
     {
@@ -259,7 +259,7 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return string
      */
     public function getStatusUrl($storeId = null)
     {
@@ -271,7 +271,7 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return string
      */
     public function getConfirmUrl($storeId = null)
     {
@@ -283,7 +283,7 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return string
      */
     public function getOcManageUrl($storeId = null)
     {
@@ -295,7 +295,7 @@ class AbstractAdapter extends PaymentAdapter
      *
      * @param int/null $storeId Id of the store
      *
-     * @return type
+     * @return string
      */
     public function getOcRemoveUrl($storeId = null)
     {

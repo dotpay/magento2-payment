@@ -34,7 +34,6 @@
 "Version information","Informacje o wersji"
 "Congratulations!. Your Dotpay payment module is up to date.","Gratulacje. Twój moduł płatności Dotpay jest aktualny."
 "Version of the module is","Wersja modułu to"
-"More details about this version","Więcej informacji o tej wersji"
 "Error","Błąd"
 "Your seller id is wrong. Please fix it.","Twój identyfikator sprzedawcy jest błędny. Proszę go poprawić."
 "Your seller id for foreign currencies is wrong. Please fix it.","Twój identyfikator sprzedawcy dla obcych walut jest błędny. Proszę go poprawić."
@@ -143,3 +142,5 @@
 "Manage your saved credit cards","Zarządzaj zapisanymi kartami kredytowymi"
 "or","lub"
 "Pay with Dotpay","Zapłać przez Dotpay"
+"Plugin message","Wiadomość od wtyczki"
+"Your plugin is not yet activated. Please fill required data and start to use Dotpay payments.", "Twoja wtyczka nie jest jeszcze aktywowana. Wypełnij wymagane dane i zacznij korzystać z płatności Dotpay."

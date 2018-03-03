@@ -23,6 +23,8 @@ use Dotpay\Resource\Github;
 use Dotpay\Resource\Payment as PaymentResource;
 use Dotpay\Resource\Seller as SellerResource;
 use Dotpay\Tool\Curl;
+use Dotpay\Exception\BadParameter\IdException;
+use Dotpay\Exception\BadParameter\PinException;
 
 /**
  * Block of information displayed in admin configuration of Dotpay payments.
@@ -30,9 +32,9 @@ use Dotpay\Tool\Curl;
 class Information extends \Magento\Backend\Block\Template implements \Magento\Framework\Data\Form\Element\Renderer\RendererInterface
 {
     /**
-     * @var \Magento\Framework\Module\ResourceInterface Module resource
+     * @var \Dotpay\Payment\Helper\Module Module resource
      */
-    private $moduleResource;
+    private $moduleList;
 
     /**
      * @var \Dotpay\Model\Configuration SDK configuration object
@@ -68,18 +70,18 @@ class Information extends \Magento\Backend\Block\Template implements \Magento\Fr
      * Initialization of block.
      *
      * @param \Magento\Backend\Block\Template\Context     $context
-     * @param \Magento\Framework\Module\ResourceInterface $moduleResource
+     * @param \Dotpay\Payment\Helper\Module    $moduleList
      * @param \Dotpay\Payment\Helper\Data\Configuration   $configHelper
      * @param array                                       $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Magento\Framework\Module\ResourceInterface $moduleResource,
+        \Dotpay\Payment\Helper\Module $moduleList,
         \Dotpay\Payment\Helper\Data\Configuration $configHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->moduleResource = $moduleResource;
+        $this->moduleList = $moduleList;
         $this->config = Configuration::createFromData($configHelper);
     }
 
@@ -108,11 +110,15 @@ class Information extends \Magento\Backend\Block\Template implements \Magento\Fr
     /**
      * Return version number of installed Dotpay module.
      *
-     * @return string
+     * @return string/null
      */
     public function getModuleVersion()
     {
-        return $this->moduleResource->getDbVersion('DOTPAY_NAMESPACE');
+        $moduleInfo = $this->moduleList->getInfo(DOTPAY_NAMESPACE);
+        if($moduleInfo !== null) {
+            return $moduleInfo['version'];
+        }
+        return null;
     }
 
     /**
@@ -137,7 +143,20 @@ class Information extends \Magento\Backend\Block\Template implements \Magento\Fr
      */
     public function isNewerVersion()
     {
+        if(!$this->config->isActivated()) {
+            return false;
+        }
         return $this->getAvailableVersion()->isNewAvailable($this->getModuleVersion());
+    }
+
+    /**
+     * Check if payment module is activated
+     *
+     * @return boolean
+     */
+    public function isActivated()
+    {
+        return $this->config->isActivated();
     }
 
     /**

@@ -161,4 +161,18 @@ class Customer implements CustomerProviderInterface
     {
         return $this->localeHeper->getLanguage();
     }
+
+    /**
+     * Check if address details are available
+     *
+     * @return boolean
+     */
+    public function isAddressAvailable()
+    {
+        return $this->getStreet() !== ''
+        && $this->postCode !== ''
+        && $this->city !== ''
+        && $this->country !== ''
+        && $this->phone !== '';
+    }
 }

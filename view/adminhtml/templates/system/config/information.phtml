@@ -1,33 +1,42 @@
 <?php try { ?>
-<?php if($block->isNewerVersion()): ?>
-<div class="dotpay-configuration-panel dotpay-error">
-    <div class="dotpay-offer">
-        <h3><?php echo __('Module update'); ?></h3>
-        <p><?php echo __('Version of your Dotpay payment module is'); ?>: <?php echo $block->getModuleVersion(); ?></p>
-        <p><?php echo __('The newest version is'); ?>: <?php echo $block->getAvailableVersion()->getNumber(); ?></p>
-        <p>
-            <?php echo __('You can download the latest version from this link'); ?>:&nbsp;
-            <a href="<?php echo $block->getAvailableVersion()->getZip(); ?>" target="_blank"><?php echo __('DOWNLOAD'); ?></a>
-        </p>
-        <p>
-            <?php echo __('More details about the newest version'); ?>:&nbsp;
-            <a href="<?php echo $block->getAvailableVersion()->getUrl(); ?>" target="_blank"><?php echo __('DETAILS'); ?></a>
-        </p>
-    </div>
-</div>
-<?php else: ?>
-<div class="dotpay-configuration-panel dotpay-success">
-    <div class="dotpay-offer">
-        <h3><?php echo __('Version information'); ?></h3>
-        <p><?php echo __('Congratulations!. Your Dotpay payment module is up to date.'); ?></p>
-        <p><?php echo __('Version of the module is'); ?>: <?php echo $block->getModuleVersion(); ?></p>
-        <p>
-            <?php echo __('More details about this version'); ?>:&nbsp;
-            <a href="<?php echo $block->getAvailableVersion()->getUrl(); ?>" target="_blank"><?php echo __('DETAILS'); ?></a>
-        </p>
-    </div>
-</div>
-<?php endif; ?>
+    <?php if($block->isActivated()): ?>
+        <?php if($block->isNewerVersion()): ?>
+        <div class="dotpay-configuration-panel dotpay-error">
+            <div class="dotpay-offer">
+                <h3><?php echo __('Module update'); ?></h3>
+                <p><?php echo __('Version of your Dotpay payment module is'); ?>: <?php echo $block->getModuleVersion(); ?></p>
+                <p><?php echo __('The newest version is'); ?>: <?php echo $block->getAvailableVersion()->getNumber(); ?></p>
+                <p>
+                    <?php echo __('You can download the latest version from this link'); ?>:&nbsp;
+                    <a href="<?php echo $block->getAvailableVersion()->getZip(); ?>" target="_blank"><?php echo __('DOWNLOAD'); ?></a>
+                </p>
+                <p>
+                    <?php echo __('More details about the newest version'); ?>:&nbsp;
+                    <a href="<?php echo $block->getAvailableVersion()->getUrl(); ?>" target="_blank"><?php echo __('DETAILS'); ?></a>
+                </p>
+            </div>
+        </div>
+        <?php else: ?>
+        <div class="dotpay-configuration-panel dotpay-success">
+            <div class="dotpay-offer">
+                <h3><?php echo __('Version information'); ?></h3>
+                <p><?php echo __('Congratulations!. Your Dotpay payment module is up to date.'); ?></p>
+                <p><?php echo __('Version of the module is'); ?>: <?php echo $block->getModuleVersion(); ?></p>
+                <p>
+                    <?php echo __('More details about the newest version'); ?>:&nbsp;
+                    <a href="<?php echo $block->getAvailableVersion()->getUrl(); ?>" target="_blank"><?php echo __('DETAILS'); ?></a>
+                </p>
+            </div>
+        </div>
+        <?php endif; ?>
+    <?php else: ?>
+        <div class="dotpay-configuration-panel dotpay-warning">
+            <div class="dotpay-offer">
+                <h3><?php echo __('Plugin message'); ?></h3>
+                <p><?php echo __('Your plugin is not yet activated. Please fill required data and start to use Dotpay payments.'); ?></p>
+            </div>
+        </div>
+    <?php endif; ?>
 <?php } catch(\Exception $e) { ?>
 <div class="dotpay-alert-error">
     <?php echo $e->getMessage(); ?>

@@ -29,6 +29,10 @@
     border: 1px solid #00b41c;
     background-color: #f5fff4;
 }
+.dotpay-configuration-panel.dotpay-warning {
+    border: 1px solid #b47500;
+    background-color: #fff7ed;
+}
 
 /* Update field */
 .dotpay-alert-error {
