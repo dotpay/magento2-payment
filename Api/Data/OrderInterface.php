@@ -26,7 +26,7 @@ interface OrderInterface
     /**
      * Id of status pending.
      */
-    const STATUS_PENDING = 'dotpay_pending_payment';
+    const STATUS_PENDING = 'dotpay_pending';
 
     /**
      * Id of status complete.

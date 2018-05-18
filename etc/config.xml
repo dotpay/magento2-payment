@@ -28,14 +28,14 @@
             <dotpay_oc>
                 <active>0</active>
                 <model>DotpayOcAdapter</model>
-                <title>One Click card payments via Dotpay</title>
+                <title>One Click card payments</title>
                 <sort_order>1</sort_order>
                 <can_use_checkout>1</can_use_checkout>
             </dotpay_oc>
             <dotpay_cc>
                 <active>0</active>
                 <model>DotpayCcAdapter</model>
-                <title>Card payments via Dotpay</title>
+                <title>Card payments</title>
                 <fcc_active>0</fcc_active>
                 <fcc_id></fcc_id>
                 <fcc_pin></fcc_pin>
@@ -46,21 +46,21 @@
             <dotpay_mp>
                 <active>0</active>
                 <model>DotpayMpAdapter</model>
-                <title>Pay using Masterpass</title>
+                <title>Masterpass (via Dotpay)</title>
                 <sort_order>3</sort_order>
                 <can_use_checkout>1</can_use_checkout>
             </dotpay_mp>
             <dotpay_blik>
                 <active>0</active>
                 <model>DotpayBlikAdapter</model>
-                <title>Pay using BLIK</title>
+                <title>BLIK (via Dotpay)</title>
                 <sort_order>4</sort_order>
                 <can_use_checkout>1</can_use_checkout>
             </dotpay_blik>
             <dotpay_paypal>
                 <active>0</active>
                 <model>DotpayPaypalAdapter</model>
-                <title>Pay using Paypal</title>
+                <title>Paypal (via Dotpay)</title>
                 <sort_order>5</sort_order>
                 <can_use_checkout>1</can_use_checkout>
             </dotpay_paypal>
@@ -68,7 +68,7 @@
                 <widget>1</widget>
                 <disable_currencies></disable_currencies>
                 <model>DotpayWidgetAdapter</model>
-                <title>Pay via Dotpay</title>
+                <title>Dotpay</title>
                 <sort_order>6</sort_order>
                 <can_use_checkout>1</can_use_checkout>
             </dotpay_widget>
