@@ -17,6 +17,8 @@ composer config repositories.magento2-payment vcs https://github.com/dotpay/mage
 ```
 composer require dotpay/magento2-payment
 
+composer update
+
 php bin/magento module:enable Dotpay_Payment
 
 php bin/magento setup:upgrade
@@ -55,6 +57,8 @@ composer config repositories.magento2-payment vcs https://github.com/dotpay/mage
 3. Innstallation of the payment module is realized by using the *composer*tool. Execute the following commands in the main directory of your Magento installation:
 ```
 composer require dotpay/magento2-payment
+
+composer update
 
 php bin/magento module:enable Dotpay_Payment
 
