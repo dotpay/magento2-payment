@@ -33,7 +33,7 @@
             <argument name="valueHandlerPool" xsi:type="object">DotpayCcValueHandlerPool</argument>
         </arguments>
     </virtualType>
-    <virtualType name="DotpayMpAdapter" type="Dotpay\Payment\Model\Method\AbstractAdapter">
+    <virtualType name="DotpayMpAdapter" type="Dotpay\Payment\Model\Method\MpAdapter">
         <arguments>
             <argument name="code" xsi:type="const">Dotpay\Payment\Model\Ui\MpConfigProvider::CODE</argument>
             <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
@@ -41,7 +41,7 @@
             <argument name="valueHandlerPool" xsi:type="object">DotpayMpValueHandlerPool</argument>
         </arguments>
     </virtualType>
-    <virtualType name="DotpayBlikAdapter" type="Dotpay\Payment\Model\Method\AbstractAdapter">
+    <virtualType name="DotpayBlikAdapter" type="Dotpay\Payment\Model\Method\BlikAdapter">
         <arguments>
             <argument name="code" xsi:type="const">Dotpay\Payment\Model\Ui\BlikConfigProvider::CODE</argument>
             <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
@@ -49,7 +49,7 @@
             <argument name="valueHandlerPool" xsi:type="object">DotpayBlikValueHandlerPool</argument>
         </arguments>
     </virtualType>
-    <virtualType name="DotpayPaypalAdapter" type="Dotpay\Payment\Model\Method\AbstractAdapter">
+    <virtualType name="DotpayPaypalAdapter" type="Dotpay\Payment\Model\Method\PaypalAdapter">
         <arguments>
             <argument name="code" xsi:type="const">Dotpay\Payment\Model\Ui\PaypalConfigProvider::CODE</argument>
             <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>

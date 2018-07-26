@@ -16,7 +16,7 @@
  * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-namespace Dotpay\Dotpay\Observer;
+namespace Dotpay\Payment\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer as EventObserver;
@@ -53,6 +53,12 @@ class DeleteCustomer implements ObserverInterface
         $customerId = $observer->getEvent()->getCustomer()->getCustomerId();
         $cards = $this->ccModel->getCollection()
                                 ->addFilter(CreditCardInterface::CUSTOMER_ID, $customerId);
-        $cards->delete();
+        if(count($cards) > 0)
+        {
+            foreach($cards as $card)
+            {
+                $card->delete();
+            }
+        }
     }
 }
