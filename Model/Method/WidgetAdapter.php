@@ -32,7 +32,23 @@ class WidgetAdapter extends AbstractAdapter
      */
     public function isActive($storeId = null)
     {
-        return (bool) $this->isMainActive($storeId);
+        return (bool) $this->isMainActive($storeId) && $this->getVisible();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function canUseForCurrency($currencyCode)
+    {
+        if($this->getDisableCurrencies()) {
+            $currencies = explode(",", $this->getDisableCurrencies());
+            if(count($currencies) > 0 && in_array($currencyCode, $currencies))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
