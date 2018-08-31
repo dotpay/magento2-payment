@@ -77,7 +77,7 @@ class Notification implements NotificationProviderInterface
      */
     public function getShopName()
     {
-        return $this->request->getParam('p_name');
+        return $this->request->getParam('p_info');
     }
 
     /**

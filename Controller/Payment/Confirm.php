@@ -199,7 +199,7 @@ class Confirm extends Dotpay
 
         if ($operation->getStatus() === Operation::STATUS_NEW) {
             //payment created
-            $transaction->setIsClosed(0);
+            //$transaction->setIsClosed(0);
             $order->addStatusToHistory($this->configHelper->getStatusPending(), __('The payment is created. Payment number from Dotpay:').' '.$operation->getNumber(), true);
         } elseif ($lastStatus === $this->configHelper->getStatusPending()) {
             $payment->setTransactionId($operation->getNumber());

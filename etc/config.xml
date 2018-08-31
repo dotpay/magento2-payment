@@ -32,7 +32,7 @@
                 <sort_order>1</sort_order>
                 <can_use_checkout>1</can_use_checkout>
             </dotpay_oc>
-            <dotpay_cc>
+            <dotpay_cc translate="title">
                 <active>0</active>
                 <model>DotpayCcAdapter</model>
                 <title>Card payments</title>

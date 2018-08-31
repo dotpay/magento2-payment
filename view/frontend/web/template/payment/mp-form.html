@@ -41,7 +41,7 @@
         </div>
         
         <div class="dotpay-agreements" data-bind="foreach: { data: getAgreements(), as: 'agreement' }">
-            <label><input data-bind="attr: {'type': 'checkbox', 'required': agreement.required, 'name': agreement.name, 'class': $parent.methodName}, event:{change: $parent.validateAgreements}, value: 1, checked: true"><span data-bind="html: agreement.description_html"></span></label>
+            <label><input data-bind="attr: {'type': agreement.name == 'personal_data' ? 'hidden' : 'checkbox', 'required': agreement.required, 'name': agreement.name, 'class': $parent.methodName}, event:{change: $parent.validateAgreements}, value: 1, checked: true"><span data-bind="html: agreement.description_html"></span></label>
         </div>
 
         <div class="actions-toolbar">
