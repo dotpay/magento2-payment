@@ -14,7 +14,7 @@
         "magento/module-backend": ">=100.1",
         "magento/module-directory": ">=100.1",
         "magento/framework": ">=100.1",
-        "dotpay/PHP-SDK": ">=1.0.8"
+        "dotpay/PHP-SDK": ">=1.0.9"
     },
     "homepage": "www.dotpay.pl",
     "type": "magento2-module",
