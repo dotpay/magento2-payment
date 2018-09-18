@@ -46,6 +46,10 @@ define(
                 component: 'Dotpay_Payment/js/view/payment/method-renderer/dotpay-paypal-method'
             },
             {
+                type: 'dotpay_other',
+                component: 'Dotpay_Payment/js/view/payment/method-renderer/dotpay-other-method'
+            },
+            {
                 type: 'dotpay_widget',
                 component: 'Dotpay_Payment/js/view/payment/method-renderer/dotpay-widget-method'
             }

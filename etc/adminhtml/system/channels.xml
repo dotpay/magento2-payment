@@ -21,5 +21,10 @@
             <config_path>payment/dotpay_paypal/active</config_path>
             <comment><![CDATA[You can select PayPal method as visible in main view of checkout]]></comment>
         </field>
+        <field id="dp_other_active" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Activate other channels</label>
+            <config_path>payment/dotpay/channels_active</config_path>
+            <comment><![CDATA[You can select multiple methods as visible in main view of checkout]]></comment>
+        </field>
     </group>
 </include>

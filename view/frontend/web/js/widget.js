@@ -10376,6 +10376,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;__webpack_requir
             env.xhr.init(env);
             env.view.showLoader();
             env.xhr.callForChannels(env.view.render);
+            env.xhr.callForChannelsAll(env.view.renderOther);
             return widgetObject;
         },
         getChannel: function() {
@@ -11133,6 +11134,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
                         config.request.hiddenChannels
                     );
                 }
+                if(field === "channelsAll")
+                {
+                    field = "channels";
+                }
                 config.event.onLoad(data);
                 view.hideLoader();
                 call(callback, data, field);
@@ -11142,6 +11147,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
         },
         callForChannels: function(callback) {
             this.callForData(callback, 'channels');
+        },
+        callForChannelsAll: function(callback) {
+            this.callForData(callback, 'channelsAll');
         },
         getData: function() {
             return data;
@@ -11258,6 +11266,39 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
             widgetContainer.find('.'+config.view.channelContainer).on('mouseover', onOver);
             widgetContainer.find('.'+config.view.channelContainer).on('mouseout', onOut);
             widgetContainer.find('.dotpay-channels-container').fadeIn();
+        },
+        renderOther: function(data) {
+            var channelsAll = data;
+            var channel = false;
+            $(".dotpay-other-channel").each(function() {
+
+                var channeldId = $(this).attr("data-other-channel");
+                channel = channelsAll.find(function(obj) {
+                    return obj.id == channeldId;
+                });
+
+                if(channel && channel !== undefined)
+                {
+                    $(this).find(".other-channel-name").text(channel.name);
+                    $(this).find(".other-channel-button-text").text($(this).find(".other-channel-button-text").text()+" "+channel.name)
+                    $(this).find(".other-channel-icon").attr("src", channel.logo);
+
+                }
+                else {
+                    $(this).remove();
+                }
+            });
+			$("input[type='radio']").on("click", function() {
+				var current = $(this).val();
+				console.log(current);
+				$(".other-channel-radio").each(function() {
+					if($(this).val() != current)
+					{
+						$(this).closest(".dotpay-other-channel").removeClass("_active");
+					}
+                });
+			});
+
         },
         getSelected: function() {
             return selected;

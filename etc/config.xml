@@ -64,12 +64,19 @@
                 <sort_order>5</sort_order>
                 <can_use_checkout>1</can_use_checkout>
             </dotpay_paypal>
+            <dotpay_other>
+                <active>1</active>
+                <model>DotpayOtherAdapter</model>
+                <title>Other (via Dotpay)</title>
+                <sort_order>6</sort_order>
+                <can_use_checkout>1</can_use_checkout>
+            </dotpay_other>
             <dotpay_widget>
                 <widget>1</widget>
                 <disable_currencies></disable_currencies>
                 <model>DotpayWidgetAdapter</model>
                 <title>Dotpay</title>
-                <sort_order>6</sort_order>
+                <sort_order>7</sort_order>
                 <can_use_checkout>1</can_use_checkout>
             </dotpay_widget>
         </payment>

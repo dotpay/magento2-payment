@@ -36,6 +36,11 @@ if ($block->getConfirmationUrl() || $block->getIsInCatalogProduct()) {
         }
     </style>
     <?php endif; ?>
+    <style>
+        .dotpay-logo {
+            text-align: center;
+        }
+    </style>
     <br>
     <input type="image" data-action="checkout-form-submit"
            data-checkout-url="<?php echo $block->escapeUrl($block->getCheckoutUrl()); ?>"

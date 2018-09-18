@@ -57,6 +57,14 @@
             <argument name="valueHandlerPool" xsi:type="object">DotpayPaypalValueHandlerPool</argument>
         </arguments>
     </virtualType>
+    <virtualType name="DotpayOtherAdapter" type="Dotpay\Payment\Model\Method\OtherAdapter">
+        <arguments>
+            <argument name="code" xsi:type="const">Dotpay\Payment\Model\Ui\OtherConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Dotpay\Payment\Block\Info\Other</argument>
+            <argument name="valueHandlerPool" xsi:type="object">DotpayOtherValueHandlerPool</argument>
+        </arguments>
+    </virtualType>
     <virtualType name="DotpayWidgetAdapter" type="Dotpay\Payment\Model\Method\WidgetAdapter">
         <arguments>
             <argument name="code" xsi:type="const">Dotpay\Payment\Model\Ui\WidgetConfigProvider::CODE</argument>
@@ -114,6 +122,14 @@
             </argument>
         </arguments>
     </virtualType>
+    <virtualType name="DotpayOtherValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">DotpayOtherConfigValueHandler</item>
+                <item name="main" xsi:type="string">DotpayMainConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
     <virtualType name="DotpayWidgetValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
         <arguments>
             <argument name="handlers" xsi:type="array">
@@ -154,6 +170,11 @@
             <argument name="configInterface" xsi:type="object">DotpayPaypalGatewayConfig</argument>
         </arguments>
     </virtualType>
+    <virtualType name="DotpayOtherConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">DotpayOtherGatewayConfig</argument>
+        </arguments>
+    </virtualType>
     <virtualType name="DotpayWidgetConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
         <arguments>
             <argument name="configInterface" xsi:type="object">DotpayWidgetGatewayConfig</argument>
@@ -191,6 +212,11 @@
             <argument name="methodCode" xsi:type="const">Dotpay\Payment\Model\Ui\PaypalConfigProvider::CODE</argument>
         </arguments>
     </virtualType>
+    <virtualType name="DotpayOtherGatewayConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Dotpay\Payment\Model\Ui\OtherConfigProvider::CODE</argument>
+        </arguments>
+    </virtualType>
     <virtualType name="DotpayWidgetGatewayConfig" type="Magento\Payment\Gateway\Config\Config">
         <arguments>
             <argument name="methodCode" xsi:type="const">Dotpay\Payment\Model\Ui\WidgetConfigProvider::CODE</argument>
@@ -221,6 +247,11 @@
     <type name="Dotpay\Payment\Model\Ui\PaypalConfigProvider">
         <arguments>
             <argument name="adapter" xsi:type="object">DotpayPaypalAdapter</argument>
+        </arguments>
+    </type>
+    <type name="Dotpay\Payment\Model\Ui\OtherConfigProvider">
+        <arguments>
+            <argument name="adapter" xsi:type="object">DotpayOtherAdapter</argument>
         </arguments>
     </type>
     <type name="Dotpay\Payment\Model\Ui\WidgetConfigProvider">
@@ -261,6 +292,11 @@
     <virtualType name="DotpayPaypalFactory" type="Dotpay\Payment\Model\Factory\PaypalFactory">
         <arguments>
             <argument name="paymentAdapter" xsi:type="object">DotpayPaypalAdapter</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="DotpayOtherFactory" type="Dotpay\Payment\Model\Factory\OtherFactory">
+        <arguments>
+            <argument name="paymentAdapter" xsi:type="object">DotpayOtherAdapter</argument>
         </arguments>
     </virtualType>
     <virtualType name="DotpayWidgetFactory" type="Dotpay\Payment\Model\Factory\WidgetFactory">

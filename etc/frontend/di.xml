@@ -9,6 +9,7 @@
                 <item name="dotpay_mp_config_provider" xsi:type="object">Dotpay\Payment\Model\Ui\MpConfigProvider</item>
                 <item name="dotpay_blik_config_provider" xsi:type="object">Dotpay\Payment\Model\Ui\BlikConfigProvider</item>
                 <item name="dotpay_paypal_config_provider" xsi:type="object">Dotpay\Payment\Model\Ui\PaypalConfigProvider</item>
+                <item name="dotpay_other_config_provider" xsi:type="object">Dotpay\Payment\Model\Ui\OtherConfigProvider</item>
                 <item name="dotpay_widget_config_provider" xsi:type="object">Dotpay\Payment\Model\Ui\WidgetConfigProvider</item>
             </argument>
         </arguments>

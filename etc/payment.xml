@@ -10,5 +10,8 @@
         <method name="dotpay_widget">
             <allow_multiple_address>1</allow_multiple_address>
         </method>
+        <method name="dotpay_other">
+            <allow_multiple_address>1</allow_multiple_address>
+        </method>
     </methods>
 </payment>

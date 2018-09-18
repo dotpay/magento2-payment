@@ -28,10 +28,15 @@
 
 /* One Click structure */
 .dotpay-card-list > select {
-    margin-left: 20px;
-    width: 80%;
-    background-color: white;
-    color: black;
+  margin-left: 20px;
+  max-width: 360px;
+  background-color: white;
+  color: #547a00;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: normal;
+  font-size: 1.2em;
+  height: 2.2em;
 }
 
 /* One Click card visualisation */
@@ -41,7 +46,7 @@
     margin-top: 20px;
     border: 1px solid #2fb5d2;
     border-radius: 5px;
-    max-height: 120px;
+    max-height: 80px;
     transition-duration: 0.8s;
     transition-property: transform;
 }
@@ -58,9 +63,33 @@
 
 /* Blik form */
 #dotpay_blik_code {
-    border: 3px solid #730000;
-    background-color: snow;
-    color: #730000;
-    font-size: 18px;
-    padding: 10px;
+  border: #ff6600 2px solid;
+  height: auto;
+  font-size: 22px;
+  color: #1e1e1e;
+  padding: 5px !important;
+  letter-spacing: 0.2rem;
+  display: inline-block;
+  text-align: center;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+#dotpay_blik_code:hover {
+  border-color: #309b4e;
+  background-color: #f7f7f9;
+}
+
+#dotpay_blik_code:focus {
+  border-color: #309b4e;
+  background-color: #f7f7f9;
+}
+
+#dotpay_blik_code::placeholder {
+  color: #333 !important;
+  text-align: center;
+}
+
+#dotpay_blik_code:focus::placeholder {
+  color: #6b6b6b !important;
 }

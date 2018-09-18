@@ -194,6 +194,16 @@ class Configuration implements ConfigurationProviderInterface
         return $this->getData('payment/dotpay_paypal/active');
     }
 
+    public function getOtherChannelsVisible()
+    {
+        return (bool) count($this->getData('payment/dotpay/channels_active') ? explode(",", $this->getData('payment/dotpay/channels_active')) : []) > 0;
+    }
+
+    public function getOtherChannels()
+    {
+        return $this->getData('payment/dotpay/channels_active') ? explode(",", $this->getData('payment/dotpay/channels_active')) : [];
+    }
+
     public function getWidgetVisible()
     {
         return $this->getData('payment/dotpay_widget/widget');

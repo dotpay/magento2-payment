@@ -136,6 +136,8 @@ abstract class Dotpay extends \Magento\Framework\App\Action\Action
                 return $this->objectManager->get('DotpayPaypalFactory');
             case 'dotpay_widget':
                 return $this->objectManager->get('DotpayWidgetFactory');
+            case 'dotpay_other':
+                return $this->objectManager->get('DotpayOtherFactory');
             default:
                 die(__('Unrecognized payment method. Please, try again.'));
         }

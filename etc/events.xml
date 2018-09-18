@@ -8,6 +8,9 @@
     <event name="payment_method_assign_data_dotpay_widget">
         <observer name="dotpay_widget_gateway_data_assign" instance="Dotpay\Payment\Observer\WidgetDataAssign" />
     </event>
+    <event name="payment_method_assign_data_dotpay_other">
+        <observer name="dotpay_other_gateway_data_assign" instance="Dotpay\Payment\Observer\OtherDataAssign" />
+    </event>
     <event name="payment_method_assign_data_dotpay_blik">
         <observer name="dotpay_blik_gateway_data_assign" instance="Dotpay\Payment\Observer\BlikDataAssign" />
     </event>

@@ -53,6 +53,9 @@ define(
             getPaymentAcceptanceMarkSrc: function() {
                 return this.getConfigData().logoUrl;
             },
+            getOtherChannels: function() {
+                return this.getConfigData().channels
+            },
             isLogoVisible: function() {
                 return this.getConfigData().displayLogo;
             },
@@ -81,11 +84,15 @@ define(
                     return true;
                 }
                 return false;
-            },selectPaymentMethod: function () {
+            },
+            selectPaymentMethod: function () {
+
                 selectPaymentMethodAction(this.getData());
                 checkoutData.setSelectedPaymentMethod(this.item.method);
                 abstractComponent = this;
+
                 return true;
+
             },
             afterPlaceOrder: function () {
                 window.location.replace(url.build(this.getRedirectUrl()));
@@ -97,7 +104,7 @@ define(
                 return this.getConfigData().agreements;
             },
             validateAgreements: function() {
-                var result = $('.dotpay-agreements input.'+abstractComponent.methodName).length === $('.dotpay-agreements input.'+abstractComponent.methodName+':checked').length;
+                var result = $('.dotpay-agreements input[type="checkbox"].'+abstractComponent.methodName).length === $('.dotpay-agreements input[type="checkbox"].'+abstractComponent.methodName+':checked').length;
                 abstractComponent.correctAgreements(result);
             }
         });
