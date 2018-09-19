@@ -48,21 +48,21 @@
 .single-input {
     flex: 1 auto;
     padding: 2px 5px;
-    border: 1px solid #7d1315;
+    border: 1px solid #c3b1b1;
     border-radius: 0px;
     color: #7d1315;
-    background-color: #ffffff;
+    background-color: #fcfcfc;
     padding: 5px;
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
 
 .label-after {
     flex: 0 100px;
     padding: 5px 5px;
     text-align: center;
-    border: 1px solid #7d1315;
+    border: 1px solid #c3b1b1;
     border-left: none;
-    background: #f4f4f4;
+    background: #ededed;
 }
 
 /* -------------------------------------------- */
@@ -101,7 +101,7 @@
 }
 
 .alert.info {
-    color: #0c5460;
-    background-color: #d1ecf1;
-    border-color: #0c6d79;
+    color: #006bb4;
+    background-color: #eafcff;
+    border-color: #006bb4;
 }
