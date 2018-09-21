@@ -34,7 +34,7 @@
     </div>
     <div class="payment-method-content">
         
-        <input data-bind="attr: {'placeholder': $t('BLIK code')}, value: blikCode" pattern="[0-9]{6}" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" id="dotpay_blik_code" size="6" maxlength="6"/>
+        <input data-bind="attr: {'placeholder': $t('BLIK code')}, value: blikCode, event:{input: validateAgreements}" pattern="[0-9]{6}" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" id="dotpay_blik_code" size="6" maxlength="6"/>
         
         <div class="payment-method-billing-address">
             <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->

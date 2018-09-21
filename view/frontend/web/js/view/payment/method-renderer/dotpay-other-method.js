@@ -62,7 +62,7 @@ define(
             // },
             validateAgreements: function() {
                 var result = $('.dotpay-agreements input[type="checkbox"].dotpay_other_'+selectedChannel).length === $('.dotpay-agreements input[type="checkbox"].dotpay_other_'+selectedChannel+':checked').length;
-                console.log(selectedChannel);
+                //console.log(selectedChannel);
                 this.correctAgreements(result);
             }
         });

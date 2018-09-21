@@ -16,12 +16,14 @@
  */
 define(
     [
+        'jquery',
         'ko',
         'Dotpay_Payment/js/view/payment/method-renderer/dotpay-abstract-method'
     ],
     function (
+        $,
         ko,
-        Component
+        Component,
     ) {
         'use strict';
         var blikCode = ko.observable(null);

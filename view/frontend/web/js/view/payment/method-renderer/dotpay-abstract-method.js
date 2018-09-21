@@ -90,6 +90,7 @@ define(
                 selectPaymentMethodAction(this.getData());
                 checkoutData.setSelectedPaymentMethod(this.item.method);
                 abstractComponent = this;
+                this.validateAgreements();
 
                 return true;
 
@@ -105,6 +106,10 @@ define(
             },
             validateAgreements: function() {
                 var result = $('.dotpay-agreements input[type="checkbox"].'+abstractComponent.methodName).length === $('.dotpay-agreements input[type="checkbox"].'+abstractComponent.methodName+':checked').length;
+                if(abstractComponent.methodName == "dotpay_blik")
+                {
+                    result = result && ($('#dotpay_blik_code').val().length === 6)
+                }
                 abstractComponent.correctAgreements(result);
             }
         });
