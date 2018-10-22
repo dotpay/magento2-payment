@@ -222,7 +222,9 @@ abstract class AbstractFactory
      */
     protected function getDescription()
     {
-        return __('Order ID: %1', $this->checkoutSession->getLastRealOrder()->getRealOrderId());
+        $AllOrderIds = $this->checkoutSession->getLastRealOrder()->getRealOrderId().'/'.$this->checkoutSession->getLastRealOrder()->getEntityId();
+        return __('Order ID: %1', $AllOrderIds);
+        // return __('Order ID: %1', $this->checkoutSession->getLastRealOrder()->getRealOrderId());
     }
 
     /**
