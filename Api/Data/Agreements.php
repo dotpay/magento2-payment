@@ -18,6 +18,7 @@
 
 namespace Dotpay\Payment\Api\Data;
 
+use Dotpay\Exception\Resource\ApiException;
 use Dotpay\Resource\Payment;
 use Dotpay\Resource\Channel\Request;
 use Dotpay\Model\Configuration;
@@ -59,14 +60,19 @@ class Agreements
      */
     public function get()
     {
-        if ($this->agreementsData === null) {
-            $config = new Configuration(DOTPAY_MODNAME);
-            $config->setTestMode($this->request->isTestMode());
-            $paymentApi = new Payment($config, new Curl());
-            $infoStructure = $paymentApi->getChannelListForRequest($this->request);
-            $this->agreementsData = $infoStructure->getUniversalAgreements();
+        try {
+            if ($this->agreementsData === null) {
+                $config = new Configuration(DOTPAY_MODNAME);
+                $config->setTestMode($this->request->isTestMode());
+                $paymentApi = new Payment($config, new Curl());
+                $infoStructure = $paymentApi->getChannelListForRequest($this->request);
+                $this->agreementsData = $infoStructure->getUniversalAgreements();
+            }
         }
-
+        catch (ApiException $e)
+        {
+            return [];
+        }
         return $this->agreementsData;
     }
 

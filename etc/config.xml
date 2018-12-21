@@ -23,9 +23,10 @@
                 <order_status>dotpay_pending</order_status>
                 <status_complete>dotpay_complete</status_complete>
                 <status_canceled>dotpay_canceled</status_canceled>
+                <status_duplicated>status_duplicated</status_duplicated>
                 <show_shortcut>1</show_shortcut>
             </dotpay_main>
-            <dotpay_oc>
+            <dotpay_oc translate="title">
                 <active>0</active>
                 <model>DotpayOcAdapter</model>
                 <title>One Click card payments</title>

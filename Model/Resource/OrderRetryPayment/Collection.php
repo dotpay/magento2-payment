@@ -16,30 +16,28 @@
  * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-namespace Dotpay\Payment\Api\Data;
+namespace Dotpay\Payment\Model\Resource\OrderRetryPayment;
+
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 /**
- * Interface providing ids of new Dotpay order statuses.
+ * Collection of card brands.
  */
-interface OrderInterface
+class Collection extends AbstractCollection
 {
     /**
-     * Id of status pending.
+     * @var string Name of column with identifier of saved card brands
      */
-    const STATUS_PENDING = 'dotpay_pending';
+    protected $_idFieldName = 'entity_id';
 
     /**
-     * Id of status complete.
+     * Pseudoconstructor with initialization of the collection.
      */
-    const STATUS_COMPLETE = 'dotpay_complete';
-
-    /**
-     * Id of status canceled.
-     */
-    const STATUS_CANCELED = 'dotpay_canceled';
-
-    /**
-     * Id of status possible duplication.
-     */
-    const STATUS_DUPLICATE = 'dotpay_duplicate';
+    protected function _construct()
+    {
+        $this->_init(
+            'Dotpay\Payment\Model\OrderRetryPayment',
+            'Dotpay\Payment\Model\Resource\OrderRetryPayment'
+        );
+    }
 }

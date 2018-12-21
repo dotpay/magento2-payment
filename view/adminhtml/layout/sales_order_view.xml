@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Dotpay_Payment::retrypayment.css" />
+    </head>
+    <body>
+        <referenceContainer name="payment_additional_info">
+            <block class="Dotpay\Payment\Block\Adminhtml\Order\View\RetryPayment" name="sales_order_view_retry_payment" template="order/view/retrypayment.phtml" />
+        </referenceContainer>
+    </body>
+</page>

@@ -24,6 +24,7 @@ use Dotpay\Model\CreditCard;
 use Dotpay\Model\Operation;
 use Dotpay\Model\Notification;
 use Dotpay\Model\Payment;
+use Dotpay\Payment\Api\Data\OrderInterface;
 use Dotpay\Processor\Confirmation;
 use Dotpay\Tool\Curl;
 use Dotpay\Resource\Payment as PaymentResource;
@@ -189,6 +190,10 @@ class Confirm extends Dotpay
                 ]
             ) === true
         ) {
+            if($operation->getStatus() === Operation::STATUS_COMPLETE) {
+                $order->addStatusToHistory($this->configHelper->getStatusDuplicated(), __('The payment has been confirmed twice - check for possible duplicated payment'), false);
+                $order->save();
+            }
             return true;
         }
 

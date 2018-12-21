@@ -43,6 +43,7 @@ class InstallSchema implements InstallSchemaInterface
         $this->installCardBrandsTable($installer);
         $this->installCreditCardsTable($installer);
         $this->installInstructionsTable($installer);
+        $this->installRetryPaymentsTable($installer);
 
         $installer->endSetup();
     }
@@ -153,6 +154,33 @@ class InstallSchema implements InstallSchemaInterface
                 \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
             )
             ->setComment('Instructions for non-auutomatic payments');
+
+        $installer->getConnection()->createTable($table);
+    }
+
+    private function installRetryPaymentsTable(\Magento\Framework\Setup\SchemaSetupInterface $installer)
+    {
+        $table = $installer->getConnection()
+            ->newTable($installer->getTable('dotpay_order_retry_payments'))
+            ->addColumn('entity_id', Table::TYPE_INTEGER, 10, ['identity' => true, 'unsigned' => true,
+                'nullable' => false, 'primary' => true, ], 'Payment id')
+            ->addColumn('order_id', Table::TYPE_INTEGER, 10, ['nullable' => true, 'unsigned' => true], 'Id of the order')
+            ->addColumn('url', Table::TYPE_TEXT, 255, ['nullable' => true], 'Payment url')
+            ->addColumn('token', Table::TYPE_TEXT, 255, ['nullable' => true], 'Request token')
+            ->addColumn('created_date', Table::TYPE_DATETIME, null, ['nullable' => true], 'Date when link was created')
+            ->addForeignKey(
+                $installer->getFkName(
+                    'dotpay_order_retry_payments',
+                    'entity_id',
+                    'sales_order',
+                    'order_id'
+                ),
+                'order_id',
+                $installer->getTable('sales_order'),
+                'entity_id',
+                \Magento\Framework\DB\Ddl\Table::ACTION_SET_NULL
+            )
+            ->setComment('Retry payment links generated for orders');
 
         $installer->getConnection()->createTable($table);
     }

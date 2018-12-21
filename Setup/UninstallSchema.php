@@ -39,6 +39,7 @@ class UninstallSchema implements \Magento\Framework\Setup\UninstallInterface
         $connection->dropTable($connection->getTableName('dotpay_credit_cards'));
         $connection->dropTable($connection->getTableName('dotpay_card_brands'));
         $connection->dropTable($connection->getTableName('dotpay_instructions'));
+        $connection->dropTable($connection->getTableName('dotpay_order_retry_payments'));
 
         $setup->endSetup();
     }

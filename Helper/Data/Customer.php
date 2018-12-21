@@ -31,22 +31,20 @@ class Customer implements CustomerProviderInterface
     private $customer;
 
     /**
-     * @var \Dotpay\Payment\Helper\Locale Locale helper providing data about locality
+     * @var \Magento\Sales\Model\Order
      */
-    protected $localeHeper;
+    private $order;
 
     /**
      * Initialize the provider.
      *
-     * @param \Magento\Customer\Model\Session $customerSession
-     * @param \Dotpay\Payment\Helper\Locale   $localeHelper
+     * @param \Magento\Sales\Model\Order $order Magento order object
      */
     public function __construct(
-        \Magento\Customer\Model\Session $customerSession,
-        \Dotpay\Payment\Helper\Locale $localeHelper
+        \Magento\Sales\Model\Order $order
     ) {
-        $this->customer = $customerSession->getCustomer();
-        $this->localeHeper = $localeHelper;
+        $this->order = $order;
+        $this->customer = $order->getCustomer();
     }
 
     /**
@@ -66,7 +64,7 @@ class Customer implements CustomerProviderInterface
      */
     public function getEmail()
     {
-        $this->customer->getEmail();
+        return $this->order->getCustomerEmail();
     }
 
     /**
@@ -76,7 +74,7 @@ class Customer implements CustomerProviderInterface
      */
     public function getFirstName()
     {
-        return $this->customer->getFirstname();
+        return $this->order->getBillingAddress()->getFirstname();
     }
 
     /**
@@ -86,7 +84,7 @@ class Customer implements CustomerProviderInterface
      */
     public function getLastName()
     {
-        return $this->customer->getLastname();
+        return $this->order->getBillingAddress()->getLastname();
     }
 
     /**
@@ -96,7 +94,7 @@ class Customer implements CustomerProviderInterface
      */
     public function getStreet()
     {
-        $streetOriginal = $this->customer->getDefaultBillingAddress()->getStreet();
+        $streetOriginal = $this->order->getBillingAddress()->getStreet();
         $streetData = is_array($streetOriginal) ? implode(' ', $streetOriginal) : $streetOriginal;
 
         return $streetData;
@@ -119,7 +117,7 @@ class Customer implements CustomerProviderInterface
      */
     public function getPostCode()
     {
-        return $this->customer->getDefaultBillingAddress()->getPostcode();
+        return $this->order->getBillingAddress()->getPostcode();
     }
 
     /**
@@ -129,7 +127,7 @@ class Customer implements CustomerProviderInterface
      */
     public function getCity()
     {
-        return $this->customer->getDefaultBillingAddress()->getCity();
+        return $this->order->getBillingAddress()->getCity();
     }
 
     /**
@@ -139,7 +137,9 @@ class Customer implements CustomerProviderInterface
      */
     public function getCountry()
     {
-        return $this->customer->getDefaultBillingAddress()->getCountryId();
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $country = $objectManager->create('\Magento\Directory\Model\Country')->load($this->order->getBillingAddress()->getCountryId())->getData('iso3_code');
+        return $country;
     }
 
     /**
@@ -149,7 +149,8 @@ class Customer implements CustomerProviderInterface
      */
     public function getPhone()
     {
-        return $this->customer->getDefaultBillingAddress()->getTelephone();
+        //return "";
+        return $this->order->getShippingAddress()->getTelephone();
     }
 
     /**
@@ -159,7 +160,7 @@ class Customer implements CustomerProviderInterface
      */
     public function getLanguage()
     {
-        return $this->localeHeper->getLanguage();
+        return 'pl';
     }
 
     /**
@@ -169,10 +170,11 @@ class Customer implements CustomerProviderInterface
      */
     public function isAddressAvailable()
     {
+        //return false;
         return $this->getStreet() !== ''
-        && $this->postCode !== ''
-        && $this->city !== ''
-        && $this->country !== ''
-        && $this->phone !== '';
+        && $this->getPostCode() !== ''
+        && $this->getCity() !== ''
+        && $this->getCountry() !== ''
+        && $this->getPhone() !== '';
     }
 }

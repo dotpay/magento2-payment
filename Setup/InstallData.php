@@ -43,6 +43,7 @@ class InstallData implements InstallDataInterface
             OrderInterface::STATUS_PENDING => __('Dotpay payment pending'),
             OrderInterface::STATUS_COMPLETE => __('Dotpay payment complete'),
             OrderInterface::STATUS_CANCELED => __('Dotpay payment canceled'),
+            OrderInterface::STATUS_DUPLICATE => __('Dotpay payment possible duplicate'),
         ];
         $statusData = [];
         foreach ($availableStatuses as $code => $label) {
@@ -70,6 +71,11 @@ class InstallData implements InstallDataInterface
                 'visible_on_front' => 1,
             ], [
                 'status' => OrderInterface::STATUS_COMPLETE,
+                'state' => \Magento\Sales\Model\Order::STATE_PROCESSING,
+                'is_default' => 1,
+                'visible_on_front' => 1,
+            ], [
+                'status' => OrderInterface::STATUS_DUPLICATE,
                 'state' => \Magento\Sales\Model\Order::STATE_PROCESSING,
                 'is_default' => 1,
                 'visible_on_front' => 1,

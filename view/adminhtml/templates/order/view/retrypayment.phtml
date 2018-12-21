@@ -1,0 +1,35 @@
+<?php if($block->canShowBlock()) : ?>
+    <br />
+        <div class="admin__page-section-title">
+            <span class="title"><?= __('Generate payment link');?></span>
+        </div>
+        <?php if($block->getRetryPayments()) : ?>
+        <?php if(!$block->canRetry()) : ?>
+            <table class="admin__table-secondary">
+                <thead>
+                <tr style="background-color: #c8c8c8;">
+                    <th>URL</th>
+                    <th><?= __('Action');?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach($block->getRetryPayments() as $payment) : ?>
+                <tr>
+                    <td>
+                        <div class="admin__field-control control select-all"><?= $payment->getUrl(); ?></div>
+                    </td>
+                    <td><?php if($block->canDelete()) : ?><a href="<?= $block->escapeUrl($block->getDeleteUrl($payment->getEntityId())); ?>"><?= __('delete');?></a><?php endif; ?></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><?= __('Send the generated payment link from the URL column to the Customer');?></td>
+                </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+        <?php endif; ?>
+    <?php if($block->canRetry()) : ?>
+    <div><?= __('You can generate a payment link for this order and send it to the customer');?></div>
+    <a href="<?= $block->escapeUrl($block->getSaveUrl()); ?>"><?= __('Generate payment link');?></a>
+    <?php endif; ?>
+<?php endif; ?>

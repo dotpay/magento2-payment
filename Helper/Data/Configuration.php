@@ -149,6 +149,11 @@ class Configuration implements ConfigurationProviderInterface
         return $this->getData('payment/dotpay_main/status_canceled');
     }
 
+    public function getStatusDuplicated()
+    {
+        return $this->getData('payment/dotpay_main/status_duplicated');
+    }
+
     public function getOcVisible()
     {
         return $this->getData('payment/dotpay_oc/active');
