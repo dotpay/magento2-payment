@@ -49,11 +49,11 @@
                 notFound: "<?php echo __('Order was not found.'); ?>",
                 basic: "<?php echo __('You have came back to the shop site.'); ?>",
                 status: "<?php echo __('Status of the order'); ?>",
-                timeout: "<?php echo __('Time intended for waiting for payment confirmation has elapsed. When transaction will be confirmed we will notify you on email. If payment will not be confirmed, please contact with shop owner and give him the order number:').' <b>'.$this->getPageData('order_id').'<b>'; ?>",
+                timeout: "<?php echo __('Time intended for waiting for payment confirmation has elapsed. When transaction will be confirmed we will notify you on email. If payment will not be confirmed, please contact with shop owner and give him the order number:').' <b>'.$this->getPageData('order_id_show').'<b>'; ?>",
                 pending: "<?php echo __('Waiting for confirm your payment...').'<br />'.__('It make take up to 2 minutes.'); ?>",
                 success: "<?php echo __('Thank you! The process of payment completed correctly. In a moment you will be able to check the status of your order.'); ?>",
                 error: "<?php echo __('Payment was rejected. Please contact with the seller.'); ?>",
-                tooMany: "<?php echo __('Warning! Payment for this order have already registered. If you bank account has been charged, please contact to seller and give him a name of the order:').' <b>'.$this->getPageData('order_id').'</b>'; ?>",
+                tooMany: "<?php echo __('Warning! Payment for this order have already registered. If you bank account has been charged, please contact to seller and give him a name of the order:').' <b>'.$this->getPageData('order_id_show').'</b>'; ?>",
                 unknown: "<?php echo __('It\'s impossible to interprete the response from server.'); ?>"
             },
             target: "<?php echo $this->getPageData('target_url'); ?>",

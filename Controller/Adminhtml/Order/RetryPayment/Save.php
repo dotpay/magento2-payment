@@ -47,8 +47,7 @@ class Save extends RetryPayment {
                 ->save();
             $this->messageManager->addSuccessMessage(__('Payment link generated successfully'));
         } catch(\Exception $e) {
-            exit;
-            $this->messageManager->addErrorMessage(__('Payment link could not be created'));
+            $this->messageManager->addErrorMessage(__('Payment link could not be created: ' . $e->getMessage()));
         }
 
         $path = 'sales/order/view';

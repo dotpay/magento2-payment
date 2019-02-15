@@ -50,6 +50,11 @@ class Instruction extends Dotpay
     private $instructionModel;
 
     /**
+     * @var \Magento\Sales\Model\Order Model of order
+     */
+    private $orderModel;
+
+    /**
      * Initialize the controller.
      *
      * @param \Magento\Framework\App\Action\Context      $context
@@ -59,6 +64,7 @@ class Instruction extends Dotpay
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      * @param \Dotpay\Payment\Helper\Url                 $urlHelper
      * @param \Dotpay\Payment\Model\Instruction          $instructionModel
+     * @param \Magento\Sales\Model\Order                 $orderModel
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
@@ -69,7 +75,8 @@ class Instruction extends Dotpay
         \Dotpay\Payment\Helper\Url $urlHelper,
         \Dotpay\Payment\Helper\Locale $localeHelper,
         \Dotpay\Payment\Helper\Data\Configuration $configHelper,
-        \Dotpay\Payment\Model\Instruction $instructionModel
+        \Dotpay\Payment\Model\Instruction $instructionModel,
+        \Magento\Sales\Model\Order $orderModel
     ) {
         parent::__construct(
             $context,
@@ -84,6 +91,7 @@ class Instruction extends Dotpay
         $this->localeHelper = $localeHelper;
         $this->config = Configuration::createFromData($configHelper);
         $this->instructionModel = $instructionModel;
+        $this->orderModel = $orderModel;
     }
 
     /**
@@ -93,7 +101,7 @@ class Instruction extends Dotpay
     {
         $pageData = [];
         $dbInstruction = $this->instructionModel->load($this->request->getParam('orderId'), 'order_id');
-        if ($dbInstruction->getId() !== null) {
+        if ($dbInstruction->getId() !== null && $this->checkVisitor($dbInstruction)){
             $instruction = SdkInstruction::createFromData($dbInstruction);
             $pageData['instruction'] = $instruction;
             if ($instruction->getIsCash()) {
@@ -138,5 +146,31 @@ class Instruction extends Dotpay
         $information = $paymentResource->getChannelListForRequest($request);
 
         return $information->getChannelInfo($channelId);
+    }
+
+    /**
+     * Check if the visitor has access to a specific instruction
+     *
+     * @param \Dotpay\Payment\Model\Instruction  $dbInstruction    Instruction object from database
+     *
+     * @return bool
+     */
+    private function checkVisitor($dbInstruction)
+    {
+        $cookie = $this->objectManager->get('Dotpay\Payment\Cookie\Instruction');
+        $order = $this->orderModel->load($dbInstruction->getOrderId());
+        $hash = $cookie->get($order->getEntityId());
+
+        if($hash && $hash == $dbInstruction->getHash())
+        {
+            return true;
+        }
+
+        if($this->customerSession->getCustomer() && $order->getCustomerId() && $this->customerSession->getCustomer()->getEntityId() == $order->getCustomerId())
+        {
+            return true;
+        }
+
+        return false;
     }
 }

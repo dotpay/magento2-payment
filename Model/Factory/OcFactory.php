@@ -74,6 +74,7 @@ class OcFactory extends AbstractFactory
         $channel->setSeller($this->getSeller());
         $cardModel = $this->cardFactory->create();
         if ($additionalInformation['selectedMode'] === 'register') {
+            
             $existingCards = $cardModel->getCollection()
                                       ->addFilter(CreditCardInterface::CUSTOMER_ID, $this->customerSession->getCustomer()->getId())
                                       ->addFilter(CreditCardInterface::ORDER_ID, $this->checkoutSession->getLastRealOrder()->getId());

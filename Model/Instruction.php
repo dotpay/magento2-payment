@@ -275,4 +275,26 @@ class Instruction extends AbstractModel implements InstructionProviderInterface,
     {
         return $this->setData(self::CURRENCY, $currency);
     }
+
+    /**
+     * Return title of the instruction.
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->getData(self::TITLE);
+    }
+
+    /**
+     * Set title of the instruction.
+     *
+     * @param string $hash Title of the instruction
+     */
+    public function setTitle($title)
+    {
+        return $this->setData(self::TITLE, $title);
+    }
+
+
 }

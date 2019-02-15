@@ -31,11 +31,15 @@ use Dotpay\Resource\Payment as PaymentResource;
 use Dotpay\Resource\Seller as SellerResource;
 use Dotpay\Payment\Controller\Dotpay;
 use Dotpay\Payment\Api\Data\CreditCardInterface;
+use Magento\Framework\App\CsrfAwareActionInterface;
+use Magento\Framework\App\Request\InvalidRequestException;
+use Magento\Framework\App\RequestInterface;
+use Magento\Framework\Exception\NotFoundException;
 
 /**
  * Controller of payment confirmation by Dotpay server.
  */
-class Confirm extends Dotpay
+class Confirm extends Dotpay implements CsrfAwareActionInterface
 {
     /**
      * @var \Magento\Sales\Model\Order Magento order model
@@ -104,6 +108,10 @@ class Confirm extends Dotpay
         \Dotpay\Payment\Helper\Data\Notification $notificationModel,
         \Dotpay\Payment\Helper\Data\Payment $paymentModel
     ) {
+        if(!$notificationModel->getOperation())
+        {
+            throw new NotFoundException(__("Page not found"));
+        }
         parent::__construct(
             $context,
             $customerSession,
@@ -148,22 +156,33 @@ class Confirm extends Dotpay
     /**
      * Update credit card in database using information from Dotpay server about details of used CC.
      *
-     * @param CreditCard $cc Credit card object with saved data of CC used for payment
+     * @param CreditCard|null $cc Credit card object with saved data of CC used for payment
      */
-    public function updateCcFn(CreditCard $cc)
+    public function updateCcFn(CreditCard $cc = null)
     {
-        $dbCard = $this->loadCardFromDb($cc->getOrderId());
-        if ($dbCard->getId() !== null && !$dbCard->isReadyToUse()) {
-            $dbCard->setMask($cc->getMask());
-            $dbCard->setCardId($cc->getCardId());
-            $dbCcBrand = $this->ccBrandModel->load($cc->getBrand()->getName(), 'name');
-            if ($dbCcBrand->getId() === null) {
-                $dbCcBrand->setName($cc->getBrand()->getName());
-                $dbCcBrand->setLogo($cc->getBrand()->getImage());
-                $dbCcBrand->save();
+        if($cc) {
+            $dbCard = $this->loadCardFromDb($cc->getOrderId());
+
+            if ($dbCard->getId() !== null && !$dbCard->isReadyToUse()) {
+                $dbCard->setMask($cc->getMask());
+                $dbCard->setCardId($cc->getCardId());
+                $dbCcBrand = $this->ccBrandModel->load($cc->getBrand()->getName(), 'name');
+                if ($dbCcBrand->getId() === null) {
+                    $dbCcBrand->setName($cc->getBrand()->getName());
+                    $dbCcBrand->setLogo($cc->getBrand()->getImage());
+                    $dbCcBrand->save();
+                }
+                $dbCard->setBrand($dbCcBrand);
+                $dbCard->save();
             }
-            $dbCard->setBrand($dbCcBrand);
-            $dbCard->save();
+        }
+        else
+        {
+            $dbCard = $this->loadCardFromDb($this->notification->getOperation()->getControl());
+            if(!$dbCard->getMask())
+            {
+                $dbCard->delete();
+            }
         }
     }
 
@@ -300,4 +319,31 @@ class Confirm extends Dotpay
     {
         die(__($message));
     }
+
+    /**
+     * Create exception in case CSRF validation failed.
+     * Return null if default exception will suffice.
+     *
+     * @param RequestInterface $request
+     *
+     * @return InvalidRequestException|null
+     */
+    public function createCsrfValidationException(RequestInterface $request): ?InvalidRequestException
+    {
+        return null;
+    }
+
+    /**
+     * Perform custom request validation.
+     * Return null if default validation is needed.
+     *
+     * @param RequestInterface $request
+     *
+     * @return bool|null
+     */
+    public function validateForCsrf(RequestInterface $request): ?bool
+    {
+        return true;
+    }
+
 }

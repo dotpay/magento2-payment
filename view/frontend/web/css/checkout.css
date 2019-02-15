@@ -35,20 +35,22 @@
   font-weight: 500;
   letter-spacing: 0.1em;
   line-height: normal;
-  font-size: 1.2em;
+  font-size: 1em;
   height: 2.2em;
 }
 
 /* One Click card visualisation */
 .dotpay-card-logo {
-    display: block;
+    /* display: block; */
     margin: auto;
     margin-top: 20px;
     border: 1px solid #2fb5d2;
     border-radius: 5px;
-    max-height: 80px;
+    max-height: 40px;
     transition-duration: 0.8s;
     transition-property: transform;
+    margin-left: 10px;
+    margin-bottom: -16px;
 }
 
 /* Agreements */

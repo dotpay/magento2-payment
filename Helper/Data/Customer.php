@@ -74,7 +74,8 @@ class Customer implements CustomerProviderInterface
      */
     public function getFirstName()
     {
-        return $this->order->getBillingAddress()->getFirstname();
+        $formatter = new \Dotpay\Tool\StringFormatter\Name();
+        return $formatter->format($this->order->getBillingAddress()->getFirstname());
     }
 
     /**
@@ -84,7 +85,8 @@ class Customer implements CustomerProviderInterface
      */
     public function getLastName()
     {
-        return $this->order->getBillingAddress()->getLastname();
+        $formatter = new \Dotpay\Tool\StringFormatter\Name();
+        return $formatter->format($this->order->getBillingAddress()->getLastname());
     }
 
     /**
@@ -127,7 +129,8 @@ class Customer implements CustomerProviderInterface
      */
     public function getCity()
     {
-        return $this->order->getBillingAddress()->getCity();
+        $formatter = new \Dotpay\Tool\StringFormatter\Name();
+        return $formatter->format($this->order->getBillingAddress()->getCity());
     }
 
     /**

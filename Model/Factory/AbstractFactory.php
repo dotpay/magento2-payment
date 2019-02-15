@@ -96,7 +96,8 @@ abstract class AbstractFactory
      */
     protected function getFirstname()
     {
-        return $this->checkoutSession->getLastRealOrder()->getBillingAddress()->getFirstname();
+        $formatter = new \Dotpay\Tool\StringFormatter\Name();
+        return $formatter->format($this->checkoutSession->getLastRealOrder()->getBillingAddress()->getFirstname());
     }
 
     /**
@@ -106,7 +107,8 @@ abstract class AbstractFactory
      */
     protected function getLastname()
     {
-        return $this->checkoutSession->getLastRealOrder()->getBillingAddress()->getLastname();
+        $formatter = new \Dotpay\Tool\StringFormatter\Name();
+        return $formatter->format($this->checkoutSession->getLastRealOrder()->getBillingAddress()->getLastname());
     }
 
     /**
@@ -149,7 +151,8 @@ abstract class AbstractFactory
      */
     protected function getCity()
     {
-        return $this->checkoutSession->getLastRealOrder()->getBillingAddress()->getCity();
+        $formatter = new \Dotpay\Tool\StringFormatter\Name();
+        return $formatter->format($this->checkoutSession->getLastRealOrder()->getBillingAddress()->getCity());
     }
 
     /**

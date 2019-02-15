@@ -107,17 +107,22 @@ class Preparing extends Dotpay
             $this->config,
             new Curl()
         );
+
         $instruction = $registerOrder->create($channel)->getInstruction();
         $dbInstruction = $this->instructionModel->load($instruction->getOrderId(), 'order_id');
 
         $dbInstruction->setOrderId($instruction->getOrderId())
                       ->setNumber($instruction->getNumber())
+                      ->setTitle($instruction->getTitle())
                       ->setBankAccount($instruction->getBankAccount())
                       ->setChannel($instruction->getChannel())
                       ->setHash($instruction->getHash())
                       ->setAmount($instruction->getAmount())
                       ->setCurrency($instruction->getCurrency());
         $dbInstruction->save();
+
+        $cookie = $this->objectManager->get('Dotpay\Payment\Cookie\Instruction');
+        $cookie->set($instruction->getHash(), $instruction->getOrderId());
 
         $resultRedirect = $this->context->getResultRedirectFactory()->create();
         $resultRedirect->setPath($this->urlHelper->getInstructionUrl().'?orderId='.$instruction->getOrderId());

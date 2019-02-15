@@ -83,6 +83,17 @@ class Manage extends Dotpay
             $savedCards = $this->ccCollectionFactory
                     ->create()
                     ->addFilter(CreditCardInterface::CUSTOMER_ID, $customerId);
+
+
+            // not so elegant hack to remove cards with incomplete info added with an error
+            foreach($savedCards as $card)
+            {
+                if($card->getMask() === null)
+                {
+                    $card->delete();
+                }
+            }
+
             $this->coreRegistry->register('data', [
                 'cards' => $savedCards,
                 'onRemoveMessage' => __('Do you want to deregister a saved card'),

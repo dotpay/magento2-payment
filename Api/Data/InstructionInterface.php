@@ -64,6 +64,11 @@ interface InstructionInterface
     const CURRENCY = 'currency';
 
     /**
+     * Column name of payment number in database.
+     */
+    const TITLE = 'title';
+
+    /**
      * Return id of instruction.
      *
      * @return int
@@ -188,4 +193,18 @@ interface InstructionInterface
      * @return $this
      */
     public function setCurrency($currency);
+
+    /**
+     * Return title of the instruction.
+     *
+     * @return string
+     */
+    public function getTitle();
+
+    /**
+     * Set title of the instruction.
+     *
+     * @param string $hash Title of the instruction
+     */
+    public function setTitle($title);
 }

@@ -40,6 +40,7 @@ class Back extends Dotpay
                 throw new \RuntimeException(__('The payment has not been found. Please contact to the seller.'));
             }
             $pageData['order_id'] = $orderId;
+            $pageData['order_id_show'] = $this->checkoutSession->getLastRealOrder()->getRealOrderId()."/".$orderId;
             $pageData['target_url'] = $this->urlHelper->getStatusUrl();
             if ($this->customerSession->isLoggedIn()) {
                 $pageData['redirect_url'] = $this->urlHelper->getUrl('customer/account');

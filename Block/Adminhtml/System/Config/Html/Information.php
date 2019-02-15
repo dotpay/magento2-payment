@@ -18,6 +18,9 @@
 
 namespace Dotpay\Payment\Block\Adminhtml\System\Config\Html;
 
+use Dotpay\Exception\BadParameter\AccountDataException;
+use Dotpay\Exception\BadParameter\FccIdException;
+use Dotpay\Exception\BadParameter\FccPinException;
 use Dotpay\Model\Configuration;
 use Dotpay\Resource\Github;
 use Dotpay\Resource\Payment as PaymentResource;
@@ -83,6 +86,7 @@ class Information extends \Magento\Backend\Block\Template implements \Magento\Fr
         parent::__construct($context, $data);
         $this->moduleList = $moduleList;
         $this->config = Configuration::createFromData($configHelper);
+
     }
 
     /**
@@ -94,6 +98,12 @@ class Information extends \Magento\Backend\Block\Template implements \Magento\Fr
      */
     public function render(\Magento\Framework\Data\Form\Element\AbstractElement $element)
     {
+        $this->checkId();
+        $this->checkFccId();
+        $this->checkPin();
+        $this->checkFccPin();
+        $this->checkAccountData();
+
         return $this->toHtml();
     }
 
@@ -169,8 +179,10 @@ class Information extends \Magento\Backend\Block\Template implements \Magento\Fr
         if (!$this->config->getEnable()) {
             return true;
         }
-
-        return $this->getPaymentResource()->checkSeller($this->config->getId());
+        if(!$this->getPaymentResource()->checkSeller($this->config->getId()))
+        {
+            $this->config->addError(new IdException());
+        }
     }
 
     /**
@@ -184,7 +196,10 @@ class Information extends \Magento\Backend\Block\Template implements \Magento\Fr
             return true;
         }
 
-        return $this->getPaymentResource()->checkSeller($this->config->getFccId());
+        if(!$this->getPaymentResource()->checkSeller($this->config->getFccId()))
+        {
+            $this->config->addError(new FccIdException());
+        }
     }
 
     /**
@@ -201,7 +216,10 @@ class Information extends \Magento\Backend\Block\Template implements \Magento\Fr
             self::$testAccountData = $this->getSellerResource()->isAccountRight();
         }
 
-        return self::$testAccountData;
+        if(!self::$testAccountData)
+        {
+            $this->config->addError(new AccountDataException());
+        }
     }
 
     /**
@@ -218,7 +236,10 @@ class Information extends \Magento\Backend\Block\Template implements \Magento\Fr
             return true;
         }
 
-        return $this->getSellerResource()->checkPin();
+        if(!$this->getSellerResource()->checkPin())
+        {
+            $this->config->addError(new PinException());
+        }
     }
 
     /**
@@ -235,7 +256,24 @@ class Information extends \Magento\Backend\Block\Template implements \Magento\Fr
             return true;
         }
 
-        return $this->getSellerResource()->checkFccPin();
+        if($this->getSellerResource()->checkFccPin())
+        {
+            $this->config->addError(new FccPinException());
+        }
+    }
+
+    /**
+     * Check if seller id from configuration is correct.
+     *
+     * @return array|bool
+     */
+    public function checkErrors()
+    {
+        if (!$this->config->getErrors()) {
+            return false;
+        }
+
+        return $this->config->getErrors();
     }
 
     /**

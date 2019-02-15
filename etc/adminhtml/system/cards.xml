@@ -16,6 +16,15 @@
             <config_path>payment/dotpay_cc/active</config_path>
             <comment><![CDATA[Activate credit card payments as a separate channel]]></comment>
         </field>
+        <field id="dp_cc_visibility" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Visibility of Credit Cards channel</label>
+            <source_model>Dotpay\Payment\Model\Adminhtml\System\Config\Visibility</source_model>
+            <config_path>payment/dotpay_cc/visibility</config_path>
+            <comment><![CDATA[Show or hide channel for specific conditions]]></comment>
+            <depends>
+                <field id="dp_cc_active">1</field>
+            </depends>
+        </field>
         <field id="dp_fcc_active" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Separate Dotpay account for payments with specific currencies</label>
             <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>

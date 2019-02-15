@@ -18,6 +18,7 @@
 
 namespace Dotpay\Payment\Helper\Data;
 
+use Dotpay\Model\CreditCard;
 use Dotpay\Model\Operation;
 use Dotpay\Provider\NotificationProviderInterface;
 
@@ -37,27 +38,49 @@ class Notification implements NotificationProviderInterface
     private $operation;
 
     /**
+     * @var \Dotpay\Payment\Helper\Data\CreditCard Payment data provider
+     */
+    private $creditCard;
+
+    /**
      * Initialize the provider.
      *
      * @param \Magento\Framework\App\RequestInterface $request   Magento request object
      * @param \Dotpay\Payment\Helper\Data\Operation   $operation Payment data provider
+     * @param \Dotpay\Payment\Helper\Data\CreditCard   $creditCard Credit card data provider
      */
     public function __construct(
         \Magento\Framework\App\RequestInterface $request,
-        \Dotpay\Payment\Helper\Data\Operation $operation
+        \Dotpay\Payment\Helper\Data\Operation $operation,
+        \Dotpay\Payment\Helper\Data\CreditCard $creditCard
     ) {
         $this->request = $request;
-        $this->operation = Operation::createFromData($operation);
+        if($operation->getType()) {
+            $this->operation = Operation::createFromData($operation);
+        }
+        if($creditCard->getMask()) {
+            $this->creditCard = CreditCard::createFromData($creditCard);
+        }
     }
 
     /**
      * Return an Operation object with details of operation which relates the notification.
      *
-     * @return \Dotpay\Payment\Helper\Data\Operation
+     * @return \Dotpay\Model\Operation
      */
     public function getOperation()
     {
         return $this->operation;
+    }
+
+    /**
+     * Return an CrediCard object with details of operation which relates the notification.
+     *
+     * @return \Dotpay\Model\CreditCard
+     */
+    public function getCreditCard()
+    {
+        return $this->creditCard;
     }
 
     /**

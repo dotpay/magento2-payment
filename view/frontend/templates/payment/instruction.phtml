@@ -45,10 +45,19 @@
                 </div>
                 <div class="field-group">
                     <label for="field6" class="field-label"><?php echo __('Title of payment'); ?></label>
-                    <input id="field6" class="single-input" value="<?php echo $instruction->getNumber(); ?>" readonly />
+                    <input id="field6" class="single-input" value="<?php echo ($instruction->getTitle() ? $instruction->getTitle() : $instruction->getNumber()); ?>" readonly />
                 </div>
             </div>
         </div>
+        <?php if($instruction->getIsCash()): ?>
+            <div class="row">
+                <div class="alert info">
+                    <b>
+                        <?php echo __('WARNING! This data can be use only for a regular bank transfer. Use of this data in a VAT split payment transfer will not result as an effective payment.'); ?>
+                    </b>
+                </div>
+            </div>
+        <?php endif; ?>
         <div class="row">
             <a id="blankiet-download-form" href="<?php echo $block->getPageData('target_url'); ?>" target="_blank">
                 <img src="<?php echo $block->getPageData('channel_logo'); ?>" alt="<?php echo __('Logo of payment channel'); ?>"/>

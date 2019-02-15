@@ -53,7 +53,7 @@ class AbstractAdapter extends PaymentAdapter
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface Scope config
      */
-    private $scopeConfig;
+    protected $scopeConfig;
 
     /**
      * @var \Magento\Customer\Model\Session Session of the current customer

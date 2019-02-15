@@ -1,3 +1,4 @@
+<?php
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,7 +15,26 @@
  * @copyright Dotpay
  * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-.back-title {
-    color: #7d1315;
-    font-size: 24px
+
+namespace Dotpay\Payment\Block\Info;
+
+/**
+ * Block of information about payment method (by Dotpay other channel) displayed in order preview.
+ */
+class Other extends \Magento\Payment\Block\Info
+{
+    /**
+     * @var string Path to template file
+     */
+    protected $_template = 'Dotpay_Payment::info/info.phtml';
+
+    /**
+     * Return a message about used payment method.
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return __('Dotpay payment channels');
+    }
 }

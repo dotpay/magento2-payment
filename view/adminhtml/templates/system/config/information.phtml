@@ -43,49 +43,15 @@
 </div>
 <?php } ?>
 
-<?php if(!$block->checkId()): ?>
+<?php if($block->checkErrors()): ?>
+    <?php foreach($block->checkErrors() as $error): ?>
     <div class="dotpay-configuration-panel dotpay-error">
         <div class="dotpay-offer">
             <h3><?php echo __('Error'); ?></h3>
-            <p><?php echo __('Your seller id is wrong. Please fix it.'); ?></p>
+            <p><?php echo $error->getMessage(); ?></p>
         </div>
     </div>
-<?php endif; ?>
-
-<?php if(!$block->checkFccId()): ?>
-    <div class="dotpay-configuration-panel dotpay-error">
-        <div class="dotpay-offer">
-            <h3><?php echo __('Error'); ?></h3>
-            <p><?php echo __('Your seller id for foreign currencies is wrong. Please fix it.'); ?></p>
-        </div>
-    </div>
-<?php endif; ?>
-
-<?php if(!$block->checkAccountData()): ?>
-    <div class="dotpay-configuration-panel dotpay-error">
-        <div class="dotpay-offer">
-            <h3><?php echo __('Error'); ?></h3>
-            <p><?php echo __('Your account data (username and password) is wrong. Please fix it.'); ?></p>
-        </div>
-    </div>
-<?php endif; ?>
-
-<?php if(!$block->checkPin()): ?>
-    <div class="dotpay-configuration-panel dotpay-error">
-        <div class="dotpay-offer">
-            <h3><?php echo __('Error'); ?></h3>
-            <p><?php echo __('Your seller pin is wrong. Please fix it.'); ?></p>
-        </div>
-    </div>
-<?php endif; ?>
-
-<?php if(!$block->checkFccPin()): ?>
-    <div class="dotpay-configuration-panel dotpay-error">
-        <div class="dotpay-offer">
-            <h3><?php echo __('Error'); ?></h3>
-            <p><?php echo __('Your seller pin for foreign currencies is wrong. Please fix it.'); ?></p>
-        </div>
-    </div>
+    <?php endforeach; ?>
 <?php endif; ?>
 
 <?php if($block->isRegisterDisplayed()): ?>

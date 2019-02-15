@@ -66,6 +66,26 @@ class UpgradeSchema implements UpgradeSchemaInterface
             $installer->getConnection()->createTable($table);
         }
 
+        if(version_compare($context->getVersion(), '1.0.13', '<')) {
+
+            $tableName = $setup->getTable('dotpay_instructions');
+            if ($setup->getConnection()->isTableExists($tableName) == true) {
+                // Declare data
+                $columns = [
+                    'title' => [
+                        'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                        'nullable' => true,
+                        'comment' => 'Title of the wire transfer',
+                    ],
+                ];
+
+                $connection = $setup->getConnection();
+                foreach ($columns as $name => $definition) {
+                    $connection->addColumn($tableName, $name, $definition);
+                }
+            }
+        }
+
         $installer->endSetup();
     }
 }

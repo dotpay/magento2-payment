@@ -9,11 +9,29 @@
             <config_path>payment/dotpay_mp/active</config_path>
             <comment><![CDATA[You can select Masterpass method as visible in main view of checkout]]></comment>
         </field>
+        <field id="dp_mp_visibility" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Visibility of Masterpass channel</label>
+            <source_model>Dotpay\Payment\Model\Adminhtml\System\Config\Visibility</source_model>
+            <config_path>payment/dotpay_mp/visibility</config_path>
+            <comment><![CDATA[Show or hide channel for specific conditions]]></comment>
+            <depends>
+                <field id="dp_mp_active">1</field>
+            </depends>
+        </field>
         <field id="dp_blik_active" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Activate BLIK</label>
             <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
             <config_path>payment/dotpay_blik/active</config_path>
             <comment><![CDATA[You can select BLIK method as visible in main view of checkout]]></comment>
+        </field>
+        <field id="dp_blik_visibility" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Visibility of BLIK channel</label>
+            <source_model>Dotpay\Payment\Model\Adminhtml\System\Config\Visibility</source_model>
+            <config_path>payment/dotpay_blik/visibility</config_path>
+            <comment><![CDATA[Show or hide channel for specific conditions]]></comment>
+            <depends>
+                <field id="dp_blik_active">1</field>
+            </depends>
         </field>
         <field id="dp_paypal_active" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Activate PayPal</label>
@@ -21,10 +39,20 @@
             <config_path>payment/dotpay_paypal/active</config_path>
             <comment><![CDATA[You can select PayPal method as visible in main view of checkout]]></comment>
         </field>
+        <field id="dp_paypal_visibility" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Visibility of PayPal channel</label>
+            <source_model>Dotpay\Payment\Model\Adminhtml\System\Config\Visibility</source_model>
+            <config_path>payment/dotpay_paypal/visibility</config_path>
+            <comment><![CDATA[Show or hide channel for specific conditions]]></comment>
+            <depends>
+                <field id="dp_paypal_active">1</field>
+            </depends>
+        </field>
         <field id="dp_other_active" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Activate other channels</label>
             <config_path>payment/dotpay/channels_active</config_path>
-            <comment><![CDATA[You can select multiple methods as visible in main view of checkout]]></comment>
+            <tooltip><![CDATA[Leave it blank or enter a Dotpay number channel (eg.: 2) or numbers channels  separated by commas (eg.: 4,36).]]></tooltip>
+            <comment><![CDATA[You can select multiple methods (payment channel numbers) as visible in main view of checkout]]></comment>
         </field>
     </group>
 </include>

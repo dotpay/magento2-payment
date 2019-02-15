@@ -44,6 +44,12 @@
             <label><input data-bind="attr: {'type': agreement.name == 'personal_data' ? 'hidden' : 'checkbox', 'required': agreement.required, 'name': agreement.name, 'class': $parent.methodName}, event:{change: $parent.validateAgreements}, value: 1, checked: true"><span data-bind="html: agreement.description_html"></span></label>
         </div>
 
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+
         <div class="actions-toolbar">
             <div class="primary">
                 <button class="action primary checkout"
