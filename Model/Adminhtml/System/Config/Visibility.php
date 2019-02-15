@@ -22,6 +22,7 @@ use Magento\Framework\Option\ArrayInterface;
 use Dotpay\Model\Configuration;
 
 /**
+ * Admin front end model of show or hide channel for specific conditions used in payment module configuration.
  */
 class Visibility implements ArrayInterface
 {
@@ -31,6 +32,7 @@ class Visibility implements ArrayInterface
 
 
     /**
+     * Return array list list of specific conditions for Dotpay module.
      *
      * @return array
      */

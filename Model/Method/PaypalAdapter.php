@@ -27,6 +27,7 @@ class PaypalAdapter extends AbstractAdapter
 {
 
     /**
+     * Return an information if the PayPal is enabled.
      *
      * @param int/null $storeId Id of the store
      *
