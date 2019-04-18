@@ -16,7 +16,7 @@
  * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-namespace Dotpay\Payment\Model\Resource\CreditCard;
+namespace Dotpay\Payment\Model\Resource\CardBrand;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
