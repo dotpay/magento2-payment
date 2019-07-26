@@ -42,4 +42,19 @@ interface OrderInterface
      * Id of status possible duplication.
      */
     const STATUS_DUPLICATE = 'dotpay_duplicate';
+
+    /**
+     * Id of status refunded.
+     */
+    const STATUS_REFUND_NEW = 'dotpay_refund_new';
+
+    /**
+     * Id of status refunded.
+     */
+    const STATUS_REFUNDED = 'dotpay_refunded';
+
+    /**
+     * Id of status failed to refund.
+     */
+    const STATUS_REFUND_FAILED = 'dotpay_refund_failed';
 }

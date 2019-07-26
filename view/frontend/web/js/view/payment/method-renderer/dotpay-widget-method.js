@@ -37,13 +37,18 @@ define(
         
         var counter = 0;
         var load = function() {
-            if($('.dotpay-widget-container').length) {
+            if(!widgetConfig.request.widgetVisible) {
+                dotpayComponent.correctFields(true);
+            }
+            if ($('.dotpay-widget-container').length) {
                 window.dotpayWidget.init(widgetConfig);
+                dotpayComponent.correctFields(true);
                 return true;
             } else {
                 ++counter;
                 return false;
             }
+
         };
         
         return Component.extend({
@@ -51,7 +56,7 @@ define(
                 template: 'Dotpay_Payment/payment/widget-form'
             },
             methodName: 'dotpay_widget',
-            correctFields: ko.observable(false),
+            correctFields: ko.observable(true),
             initialize: function () {
                 this._super();
                 var interval;

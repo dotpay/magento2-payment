@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+<?php
+$_htmlId = $block->getHtmlId() ? $block->getHtmlId() : '_' . uniqid();
+?>
+
+<div class="design_theme_ua_regexp" id="grid<?= /* @escapeNotVerified */ $_htmlId ?>">
+    <div class="admin__control-table-wrapper">
+        <table class="admin__control-table" id="<?= /* @escapeNotVerified */ $block->getElement()->getId() ?>">
+            <tbody>
+            <?php foreach ($block->getColumns() as $columnName => $column): ?>
+            <tr>
+                <td><?= /* @escapeNotVerified */ $column['label'] ?></td>
+                <td><?= /* @escapeNotVerified */ $block->renderCell($columnName) ?></td>
+            </tr>
+            <?php endforeach;?>
+            </tbody>
+        </table>
+    </div>
+</div>

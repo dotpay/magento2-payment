@@ -20,11 +20,14 @@ namespace Dotpay\Payment\Controller\Payment;
 
 use Dotpay\Processor\Back as BackProcessor;
 use Dotpay\Payment\Controller\Dotpay;
+use Magento\Framework\App\CsrfAwareActionInterface;
+use Magento\Framework\App\Request\InvalidRequestException;
+use Magento\Framework\App\RequestInterface;
 
 /**
  * Controller of displaying the page after the payment.
  */
-class Back extends Dotpay
+class Back extends Dotpay implements CsrfAwareActionInterface
 {
     /**
      * Execute action of the controller.
@@ -54,5 +57,31 @@ class Back extends Dotpay
         $this->_view->loadLayout();
         $this->_view->getLayout()->initMessages();
         $this->_view->renderLayout();
+    }
+
+    /**
+     * Create exception in case CSRF validation failed.
+     * Return null if default exception will suffice.
+     *
+     * @param RequestInterface $request
+     *
+     * @return InvalidRequestException|null
+     */
+    public function createCsrfValidationException(RequestInterface $request): ?InvalidRequestException
+    {
+        return null;
+    }
+
+    /**
+     * Perform custom request validation.
+     * Return null if default validation is needed.
+     *
+     * @param RequestInterface $request
+     *
+     * @return bool|null
+     */
+    public function validateForCsrf(RequestInterface $request): ?bool
+    {
+        return true;
     }
 }

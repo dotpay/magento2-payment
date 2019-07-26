@@ -19,6 +19,7 @@
 namespace Dotpay\Payment\Api\Data;
 
 use Dotpay\Exception\Resource\ApiException;
+use Dotpay\Exception\Resource\HttpException;
 use Dotpay\Resource\Payment;
 use Dotpay\Resource\Channel\Request;
 use Dotpay\Model\Configuration;
@@ -70,6 +71,10 @@ class Agreements
             }
         }
         catch (ApiException $e)
+        {
+            return [];
+        }
+        catch (HttpException $e)
         {
             return [];
         }

@@ -11,6 +11,8 @@
                 <title>Dotpay payments</title>
                 <username></username>
                 <password></password>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
                 <instruction>0</instruction>
                 <display_logo>1</display_logo>
                 <redirect_url>dotpay/payment/preparing</redirect_url>
@@ -23,8 +25,12 @@
                 <order_status>dotpay_pending</order_status>
                 <status_complete>dotpay_complete</status_complete>
                 <status_canceled>dotpay_canceled</status_canceled>
-                <status_duplicated>status_duplicated</status_duplicated>
+                <status_duplicated>dotpay_duplicate</status_duplicated>
+                <status_refunded>dotpay_refunded</status_refunded>
+                <status_refund_failed>dotpay_refund_failed</status_refund_failed>
+                <status_refund_new>dotpay_refund_new</status_refund_new>
                 <show_shortcut>1</show_shortcut>
+                <invoice_on_confirm>1</invoice_on_confirm>
             </dotpay_main>
             <dotpay_oc translate="title">
                 <active>0</active>

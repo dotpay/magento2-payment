@@ -18,6 +18,10 @@
 
 namespace Dotpay\Payment\Model\Method;
 
+use Dotpay\Model\Refund;
+use Dotpay\Resource\Seller;
+use Dotpay\Tool\Curl;
+use Magento\Payment\Model\InfoInterface;
 use Magento\Payment\Model\Method\Adapter as PaymentAdapter;
 use Magento\Framework\Event\ManagerInterface;
 use Magento\Payment\Gateway\Command\CommandManagerInterface;
@@ -59,6 +63,20 @@ class AbstractAdapter extends PaymentAdapter
      * @var \Magento\Customer\Model\Session Session of the current customer
      */
     protected $customerSession;
+
+    /**
+     * Availability option
+     *
+     * @var bool
+     */
+    protected $_canRefund = true;
+
+    /**
+     * Availability option
+     *
+     * @var bool
+     */
+    protected $_canRefundInvoicePartial = true;
 
     /**
      * Initialize the abstract adapter.
@@ -303,6 +321,18 @@ class AbstractAdapter extends PaymentAdapter
     }
 
     /**
+     * Return new refund status.
+     *
+     * @param int/null $storeId Id of the store
+     *
+     * @return string
+     */
+    public function getStatusRefundNew($storeId = null)
+    {
+        return $this->getConfiguredMainValue('status_refund_new', $storeId);
+    }
+
+    /**
      * Unifies configured value handling logic.
      *
      * @param string $field
@@ -365,5 +395,33 @@ class AbstractAdapter extends PaymentAdapter
                ->setShopName($this->getShopName());
 
         return $config;
+    }
+
+    public function canRefund()
+    {
+        return true;
+    }
+
+    public function canRefundPartialPerInvoice()
+    {
+        return true;
+    }
+
+    public function refund(InfoInterface $payment, $amount)
+    {
+
+        parent::refund($payment, $amount);
+
+        $seller = new Seller($this->getConfiguration(), new Curl());
+        $order = $payment->getOrder();
+        $refund = new Refund(
+            $payment->getLastTransId(),
+            $amount,
+            $order->getEntityId(),
+            _("Refund for order no ") . $order->getRealOrderId()
+        );
+        $seller->makeRefund($refund);
+
+        return $this;
     }
 }

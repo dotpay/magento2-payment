@@ -146,6 +146,8 @@ class Confirm extends Dotpay implements CsrfAwareActionInterface
 
         $confirmation->setUpdateCcAction(new UpdateCcInfo([$this, 'updateCcFn']));
         $confirmation->setMakePaymentAction(new MakePaymentOrRefund([$this, 'makePaymentFn']));
+        $confirmation->setMakeRefundAction(new MakePaymentOrRefund([$this, 'makeRefundFn']));
+
         if ($confirmation->execute($this->payment, $this->notification)) {
             die('OK');
         } else {
@@ -163,7 +165,7 @@ class Confirm extends Dotpay implements CsrfAwareActionInterface
         if($cc) {
             $dbCard = $this->loadCardFromDb($cc->getOrderId());
 
-            if ($dbCard->getId() !== null && !$dbCard->isReadyToUse()) {
+            if ($dbCard && $dbCard->getId() !== null && !$dbCard->isReadyToUse()) {
                 $dbCard->setMask($cc->getMask());
                 $dbCard->setCardId($cc->getCardId());
                 $dbCcBrand = $this->ccBrandModel->load($cc->getBrand()->getName(), 'name');
@@ -235,7 +237,7 @@ class Confirm extends Dotpay implements CsrfAwareActionInterface
                 $message = __('The payment is confirmed. Payment number from Dotpay:').' '.$operation->getNumber();
                 $transaction->setIsClosed(1);
                 $order->addStatusToHistory($this->configHelper->getStatusComplete(), $message, true);
-                if ($order->canInvoice()) {
+                if ($this->configHelper->getInvoiceOnConfirm() && $order->canInvoice()) {
                     $invoice = $order->prepareInvoice();
                     $invoice->setRequestedCaptureCase(\Magento\Sales\Model\Order\Invoice::CAPTURE_ONLINE);
                     $invoice->register();
@@ -259,6 +261,63 @@ class Confirm extends Dotpay implements CsrfAwareActionInterface
         } else {
             return true;
         }
+    }
+
+    /**
+     * Make refund based on provided data of operation.
+     *
+     * @param Operation $operation Data with processed operation
+     *
+     * @return bool
+     */
+    public function makeRefundFn(Operation $operation)
+    {
+        $order = $this->orderModel->load($operation->getControl());
+        if ($order === null) {
+            $this->breakExecution('Order is not found');
+        }
+
+        $lastStatus = $order->getStatus();
+        if (in_array(
+                $lastStatus,
+                [
+                    $this->configHelper->getStatusRefunded(),
+                    $this->configHelper->getStatusRefundFailed()
+                ]
+            ) === true
+        ) {
+            return true;
+        }
+
+        $payment = $order->getPayment();
+        if ($payment === null) {
+            $this->breakExecution('Payment is not found');
+        }
+
+        if ($operation->getStatus() === Operation::STATUS_NEW) {
+            $order->addStatusToHistory($this->configHelper->getStatusRefundNew(), __('The refund is created. Refund number from Dotpay:').' '.$operation->getNumber(), true);
+        }
+        $payment->setTransactionId($operation->getNumber());
+        $transaction = $payment->addTransaction(\Magento\Sales\Model\Order\Payment\Transaction::TYPE_REFUND, null, false);
+
+        $transaction->setTxnId($operation->getNumber());
+
+        if ($operation->getStatus() === Operation::STATUS_COMPLETE) {
+            $message = __('The refund is confirmed. Refund number from Dotpay:').' '.$operation->getNumber();
+            $order->addStatusToHistory($this->configHelper->getStatusRefunded(), $message, true);
+
+        } elseif ($operation->getStatus() === Operation::STATUS_REJECTED) {
+            //payment rejected
+            $message = __('The refund is rejected. Refund number from Dotpay:').' '.$operation->getNumber();
+            $order->addStatusToHistory($this->configHelper->getStatusRefundFailed(), $message, true);
+        }
+        $transaction->setAdditionalInformation('info', serialize($operation));
+        $transaction->save();
+        $payment->save();
+        $order->save();
+
+        return true;
+
     }
 
     /**

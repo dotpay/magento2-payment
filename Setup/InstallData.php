@@ -44,6 +44,8 @@ class InstallData implements InstallDataInterface
             OrderInterface::STATUS_COMPLETE => __('Dotpay payment complete'),
             OrderInterface::STATUS_CANCELED => __('Dotpay payment canceled'),
             OrderInterface::STATUS_DUPLICATE => __('Dotpay payment possible duplicate'),
+            OrderInterface::STATUS_REFUNDED => __('Dotpay payment refunded'),
+            OrderInterface::STATUS_REFUND_FAILED => __('Dotpay payment refund failed'),
         ];
         $statusData = [];
         foreach ($availableStatuses as $code => $label) {
@@ -82,6 +84,16 @@ class InstallData implements InstallDataInterface
             ], [
                 'status' => OrderInterface::STATUS_CANCELED,
                 'state' => \Magento\Sales\Model\Order::STATE_PENDING_PAYMENT,
+                'is_default' => 1,
+                'visible_on_front' => 1,
+            ], [
+                'status' => OrderInterface::STATUS_REFUNDED,
+                'state' => \Magento\Sales\Model\Order::STATE_CLOSED,
+                'is_default' => 1,
+                'visible_on_front' => 1,
+            ], [
+                'status' => OrderInterface::STATUS_REFUND_FAILED,
+                'state' => \Magento\Sales\Model\Order::STATE_CLOSED,
                 'is_default' => 1,
                 'visible_on_front' => 1,
             ],

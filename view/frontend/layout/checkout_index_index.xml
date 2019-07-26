@@ -45,6 +45,13 @@
                                                                 </item>
                                                             </item>
                                                         </item>
+                                                        <item name="additional-payment-validators" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="dotpay-widget-validator" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Dotpay_Payment/js/view/payment/dotpay-widget-validation</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
                                                     </item>
                                                 </item>
                                             </item>

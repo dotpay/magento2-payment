@@ -49,5 +49,11 @@
             <config_path>payment/dotpay_main/display_logo</config_path>
             <comment><![CDATA[You can decide if payment channel logos will be displayed on the shop site]]></comment>
         </field>
+        <field id="dp_invoice_on_confirm" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Automatically invoice orders</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <config_path>payment/dotpay_main/invoice_on_confirm</config_path>
+            <comment><![CDATA[You can decide if during confirmation of a successful order an invoice should be generated]]></comment>
+        </field>
     </group>
 </include>

@@ -8,6 +8,10 @@ use Dotpay\Payment\Model\OrderRetryPaymentFactory;
 
 class RetryPayment extends \Magento\Sales\Block\Adminhtml\Order\AbstractOrder
 {
+    /**
+     * @var \Dotpay\Payment\Helper\Data\Configuration Provider of Dotpay module configuration data
+     */
+    private $configHelper;
 
     /**
      * @var \Dotpay\Payment\Model\OrderRetryPaymentFactory
@@ -19,6 +23,7 @@ class RetryPayment extends \Magento\Sales\Block\Adminhtml\Order\AbstractOrder
      * @param OrderRetryPaymentFactory $newsFactory
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Sales\Helper\Admin $adminHelper
+     * @param \Dotpay\Payment\Helper\Data\Configuration $configHelper
      * @param array $data
      */
     public function __construct(
@@ -26,8 +31,10 @@ class RetryPayment extends \Magento\Sales\Block\Adminhtml\Order\AbstractOrder
         OrderRetryPaymentFactory $orderRetryPaymentFactory,
         \Magento\Framework\Registry $registry,
         \Magento\Sales\Helper\Admin $adminHelper,
+        \Dotpay\Payment\Helper\Data\Configuration $configHelper,
         array $data = []
     ) {
+        $this->configHelper = $configHelper;
         $this->_orderRetryPaymentFactory = $orderRetryPaymentFactory;
         parent::__construct($context, $registry, $adminHelper, $data);
     }
@@ -52,7 +59,7 @@ class RetryPayment extends \Magento\Sales\Block\Adminhtml\Order\AbstractOrder
     {
         $status = $this->getOrder()->getStatus();
         if(
-            $status === OrderInterface::STATUS_PENDING
+            $status === $this->configHelper->getStatusPending()
             && count($this->getRetryPayments()) < 1
         )
             return true;
@@ -64,7 +71,7 @@ class RetryPayment extends \Magento\Sales\Block\Adminhtml\Order\AbstractOrder
     {
         $status = $this->getOrder()->getStatus();
         if(
-            $status === OrderInterface::STATUS_PENDING
+            $status === $this->configHelper->getStatusPending()
         )
             return true;
 
@@ -74,13 +81,13 @@ class RetryPayment extends \Magento\Sales\Block\Adminhtml\Order\AbstractOrder
     public function canShowBlock()
     {
         $status = $this->getOrder()->getStatus();
-        if(in_array($status, [OrderInterface::STATUS_PENDING, OrderInterface::STATUS_CANCELED, OrderInterface::STATUS_COMPLETE, OrderInterface::STATUS_DUPLICATE]))
+        if(in_array($status, [$this->configHelper->getStatusPending(), $this->configHelper->getStatusCanceled(), $this->configHelper->getStatusComplete(), $this->configHelper->getStatusDuplicated()]))
             return true;
 
         $statuses = $this->getOrder()->getAllStatusHistory();
         foreach($statuses as $status)
         {
-            if(in_array($status->getStatus(), [OrderInterface::STATUS_PENDING, OrderInterface::STATUS_CANCELED, OrderInterface::STATUS_COMPLETE, OrderInterface::STATUS_DUPLICATE]))
+            if(in_array($status->getStatus(), [$this->configHelper->getStatusPending(), $this->configHelper->getStatusCanceled(), $this->configHelper->getStatusComplete(), $this->configHelper->getStatusDuplicated()]))
                 return true;
         }
         return false;

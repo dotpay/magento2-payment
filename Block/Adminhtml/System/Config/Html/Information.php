@@ -21,6 +21,7 @@ namespace Dotpay\Payment\Block\Adminhtml\System\Config\Html;
 use Dotpay\Exception\BadParameter\AccountDataException;
 use Dotpay\Exception\BadParameter\FccIdException;
 use Dotpay\Exception\BadParameter\FccPinException;
+use Dotpay\Exception\Resource\HttpException;
 use Dotpay\Model\Configuration;
 use Dotpay\Resource\Github;
 use Dotpay\Resource\Payment as PaymentResource;
@@ -98,11 +99,19 @@ class Information extends \Magento\Backend\Block\Template implements \Magento\Fr
      */
     public function render(\Magento\Framework\Data\Form\Element\AbstractElement $element)
     {
-        $this->checkId();
-        $this->checkFccId();
-        $this->checkPin();
-        $this->checkFccPin();
-        $this->checkAccountData();
+        try
+        {
+            $this->checkId();
+            $this->checkFccId();
+            $this->checkPin();
+            $this->checkFccPin();
+            $this->checkAccountData();
+        }
+        catch(HttpException $e)
+        {
+            $this->config->addError($e);
+        }
+
 
         return $this->toHtml();
     }
@@ -192,7 +201,7 @@ class Information extends \Magento\Backend\Block\Template implements \Magento\Fr
      */
     public function checkFccId()
     {
-        if (!$this->config->getEnable() || !($this->config->getCcVisible() && $this->config->getFccVisible())) {
+        if (!$this->config->getEnable() || !($this->config->getCcVisible() && $this->config->getFccVisible()) || !$this->config->getFccId()) {
             return true;
         }
 

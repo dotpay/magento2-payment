@@ -31,23 +31,48 @@
             <config_path>payment/dotpay_main/status_complete</config_path>
             <comment><![CDATA[Choose the status set when payment is confirmed]]></comment>
         </field>
-        <field id="dp_status_canceled" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+        <field id="dp_status_canceled" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Status of canceled payment</label>
             <source_model>Dotpay\Payment\Model\Config\Source\Order\Status</source_model>
             <config_path>payment/dotpay_main/status_canceled</config_path>
             <comment><![CDATA[Choose the status set when Dotpay payment has been canceled. Order state is still pending.]]></comment>
         </field>
-        <field id="dp_status_duplicated" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+        <field id="dp_status_duplicated" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Status of possibly duplicated payment</label>
             <source_model>Dotpay\Payment\Model\Config\Source\Order\Status</source_model>
             <config_path>payment/dotpay_main/status_duplicated</config_path>
             <comment><![CDATA[Choose the status set when Dotpay payment has been duplicated. Order state is still pending.]]></comment>
         </field>
-        <field id="dp_show_shortcut" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+        <field id="dp_status_refund_new" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Status of new refund</label>
+            <source_model>Dotpay\Payment\Model\Config\Source\Order\Status</source_model>
+            <config_path>payment/dotpay_main/status_refund_new</config_path>
+            <comment><![CDATA[Choose the status set when Dotpay payment refund has been initialized. Order state is still closed.]]></comment>
+        </field>
+        <field id="dp_status_refunded" translate="label" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Status of refunded payment</label>
+            <source_model>Dotpay\Payment\Model\Config\Source\Order\Status</source_model>
+            <config_path>payment/dotpay_main/status_refunded</config_path>
+            <comment><![CDATA[Choose the status set when Dotpay payment has been refunded. Order state is still closed.]]></comment>
+        </field>
+        <field id="dp_status_refund_failed" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Status of failed refund</label>
+            <source_model>Dotpay\Payment\Model\Config\Source\Order\Status</source_model>
+            <config_path>payment/dotpay_main/status_refund_failed</config_path>
+            <comment><![CDATA[Choose the status set when Dotpay payment failed to had been refunded. Order state is still closed.]]></comment>
+        </field>
+        <field id="dp_show_shortcut" translate="label" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Show Dotpay shortcut</label>
             <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
             <config_path>payment/dotpay_main/show_shortcut</config_path>
             <comment><![CDATA[Dotpay shortcut can be displayed in cart preview]]></comment>
+        </field>
+        <field id="dp_shipping_mapping" translate="label" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Shipping Mapping</label>
+            <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+            <frontend_model>Dotpay\Payment\Block\Adminhtml\Form\Field\ShippingMapping</frontend_model>
+            <config_path>payment/dotpay_main/shipping_mapping</config_path>
+            <comment><![CDATA[Describe each delivery option by shipping methods defined by Dotpay (for PayPo payments only)]]></comment>
         </field>
     </group>
 </include>

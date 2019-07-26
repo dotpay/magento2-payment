@@ -40,21 +40,28 @@ class OcFactory extends AbstractFactory
      * @param \Dotpay\Payment\Helper\Url                   $urlHelper
      * @param \Dotpay\Payment\Model\Method\AbstractAdapter $paymentAdapter
      * @param \Dotpay\Payment\Model\CreditCardFactory      $cardFactory
+     * @param \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface         $scopeConfig
      */
     public function __construct(\Magento\Customer\Model\Session $customerSession,
                                 \Magento\Checkout\Model\Session $checkoutSession,
                                 \Dotpay\Payment\Helper\Locale $localeHelper,
                                 \Dotpay\Payment\Helper\Url $urlHelper,
                                 \Dotpay\Payment\Model\Method\AbstractAdapter $paymentAdapter,
-                                \Dotpay\Payment\Model\CreditCardFactory $cardFactory
-                                ) {
+                                \Dotpay\Payment\Model\CreditCardFactory $cardFactory,
+                                \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
+                                \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+    )
+    {
         $this->cardFactory = $cardFactory;
         parent::__construct(
             $customerSession,
             $checkoutSession,
             $localeHelper,
             $urlHelper,
-            $paymentAdapter
+            $paymentAdapter,
+            $orderCollectionFactory,
+            $scopeConfig
         );
     }
 

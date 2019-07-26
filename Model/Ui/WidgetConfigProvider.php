@@ -67,6 +67,7 @@ class WidgetConfigProvider extends AbstractConfigProvider
             'request' => [
                 'test' => $this->getPaymentAdapter()->isTestMode(),
                 'hiddenChannels' => $this->configuration->getEnabledChannels(),
+                'widgetVisible' => $this->configuration->getWidgetVisible(),
             ],
         ];
 

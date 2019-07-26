@@ -10433,7 +10433,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 
 
 // module
-exports.push([module.i, ".dotpay-loader {\n    border: 7px solid #f3f3f3;\n    border-top: 7px solid #922224;\n    border-radius: 50%;\n    width: 30px;\n    height: 30px;\n    animation: spin 1.5s cubic-bezier(0.03, 0.17, 0.96, 0.87) infinite;\n    margin: 10px auto auto;\n}\n\n@keyframes spin {\n    0% { transform: rotate(0deg); }\n    100% { transform: rotate(360deg); }\n}\n\n.dotpay-widget-error {\n    background-color: #ffe7e7;\n    color: #990000;\n    border: 1px solid #990000;\n    padding: 10px;\n    font-size: 14px;\n    display: none;\n    margin-left: 2px;\n}\n\n.dotpay-widget-error.visible {\n    display: block;\n}\n\n.dotpay-channels-container {\n    -webkit-box-sizing: border-box;\n    -moz-box-sizing: border-box;\n    box-sizing: border-box;\n    display: none;\n}\n\n.dotpay-channel {\n    background: #f7f7f7;\n    border: 1px solid #dddddd;\n    cursor: pointer;\n    display: inline-block;\n    height: 85px;\n    position: relative;\n    margin: 2px;\n    min-width: 150px;\n}\n\n.dotpay-channel:hover {\n    background: #ffffff;\n    border: 1px solid #909a9a;\n    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n}\n\n.dotpay-channel.selected {\n    background: #d8d8d8;\n    border: 1px solid #515656 !important;\n}\n\n.dotpay-channel * {\n    cursor: pointer;\n}\n\n.dotpay-channel input {\n    display: none;\n}\n\n.dotpay-channel.inactive {\n    border: 1px solid #dddddd;\n}\n\n.dotpay-channel.inactive * {\n    opacity: 0.67;\n}\n\n.dotpay-channel.inactive.selected * {\n    opacity: 0.85 !important;\n}\n\n.dotpay-channel > .dotpay-information {\n    z-index: 99;\n    position: absolute;\n    top: 0;\n    color: #f5f5f5;\n    padding: 2px 5px;\n    text-align: center;\n    background-color: #222222;\n    opacity: 0.9;\n    width: 140px;\n    display: none;\n}\n\n.dotpay-channel .dotpay-logo-container {\n    display: block;\n    width: 100%;\n    text-align: center;\n    margin-top: 5px;\n}\n\n.dotpay-channel img {\n    width: 100px;\n}\n\n.dotpay-body-container {\n    width: 100%;\n    bottom: 8px;\n    left: 0;\n    font-size: 13px;\n    text-align: center !important;\n    position: absolute;\n    margin-top: 2px;\n    margin-bottom: 2px;\n    display: block !important;\n}\n\n.dotpay-main-chosen {\n    transition: .3s;\n}", ""]);
+exports.push([module.i, ".dotpay-loader {\n    border: 7px solid #f3f3f3;\n    border-top: 7px solid #922224;\n    border-radius: 50%;\n    width: 30px;\n    height: 30px;\n    animation: spin 1.5s cubic-bezier(0.03, 0.17, 0.96, 0.87) infinite;\n    margin: 10px auto auto;\n}\n\n@keyframes spin {\n    0% { transform: rotate(0deg); }\n    100% { transform: rotate(360deg); }\n}\n\n.dotpay-widget-error {\n    background-color: #ffe7e7;\n    color: #990000;\n    border: 1px solid #990000;\n    padding: 10px;\n    font-size: 14px;\n    display: none;\n    margin-left: 2px;\n}\n\n.dotpay-widget-error.visible {\n    display: block;\n}\n\n.dotpay-channels-container {\n    -webkit-box-sizing: border-box;\n    -moz-box-sizing: border-box;\n    box-sizing: border-box;\n    display: none;\n}\n\n.dotpay-channel {\n    background: #f7f7f7;\n    border: 1px solid #dddddd;\n    cursor: pointer;\n    display: inline-block;\n    height: 85px;\n    position: relative;\n    margin: 2px;\n    min-width: 150px;\n}\n\n.dotpay-channel:hover {\n    background: #ffffff;\n    border: 1px solid #909a9a;\n    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n}\n\n.dotpay-channel.selected {\n    background: #d8d8d8;\n    border: 1px solid #515656 !important;\n}\n\n.dotpay-channel * {\n    cursor: pointer;\n}\n\n.dotpay-channel input {\n    display: none;\n}\n\n.dotpay-channel.inactive {\n    border: 1px solid #dddddd;\n}\n\n.dotpay-channel.inactive * {\n    opacity: 0.67;\n}\n\n.dotpay-channel.inactive.selected * {\n    opacity: 0.85 !important;\n}\n\n.dotpay-channel > .dotpay-information {\n    z-index: 99;\n    position: absolute;\n    top: 0;\n    color: #f5f5f5;\n    padding: 2px 5px;\n    text-align: center;\n    background-color: #222222;\n    opacity: 0.9;\n    width: 140px;\n    display: none;\n}\n\n.dotpay-channel .dotpay-logo-container {\n    display: block;\n    width: 100%;\n    text-align: center;\n    margin-top: 18px;\n}\n\n.dotpay-channel img {\n    width: 100px;\n}\n\n.dotpay-body-container {\n    width: 100%;\n    bottom: 8px;\n    left: 0;\n    font-size: 13px;\n    text-align: center !important;\n    position: absolute;\n    margin-top: 2px;\n    margin-bottom: 2px;\n    display: block !important;\n}\n\n.dotpay-main-chosen {\n    transition: .3s;\n}", ""]);
 
 // exports
 
@@ -11186,15 +11186,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
             }
         }
         //channel logo
-        var logo = $(document.createElement('img')).attr('src', channel.logo);
-        var logoContainer = $(document.createElement('div')).addClass('dotpay-logo-container').append(logo);
+        var logo = $(document.createElement('img')).attr('src', channel.logo).attr('alt', channel.name);
+        var logoContainer = $(document.createElement('div')).addClass('dotpay-logo-container').attr('title', channel.name + " (" + channel.group_name + ")").append(logo);
         channelContainer.append(logoContainer);
         //channel body
         var bodyContainer = $(document.createElement('div')).addClass('dotpay-body-container')
-        var input = $(document.createElement('input')).attr('type', 'radio').attr('name', 'channel').attr('id', 'dotpay-channel-'+channel.id).val(channel.id);
+        var input = $(document.createElement('input')).attr('type', 'radio').attr('name', 'channel').attr('class' ,'required-entry').attr('id', 'dotpay-channel-'+channel.id).val(channel.id);
         bodyContainer.append(input);
-        var label = $(document.createElement('label')).attr('for', 'dotpay-channel-'+channel.id).html(channel.name);
-        bodyContainer.append(label);
+        //var label = $(document.createElement('label')).attr('for', 'dotpay-channel-'+channel.id).html(channel.name);
+        //bodyContainer.append(label);
         channelContainer.append(bodyContainer);
         return channelContainer;
     }
@@ -11260,12 +11260,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
             });
         },
         render: function(data) {
-            channels = data;
-            widgetContainer.append(renderChannels(data));
-            widgetContainer.find('.'+config.view.channelContainer).on('click', onClick);
-            widgetContainer.find('.'+config.view.channelContainer).on('mouseover', onOver);
-            widgetContainer.find('.'+config.view.channelContainer).on('mouseout', onOut);
-            widgetContainer.find('.dotpay-channels-container').fadeIn();
+        	if(window.checkoutConfig.payment.dotpay_widget.widgetConfig.request.widgetVisible) {
+				channels = data;
+				widgetContainer.append(renderChannels(data));
+				widgetContainer.find('.' + config.view.channelContainer).on('click', onClick);
+				widgetContainer.find('.' + config.view.channelContainer).on('mouseover', onOver);
+				widgetContainer.find('.' + config.view.channelContainer).on('mouseout', onOut);
+				widgetContainer.find('.dotpay-channels-container').fadeIn();
+			}
         },
         renderOther: function(data) {
             var channelsAll = data;

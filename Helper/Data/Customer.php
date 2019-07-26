@@ -180,4 +180,90 @@ class Customer implements CustomerProviderInterface
         && $this->getCountry() !== ''
         && $this->getPhone() !== '';
     }
+
+    /**
+     * Return date of user registration
+     *
+     * @return \DateTime|null
+     */
+    public function getRegisteredSince()
+    {
+        if($this->customer)
+        {
+            return new \DateTime("@".$this->customer->getCreatedAtTimestamp());
+        }
+        return null;
+    }
+
+    /**
+     * Return number of user's orders
+     *
+     * @return int
+     */
+    public function getOrderCount()
+    {
+        // TODO: Implement getOrderCount() method.
+    }
+
+    /**
+     * Return chosen type of delivery
+     *
+     * @return string|null
+     */
+    public function getDeliveryType()
+    {
+        // TODO: Implement getDeliveryType() method.
+    }
+
+    /**
+     * Return a shipping street name of the customer.
+     *
+     * @return string
+     */
+    public function getShippingStreet()
+    {
+        // TODO: Implement getShippingStreet() method.
+    }
+
+    /**
+     * Return a shipping building number of the customer.
+     *
+     * @return string
+     */
+    public function getShippingBuildingNumber()
+    {
+        // TODO: Implement getShippingBuildingNumber() method.
+    }
+
+    /**
+     * Return a shipping post code of the customer.
+     *
+     * @return string
+     */
+    public function getShippingPostCode()
+    {
+        // TODO: Implement getShippingPostCode() method.
+    }
+
+    /**
+     * Return a shipping city of the customer.
+     *
+     * @return string
+     */
+    public function getShippingCity()
+    {
+        // TODO: Implement getShippingCity() method.
+    }
+
+    /**
+     * Return a shipping country of the customer.
+     *
+     * @return string
+     */
+    public function getShippingCountry()
+    {
+        // TODO: Implement getShippingCountry() method.
+    }
+
+
 }

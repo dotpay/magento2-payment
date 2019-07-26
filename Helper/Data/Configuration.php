@@ -154,6 +154,21 @@ class Configuration implements ConfigurationProviderInterface
         return $this->getData('payment/dotpay_main/status_duplicated');
     }
 
+    public function getStatusRefunded()
+    {
+        return $this->getData('payment/dotpay_main/status_refunded');
+    }
+
+    public function getStatusRefundFailed()
+    {
+        return $this->getData('payment/dotpay_main/status_refund_failed');
+    }
+
+    public function getStatusRefundNew()
+    {
+        return $this->getData('payment/dotpay_main/status_refund_new');
+    }
+
     public function getOcVisible()
     {
         return $this->getData('payment/dotpay_oc/active');
@@ -237,6 +252,16 @@ class Configuration implements ConfigurationProviderInterface
     public function getWidgetCurrencies()
     {
         return $this->getData('payment/dotpay_widget/disable_currencies');
+    }
+
+    public function getInvoiceOnConfirm()
+    {
+        return (bool) $this->getData('payment/dotpay_main/invoice_on_confirm');
+    }
+
+    public function getShippingMapping()
+    {
+        return $this->getData('payment/dotpay_main/shipping_mapping');
     }
 
     /**

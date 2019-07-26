@@ -18,6 +18,7 @@
 
 namespace Dotpay\Payment\Model\Factory;
 
+use Dotpay\Model\CustomerAdditionalData;
 use Dotpay\Model\Seller;
 use Dotpay\Model\Customer;
 use Dotpay\Model\Payment;
@@ -58,25 +59,41 @@ abstract class AbstractFactory
     protected $paymentAdapter;
 
     /**
+     * @var \Magento\Sales\Model\ResourceModel\Order\CollectionFactory Order collection factory
+     */
+    protected $orderCollectionFactory;
+
+    /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface Scope config
+     */
+    protected $scopeConfig;
+
+    /**
      * Initialize the factory.
      *
-     * @param \Magento\Customer\Model\Session              $customerSession
-     * @param \Magento\Checkout\Model\Session              $checkoutSession
-     * @param \Dotpay\Payment\Helper\Locale                $localeHelper
-     * @param \Dotpay\Payment\Helper\Url                   $urlHelper
-     * @param \Dotpay\Payment\Model\Method\AbstractAdapter $paymentAdapter
+     * @param \Magento\Customer\Model\Session                            $customerSession
+     * @param \Magento\Checkout\Model\Session                            $checkoutSession
+     * @param \Dotpay\Payment\Helper\Locale                              $localeHelper
+     * @param \Dotpay\Payment\Helper\Url                                 $urlHelper
+     * @param \Dotpay\Payment\Model\Method\AbstractAdapter               $paymentAdapter
+     * @param \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface         $scopeConfig
      */
     public function __construct(\Magento\Customer\Model\Session $customerSession,
                                 \Magento\Checkout\Model\Session $checkoutSession,
                                 \Dotpay\Payment\Helper\Locale $localeHelper,
                                 \Dotpay\Payment\Helper\Url $urlHelper,
-                                \Dotpay\Payment\Model\Method\AbstractAdapter $paymentAdapter)
+                                \Dotpay\Payment\Model\Method\AbstractAdapter $paymentAdapter,
+                                \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
+                                \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig)
     {
         $this->customerSession = $customerSession;
         $this->checkoutSession = $checkoutSession;
         $this->localeHeper = $localeHelper;
         $this->urlHelper = $urlHelper;
         $this->paymentAdapter = $paymentAdapter;
+        $this->orderCollectionFactory = $orderCollectionFactory;
+        $this->scopeConfig = $scopeConfig;
     }
 
     /**
@@ -163,6 +180,110 @@ abstract class AbstractFactory
     protected function getCountry()
     {
         return strtoupper($this->checkoutSession->getLastRealOrder()->getBillingAddress()->getCountryId());
+    }
+
+    /**
+     * Return street from shipping address of customer.
+     *
+     * @return string
+     */
+    protected function getShippingStreet()
+    {
+        $streetOriginal = $this->checkoutSession->getLastRealOrder()->getShippingAddress()->getStreet();
+        $streetData = is_array($streetOriginal) ? implode(' ', $streetOriginal) : $streetOriginal;
+
+        return $streetData;
+    }
+
+    /**
+     * Return post code from address of customer.
+     *
+     * @return string
+     */
+    protected function getShippingPostcode()
+    {
+        return $this->checkoutSession->getLastRealOrder()->getShippingAddress()->getPostcode();
+    }
+
+    /**
+     * Return city from address of customer.
+     *
+     * @return string
+     */
+    protected function getShippingCity()
+    {
+        $formatter = new \Dotpay\Tool\StringFormatter\Name();
+        return $formatter->format($this->checkoutSession->getLastRealOrder()->getShippingAddress()->getCity());
+    }
+
+    /**
+     * Return country from address of customer.
+     *
+     * @return string
+     */
+    protected function getShippingCountry()
+    {
+        return strtoupper($this->checkoutSession->getLastRealOrder()->getShippingAddress()->getCountryId());
+    }
+
+    /**
+     * Return date of user's registration
+     *
+     * @return \DateTime
+     */
+    protected function getRegisteredSince()
+    {
+        $customer = $this->customerSession->getCustomer();
+        if($customer->getId())
+        {
+            return new \DateTime("@".$customer->getCreatedAtTimestamp());
+        }
+        return null;
+    }
+
+    /**
+     * Return number of orders
+     *
+     * @return int
+     */
+    protected function getOrderCount()
+    {
+        $customer = $this->customerSession->getCustomer();
+        if($customer->getId())
+        {
+            $orders = $this->orderCollectionFactory->create()->addFieldToSelect(
+                '*'
+            )->addFieldToFilter(
+                'customer_id',
+                $customer->getId()
+            )->setOrder(
+                'created_at',
+                'desc'
+            );
+            return count($orders);
+        }
+        return 0;
+    }
+
+    /**
+     * Return delivary type
+     *
+     * @return int
+     */
+    protected function getDeliveryType()
+    {
+        $mapping = json_decode(
+            $this->scopeConfig->getValue(
+                'payment/dotpay_main/shipping_mapping',
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+            ),
+            true
+        );
+
+        $code = $this->checkoutSession->getLastRealOrder()->getShippingMethod(true)->getData('method');
+
+        return isset($mapping[$code]) ? $mapping[$code] : null;
+
     }
 
     /**
@@ -258,6 +379,7 @@ abstract class AbstractFactory
                  ->setPhone($this->getPhone())
                  ->setLanguage($this->getLanguage());
 
+
         return  $customer;
     }
 
@@ -276,6 +398,32 @@ abstract class AbstractFactory
     }
 
     /**
+     * Return SDK customer additional data object
+     *
+     * @return CustomerAdditionalData
+     */
+    public function getCustomerAdditionalData()
+    {
+        $customerAdditionaData = new CustomerAdditionalData(
+            $this->getEmail(),
+            $this->getFirstname(),
+            $this->getLastname()
+        );
+
+        $customerAdditionaData
+            ->setStreet($this->getShippingStreet())
+            ->setPostCode($this->getShippingPostcode())
+            ->setCity($this->getShippingCity())
+            ->setCountry($this->getShippingCountry())
+            ->setPhone($this->getPhone())
+            ->setRegisteredSince($this->getRegisteredSince())
+            ->setOrderCount($this->getOrderCount())
+            ->setDeliveryType($this->getDeliveryType());
+
+        return $customerAdditionaData;
+    }
+
+    /**
      * Return SDK transaction object.
      *
      * @return Transaction
@@ -287,7 +435,7 @@ abstract class AbstractFactory
                         $this->urlHelper->getBackUrl($this->paymentAdapter->getBackUrl())
                     )->setConfirmUrl(
                         $this->urlHelper->getNotificationUrl($this->paymentAdapter->getConfirmUrl())
-                    );
+                    )->setCustomerAdditionalData($this->getCustomerAdditionalData());
 
         return $transaction;
     }

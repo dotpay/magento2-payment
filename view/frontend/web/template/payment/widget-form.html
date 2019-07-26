@@ -33,8 +33,8 @@
         </label>
     </div>
     <div class="payment-method-content">
-        
-        <div class="dotpay-widget-container"></div>
+
+        <div class="dotpay-widget-container control"></div>
         
         <div class="dotpay-agreements" data-bind="foreach: { data: getAgreements(), as: 'agreement' }">
             <label><input data-bind="attr: {'type': agreement.name == 'personal_data' ? 'hidden' : 'checkbox', 'required': agreement.required, 'name': agreement.name, 'class': $parent.methodName}, event:{change: $parent.validateAgreements}, value: 1, checked: true"><span data-bind="html: agreement.description_html"></span></label>

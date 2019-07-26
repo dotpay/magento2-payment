@@ -32,7 +32,7 @@ class WidgetAdapter extends AbstractAdapter
      */
     public function isActive($storeId = null)
     {
-        return (bool) $this->isMainActive($storeId) && $this->getVisible();
+        return (bool) $this->isMainActive($storeId);// && $this->getVisible();
     }
 
     /**
@@ -85,7 +85,7 @@ class WidgetAdapter extends AbstractAdapter
     public function getConfiguration()
     {
         $config = parent::getConfiguration();
-        $config->setWidgetVisible($this->isActive())
+        $config->setWidgetVisible($this->getVisible())
                ->setWidgetCurrencies($this->getDisableCurrencies());
 
         return $config;

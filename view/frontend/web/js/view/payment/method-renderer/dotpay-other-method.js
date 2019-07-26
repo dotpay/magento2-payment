@@ -30,7 +30,25 @@ define(
         checkoutData,
     ) {
         'use strict';
-        var selectedChannel;
+        var selectedChannel, dotpayComponent;
+
+        var widgetConfig = window.checkoutConfig.payment.dotpay_widget.widgetConfig;
+        widgetConfig.event = {
+            'onChoose': function(e) {
+                selectedChannel = e.channel.id;
+                dotpayComponent.correctFields(true);
+            }
+        };
+        var counter = 0;
+        var load = function() {
+            if($('.dotpay-other-channel').length && !$('.dotpay-widget-container').length) {
+                window.dotpayWidget.init(widgetConfig);
+                return true;
+            } else {
+                ++counter;
+                return false;
+            }
+        };
 
         return Component.extend({
             defaults: {
@@ -45,6 +63,16 @@ define(
 
                 return true;
 
+            },
+            initialize: function () {
+                this._super();
+                var interval;
+                interval = setInterval(function(){
+                    if(load() === true || counter > 10) {//timeout
+                        clearInterval(interval);
+                    }
+                }, 300);
+                dotpayComponent = this;
             },
             getData: function() {
                 return {
