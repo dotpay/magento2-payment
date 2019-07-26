@@ -15,9 +15,9 @@
         "magento/module-directory": ">=100.1",
         "magento/framework": ">=100.1",
         "magento/magento2-base": ">=2.3",
-        "dotpay/PHP-SDK": ">=1.0.15"
+        "dotpay/PHP-SDK": ">=1.0.16"
     },
-    "homepage": "www.dotpay.pl",
+    "homepage": "https://www.dotpay.pl",
     "type": "magento2-module",
     "version": "1.0.14",
     "license": [ "GPL-3.0" ],
