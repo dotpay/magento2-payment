@@ -189,7 +189,8 @@ abstract class AbstractFactory
      */
     protected function getShippingStreet()
     {
-        $streetOriginal = $this->checkoutSession->getLastRealOrder()->getShippingAddress()->getStreet();
+
+        $streetOriginal = $this->checkoutSession->getLastRealOrder()->getShippingAddress() ? $this->checkoutSession->getLastRealOrder()->getShippingAddress()->getStreet() : null;
         $streetData = is_array($streetOriginal) ? implode(' ', $streetOriginal) : $streetOriginal;
 
         return $streetData;
@@ -202,7 +203,7 @@ abstract class AbstractFactory
      */
     protected function getShippingPostcode()
     {
-        return $this->checkoutSession->getLastRealOrder()->getShippingAddress()->getPostcode();
+        return $this->checkoutSession->getLastRealOrder()->getShippingAddress() ? $this->checkoutSession->getLastRealOrder()->getShippingAddress()->getPostcode() : null;
     }
 
     /**
@@ -213,7 +214,7 @@ abstract class AbstractFactory
     protected function getShippingCity()
     {
         $formatter = new \Dotpay\Tool\StringFormatter\Name();
-        return $formatter->format($this->checkoutSession->getLastRealOrder()->getShippingAddress()->getCity());
+        return $this->checkoutSession->getLastRealOrder()->getShippingAddress() ? $formatter->format($this->checkoutSession->getLastRealOrder()->getShippingAddress()->getCity()) : null;
     }
 
     /**
@@ -223,7 +224,7 @@ abstract class AbstractFactory
      */
     protected function getShippingCountry()
     {
-        return strtoupper($this->checkoutSession->getLastRealOrder()->getShippingAddress()->getCountryId());
+        return $this->checkoutSession->getLastRealOrder()->getShippingAddress() ? strtoupper($this->checkoutSession->getLastRealOrder()->getShippingAddress()->getCountryId()) : null;
     }
 
     /**
@@ -280,7 +281,7 @@ abstract class AbstractFactory
             true
         );
 
-        $code = $this->checkoutSession->getLastRealOrder()->getShippingMethod(true)->getData('method');
+        $code = $this->checkoutSession->getLastRealOrder()->getShippingAdress() ? $this->checkoutSession->getLastRealOrder()->getShippingMethod(true)->getData('method') : false;
 
         return isset($mapping[$code]) ? $mapping[$code] : null;
 
