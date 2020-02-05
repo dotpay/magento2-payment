@@ -152,8 +152,12 @@ class Customer implements CustomerProviderInterface
      */
     public function getPhone()
     {
-        //return "";
-        return $this->order->getShippingAddress()->getTelephone();
+        $phone = '';
+        if ($this->order->getShippingAddress() !== null) {
+            $phone = $this->order->getShippingAddress()->getTelephone();
+        }
+
+        return $phone;
     }
 
     /**
