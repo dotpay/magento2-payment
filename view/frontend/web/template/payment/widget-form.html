@@ -20,6 +20,44 @@
             img.payment-icon {
                 height:44px;
             }
+            .dotpay-chosen-container {
+                text-align:center;
+            }
+           .dotpay-channels-container {
+                text-align:center;
+                padding-top: 5px;
+            }
+            .diffchannel{
+                font-size:0.9em;
+                text-align:center;
+                color:#2f2f97;
+                padding:20px;
+                border-radius:3px;
+                display: none;
+            }
+            .selectedchannel{
+               text-align:center;
+               font-size:1.2em;
+               color:#3a3a3a;
+               padding:5px;
+               display: none;
+            }
+            .availablechannels{
+                font-size: 0.9em;
+                text-align:center;
+                padding-top: 5px;
+                color: gray;
+            }
+            .dotpay-agreements{
+                padding-top: 20px;
+            }
+            .selectedchannel{
+                font-size: 1em;
+            }
+            .selectedChannelName{
+                font-size: 1em;
+                color: #8c3535;
+            }
         </style>
         <input type="radio"
                name="payment[method]"
@@ -33,9 +71,10 @@
         </label>
     </div>
     <div class="payment-method-content">
-
+        <div class="selectedchannel" data-bind="text: $t('Selected: ')"></div>
+        <div class="availablechannels" data-bind="text: $t('Choose one of the available payment methods:')"></div>
         <div class="dotpay-widget-container control"></div>
-        
+        <div class="diffchannel" data-bind="text: $t('To select different channel click the above icon.')"></div>
         <div class="dotpay-agreements" data-bind="foreach: { data: getAgreements(), as: 'agreement' }">
             <label><input data-bind="attr: {'type': agreement.name == 'personal_data' ? 'hidden' : 'checkbox', 'required': agreement.required, 'name': agreement.name, 'class': $parent.methodName}, event:{change: $parent.validateAgreements}, value: 1, checked: true"><span data-bind="html: agreement.description_html"></span></label>
         </div>

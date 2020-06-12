@@ -10986,14 +10986,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
         return {
             payment: {
                 sellerId: null,
-                amount: 1000.00,
+                amount: 321.00,
                 currency: 'PLN',
                 lang: 'pl'
             },
             request: {
                 host: null,
                 test: false,
-                disabled: 'mark',
+                disabled: 'hide',
                 hiddenChannels: [],
                 groups: null
             },
@@ -11186,23 +11186,27 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
             }
         }
         //channel logo
-        var logo = $(document.createElement('img')).attr('src', channel.logo).attr('alt', channel.name);
-        var logoContainer = $(document.createElement('div')).addClass('dotpay-logo-container').attr('title', channel.name + " (" + channel.group_name + ")").append(logo);
+		var logo = $(document.createElement('img')).attr('src', channel.logo).attr('alt', channel.name);
+		if(channel.name == channel.group_name) {
+			var logoContainer = $(document.createElement('div')).addClass('dotpay-logo-container').attr('title', channel.name ).append(logo);
+		}else{
+			var logoContainer = $(document.createElement('div')).addClass('dotpay-logo-container').attr('title', channel.name + " (" + channel.group_name + ")").append(logo);
+		}
         channelContainer.append(logoContainer);
         //channel body
-        var bodyContainer = $(document.createElement('div')).addClass('dotpay-body-container')
+        var bodyContainer = $(document.createElement('div')).addClass('dotpay-body-container');
         var input = $(document.createElement('input')).attr('type', 'radio').attr('name', 'channel').attr('class' ,'required-entry').attr('id', 'dotpay-channel-'+channel.id).val(channel.id);
         bodyContainer.append(input);
         //var label = $(document.createElement('label')).attr('for', 'dotpay-channel-'+channel.id).html(channel.name);
         //bodyContainer.append(label);
-        channelContainer.append(bodyContainer);
+		channelContainer.append(bodyContainer);
         return channelContainer;
     }
     function renderChannels(channels) {
         var container = $(document.createElement('div')).addClass('dotpay-channels-container');
         for(var key in channels) {
             container.append(renderOneChannel(channels[key], key));
-        }
+		}
         return container;
     }
     function onOver(e) {
@@ -11211,22 +11215,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
     }
     function onOut(e) {
         e.preventDefault();
-        $(e.currentTarget).find('.dotpay-information').hide();
+		$(e.currentTarget).find('.dotpay-information').hide();
     }
     function onChosenToggle(e) {
-        var objects = $('.'+config.view.channelContainer).not('.dotpay-main-chosen');
+		var objects = $('.'+config.view.channelContainer).not('.dotpay-main-chosen');
+		if ($("div.dotpay-channels-container > div.dotpay-channel.selected").css('display') == 'none' ){
+			$('div.availablechannels').show();
+		}else{
+			$('div.dotpay-channels-container > div.availablechannels').hide();
+		}
+
         if(config.view.toggleStyle === 'fade') {
-            objects.fadeToggle();
+			objects.fadeToggle();
         } else {
-            objects.slideToggle();
-        }
+			objects.slideToggle();
+		}
+		$('div.selectedchannel').hide();
+		$('div.diffchannel').hide();
     }
     function copyChannelContainer(originalContainer) {
         var container = $(originalContainer).clone();
         container.find('.dotpay-information').remove();
         container.removeClass('inactive');
         container.addClass('dotpay-main-chosen');
-        container.on('click', onChosenToggle);
+		container.on('click', onChosenToggle);
         return container;
     }
     function onClick(e) {
@@ -11234,9 +11246,24 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
         widgetContainer.find('.'+config.view.channelContainer).removeClass('selected');
         $(e.currentTarget).addClass('selected').find('input').prop('checked', true);
         selected = e.channel = channels[parseInt($(e.currentTarget).attr('data-key'))];
-        $('.'+config.view.chosenContainer).html('').append(copyChannelContainer(e.currentTarget));
-        onChosenToggle(e);
-        config.event.onChoose(e);
+		$('.'+config.view.chosenContainer).html('').append(copyChannelContainer(e.currentTarget));
+		onChosenToggle(e);
+		config.event.onChoose(e);
+		$('div.selectedchannel').show();
+		if($('.selectedChannelName').length < 1){
+			$( "<span class=\"selectedChannelName\"></span>" ).appendTo( ".selectedchannel" );	
+		} else{
+			$('.selectedChannelName').text('');
+		}
+		
+		$('.selectedChannelName').text($('div.dotpay-channel.selected.dotpay-main-chosen > div.dotpay-logo-container').attr("title"));	
+		if( $('div.dotpay-channels-container > div.dotpay-channel').length >1)
+		{ 
+			$('div.diffchannel').show();
+		}	
+
+		$('div.availablechannels').hide();
+		
     }
     return {
         init: function(env) {
@@ -11247,7 +11274,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
             widgetContainer.append(errorMessage);
             //append container for chosen channel
             var chosenChannel = $(document.createElement('div')).addClass(config.view.chosenContainer);
-            widgetContainer.append(chosenChannel);
+			widgetContainer.append(chosenChannel);
             return widgetContainer;
         },
         showLoader: function() {
@@ -11267,6 +11294,49 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 				widgetContainer.find('.' + config.view.channelContainer).on('mouseover', onOver);
 				widgetContainer.find('.' + config.view.channelContainer).on('mouseout', onOut);
 				widgetContainer.find('.dotpay-channels-container').fadeIn();
+				if( $('div.dotpay-channels-container').length > 0){
+					$('div.selectedchannel').hide();
+					$('div.diffchannel').hide();
+				}
+
+				if( $('div.dotpay-channels-container > div.dotpay-channel').length == 1)
+				{  
+					$('div.dotpay-channels-container > div.dotpay-channel').trigger('click');
+					$('div.diffchannel').hide();
+					$('div.dotpay-chosen-container').css('text-align','center');
+					console.log('%cThe only one available channel is selected','background: #cfcfcf; color: green;');
+				}
+				
+				if($('div.dotpay-channel.selected.dotpay-main-chosen').length > 0 && $('div.dotpay-channels-container > div.dotpay-channel.selected').length > 0){
+					$('div.dotpay-channels-container > div.dotpay-channel.selected').remove();
+				}
+
+
+						$("div.dotpay-chosen-container").on("click", function() {
+							if(widgetContainer.find('.dotpay-channel.selected').css('display') == 'none' ){
+								$('div.selectedchannel').hide();
+								$('div.payment-method-content > div.availablechannels').hide();
+							}else{
+								$('div.selectedchannel').show();
+								if (jQuery("div.diffchannel").css('display') === 'none' ) { 
+									if( $('div.dotpay-channels-container > div.dotpay-channel').length >1)
+									{ 
+										$('div.diffchannel').show();
+									}	
+									$( "div.availablechannels" ).prependTo( $( ".dotpay-channels-container" ) );
+									$('.availablechannels').css({'padding-bottom': '10px', 'padding-top': '25px','text-decoration-line': 'overline'});
+								}else {
+									$('div.availablechannels').hide();
+								}
+							}
+			
+						});
+			
+			}else{
+				$('div.availablechannels').hide();
+				$('div.selectedchannel').hide();
+				$('div.diffchannel').hide();
+				console.log('%cThe Dopay Widget is disabled in the module configuration.','background: #cfcfcf; color: black;');
 			}
         },
         renderOther: function(data) {
@@ -11289,7 +11359,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
                 else {
                     $(this).remove();
                 }
-            });
+			});	
+
+
 			$("input[type='radio']").on("click", function() {
 				var current = $(this).val();
 				console.log(current);
