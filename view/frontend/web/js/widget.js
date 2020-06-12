@@ -11318,7 +11318,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 								$('div.payment-method-content > div.availablechannels').hide();
 							}else{
 								$('div.selectedchannel').show();
-								if ($("div.diffchannel").css('display') === 'none' ) { 
+								if (jQuery("div.diffchannel").css('display') === 'none' ) { 
 									if( $('div.dotpay-channels-container > div.dotpay-channel').length >1)
 									{ 
 										$('div.diffchannel').show();
