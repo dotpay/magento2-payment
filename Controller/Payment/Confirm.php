@@ -181,7 +181,7 @@ class Confirm extends Dotpay implements CsrfAwareActionInterface
         else
         {
             $dbCard = $this->loadCardFromDb($this->notification->getOperation()->getControl());
-            if(!$dbCard->getMask())
+            if($dbCard && !$dbCard->getMask())
             {
                 $dbCard->delete();
             }
