@@ -133,6 +133,28 @@ class Notification implements NotificationProviderInterface
         return $this->request->getParam('geoip_country');
     }
 
+
+    /**
+     * Return a code for a rejected transaction that describes the possible reason for a transaction being refused (Optional parameter)
+     *
+     * @return string
+     */
+    public function getSellerCode()
+    {
+        return $this->request->getParam('operation_seller_code');
+    }
+
+    /**
+     * Return a contrtol param from Dotpay notification
+     *
+     * @return string
+     */
+    public function getControlNot()
+    {
+        return $this->request->getParam('control');
+    }
+    
+
     /**
      * Return a checksum of a Dotpay notification.
      *

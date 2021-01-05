@@ -212,6 +212,41 @@ class AbstractAdapter extends PaymentAdapter
         return (bool) $this->getConfiguredMainValue('test', $storeId);
     }
 
+
+    /**
+     * Return an information where the name of the seller is to be retrieved from
+     * 
+     * available: 
+     * storeinfo: Store Information
+     * general: General Contact
+     * customer: Customer Support
+     * empty: Settings from the Dotpay panel [don't send the name]
+     * 
+     * @return string
+     */
+    public function storeNameFrom($storeId = null)
+    {
+        return (string) $this->getConfiguredMainValue('shop_name', $storeId);
+    }
+
+
+    /**
+     * Return an information where the email of the seller is to be retrieved from
+     * 
+     * available: 
+     * storeinfo: Store Information
+     * general: General Contact
+     * customer: Customer Support
+     * empty: Settings from the Dotpay panel [don't send the email]
+     * 
+     * @return string
+     */
+    public function storeEmailFrom($storeId = null)
+    {
+        return (string) $this->getConfiguredMainValue('shop_email', $storeId);
+    }
+
+
     /**
      * Return an information if instruction of completing payments is displayed in the shop site.
      *
@@ -223,6 +258,20 @@ class AbstractAdapter extends PaymentAdapter
     {
         return (bool) $this->getConfiguredMainValue('instruction', $storeId);
     }
+
+    /**
+     * Return an information if Control field with additional information
+     *
+     * @param int/null $storeId Id of the store
+     *
+     * @return boolean
+     */
+    public function getControlDefault($storeId = null)
+    {
+        return (bool) $this->getConfiguredMainValue('control_type', $storeId);
+    }
+
+  
 
     /**
      * Return an information if payment channel logo is displayed in checkout page.
@@ -370,11 +419,54 @@ class AbstractAdapter extends PaymentAdapter
      * @return string
      */
     protected function getShopName()
+    {   
+        $From = $this->storeNameFrom();
+
+        if($From == 'storeinfo'){ // for Store Information
+            $ShopName = $this->scopeConfig->getValue('general/store_information/name',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        }else if($From == 'general'){ // for General Contact Scope
+            $ShopName = $this->scopeConfig->getValue('trans_email/ident_general/name',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        }else if($From == 'customer'){ // for Customer Support
+            $ShopName = $this->scopeConfig->getValue('trans_email/ident_support/name',\Magento\Store\Model\ScopeInterface::SCOPE_STORE); 
+        }else{
+            $ShopName = "";
+        }
+        $Shop_name = trim(preg_replace('/[^\p{L}0-9\s\"\/\\:\.\$\+!#\^\?\-_@]/u','',$ShopName));
+
+        if(strlen($Shop_name) > 300) {
+            $Shop_name = substr($Shop_name,0,290)." _";
+        }  
+        
+        return  $Shop_name;
+
+    }
+
+    
+    /**
+     * Return a email of the shop set in configuration.
+     *
+     * @return string
+     */
+    protected function getShopEmail() 
     {
-        return $this->scopeConfig->getValue(
-            'general/store_information/name',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
+
+        $From = $this->storeEmailFrom();
+
+        if($From == 'general'){ // for General Contact Scope
+            $ShopEmail = $this->scopeConfig->getValue('trans_email/ident_general/email',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        }else if($From == 'customer'){ // for Customer Support
+            $ShopEmail = $this->scopeConfig->getValue('trans_email/ident_support/email',\Magento\Store\Model\ScopeInterface::SCOPE_STORE); 
+        }else{
+            $ShopEmail = "";
+        }
+
+        $Shop_email = trim(preg_replace('/[^\p{L}0-9\s\"\/\\:\.\$\+!#\^\?\-_@]/u','',$ShopEmail));
+
+       if(strlen($Shop_email) > 100) {
+            $Shop_email = "";
+        }  
+
+        return $Shop_email;
     }
 
     /**
@@ -392,7 +484,11 @@ class AbstractAdapter extends PaymentAdapter
                ->setPassword($this->getSellerPassword())
                ->setTestMode($this->isTestMode())
                ->setInstructionVisible($this->isInstructionAvailable())
-               ->setShopName($this->getShopName());
+               ->setControlDefault($this->getControlDefault())
+               ->setShopName($this->getShopName())
+               ->setStoreName($this->storeNameFrom())
+               ->setStoreName($this->storeEmailFrom())
+               ->setShopEmail($this->getShopEmail());
 
         return $config;
     }

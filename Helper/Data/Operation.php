@@ -176,9 +176,44 @@ class Operation implements OperationProviderInterface
      *
      * @return mixed
      */
-    public function getControl()
+    public function getControl($OnlyNumber = null)
     {
-        return $this->request->getParam('control');
+        
+        $control = null;
+
+        if($OnlyNumber != null){
+
+             $control = $this->request->getParam('control');
+
+        }else{
+            
+            $controlorg = $this->request->getParam('control');
+
+            $reg_control = '/tr_id:#(\d+)\|Magento:/m';
+            preg_match_all($reg_control, $controlorg, $matches_control, PREG_SET_ORDER, 0);
+
+            if(count($matches_control) == 1 && (isset($matches_control[0][1]) && (int)$matches_control[0][1] >0))
+            {
+        
+                $controlNr =  (int)$matches_control[0][1];
+            }else {
+    
+                $controlNr1 = explode('|', $controlorg);
+                $controlNr2 = explode('tr_id:#', $controlNr1[0]);
+                if(count($controlNr2) >1) {
+                    $controlNr = $controlNr2[1];
+                }else{
+                    $controlNr = $controlNr2[0];
+                }
+                
+            }
+    
+                 $control = (int)trim(str_replace('tr_id:#', '', $controlNr));
+
+        }
+
+        return  $control;
+
     }
 
     /**
@@ -200,4 +235,7 @@ class Operation implements OperationProviderInterface
     {
         return $this->request->getParam('email');
     }
+
+
+
 }

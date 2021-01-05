@@ -12,7 +12,7 @@
     </tr>
     <?php foreach ($block->getPageData('cards') as $card): ?>
     <tr> 
-        <td><img class="dotpay-card-brand-logo" src="<?php echo $card->getBrand()->getLogo(); ?>" /></td>
+        <td><img class="dotpay-card-brand-logo" src="<?php if($card->getBrand()->getLogo()) { echo $card->getBrand()->getLogo(); } ?>" /></td>
         <td><?php echo $card->getBrand()->getName(); ?></td>
         <td class="dotpay-card-mask"><?php echo $card->getMask(); ?></td>
         <td><?php echo $card->getRegisterDate(); ?></td>

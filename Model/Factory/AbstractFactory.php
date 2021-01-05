@@ -351,7 +351,7 @@ abstract class AbstractFactory
         return __('Order ID: %1', $AllOrderIds);
         // return __('Order ID: %1', $this->checkoutSession->getLastRealOrder()->getRealOrderId());
     }
-
+    
     /**
      * Return SDK seller object.
      *

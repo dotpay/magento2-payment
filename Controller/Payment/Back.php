@@ -32,19 +32,82 @@ class Back extends Dotpay implements CsrfAwareActionInterface
     /**
      * Execute action of the controller.
      */
-    public function execute()
+ 
+ 
+     
+     public function execute()
     {
         $pageData = [];
         $backProcessor = new BackProcessor($this->_request->getParam('error_code'));
+
+
+
         try {
             $backProcessor->execute();
+            
             $orderId = $this->checkoutSession->getLastRealOrder()->getId();
-            if ($orderId == null) {
-                throw new \RuntimeException(__('The payment has not been found. Please contact to the seller.'));
+            $RealOrderId = $this->checkoutSession->getLastRealOrder()->getRealOrderId();
+
+            // for payment link
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();  
+            $request = $objectManager->get('Magento\Framework\App\Request\Http');  
+            $get_status_back = $request->getParam('status');
+            $get_order_id_back_tmp = $request->getParam('DpOrderId');
+            
+            //remove unnecessary stuff masking real data
+            $get_order_id_back = substr($get_order_id_back_tmp, 6, 8).substr($get_order_id_back_tmp, 19, -7).'==';
+
+            // get id order from back link (schema: '#160#000000160#1608539078')    
+            $oderid_decode = base64_decode($get_order_id_back);
+
+            $oderid_decode= explode('#',$oderid_decode);
+   
+            if (isset($oderid_decode[1])) {
+                $oderid_back = (int)$oderid_decode[1];
+            }else{
+                $oderid_back = null;
             }
-            $pageData['order_id'] = $orderId;
-            $pageData['order_id_show'] = $this->checkoutSession->getLastRealOrder()->getRealOrderId()."/".$orderId;
+            
+            if (isset($oderid_decode[2])) {
+                $oderid_back_nr = (string)$oderid_decode[2];
+            }else{
+                $oderid_back_nr = null;
+            }
+            
+
+            if ($orderId == null && $oderid_back == null ) 
+            {
+                    $pageData['order_id_back'] = null;
+                    $pageData['order_id_back_nr'] = null;
+                    $pageData['order_id'] = null;
+                    $orderIdN = null;
+
+                throw new \RuntimeException(__('The payment has not been found. Please contact to the seller.'));
+
+            }elseif ($orderId == null && $oderid_back != null && $get_status_back != null) {
+
+                    $pageData['order_id_back'] = $oderid_back;
+                    $pageData['order_id_back_nr'] = $oderid_back_nr;
+                    $pageData['order_id'] = $oderid_back;
+                    $orderIdN = $oderid_back;
+
+
+            }else{
+                    $pageData['order_id'] = $orderId;
+                    $pageData['order_id_back'] = null;
+                    $pageData['order_id_back_nr'] = null;
+                    $orderIdN = $orderId;
+            }
+            
+
+            if($RealOrderId != null){
+                $pageData['order_id_show'] = $RealOrderId."/".$orderIdN;
+            }else{
+                $pageData['order_id_show'] = $orderIdN."/".$oderid_back_nr;
+            }
+            
             $pageData['target_url'] = $this->urlHelper->getStatusUrl();
+
             if ($this->customerSession->isLoggedIn()) {
                 $pageData['redirect_url'] = $this->urlHelper->getUrl('customer/account');
             } else {

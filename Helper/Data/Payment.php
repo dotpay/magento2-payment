@@ -35,6 +35,7 @@ class Payment implements PaymentProviderInterface
      */
     private $seller = null;
 
+
     /**
      * Initialize the provider.
      *

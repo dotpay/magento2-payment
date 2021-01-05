@@ -27,7 +27,7 @@
             <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
             <config_path>payment/dotpay_main/test</config_path>
             <tooltip><![CDATA[You require Dotpay test account if you want to use this option]]></tooltip>
-            <comment><![CDATA[<a target="_blank" href="https://ssl.dotpay.pl/test_seller/test/registration/?affilate_id=magento2_module">Register test account</a>]]></comment>
+            <comment><![CDATA[<a target='_blank' href='https://www.dotpay.pl/developer/sandbox/en/?affiliate_id=magento2_module'>Register test account</a>]]></comment>
         </field>
         <field id="dp_widget" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Enable payment channels widget</label>
@@ -54,6 +54,18 @@
             <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
             <config_path>payment/dotpay_main/invoice_on_confirm</config_path>
             <comment><![CDATA[You can decide if during confirmation of a successful order an invoice should be generated]]></comment>
+        </field>
+        <field id="dp_shop_name" translate="label" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Set the store name from:</label>
+            <source_model>Dotpay\Payment\Model\Adminhtml\System\Config\ShopName</source_model>
+            <config_path>payment/dotpay_main/shop_name</config_path>
+            <comment><![CDATA[Store name used for presentation to the payer in the payment process (confirmation generated in the Dotpay system).]]></comment>
+        </field>
+        <field id="dp_shop_email" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Set the store email from:</label>
+            <source_model>Dotpay\Payment\Model\Adminhtml\System\Config\ShopEmail</source_model>
+            <config_path>payment/dotpay_main/shop_email</config_path>
+            <comment><![CDATA[Store email used for presentation to the payer in the payment process (confirmation generated in the Dotpay system).]]></comment>
         </field>
     </group>
 </include>
