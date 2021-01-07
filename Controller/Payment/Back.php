@@ -54,13 +54,21 @@ class Back extends Dotpay implements CsrfAwareActionInterface
             $get_status_back = $request->getParam('status');
             $get_order_id_back_tmp = $request->getParam('DpOrderId');
             
-            //remove unnecessary stuff masking real data
-            $get_order_id_back = substr($get_order_id_back_tmp, 6, 8).substr($get_order_id_back_tmp, 19, -7).'==';
+             $get_order_id_back1 = explode(':',$get_order_id_back_tmp);
+   
+            if (isset($get_order_id_back1[1])) {
+                $get_order_id_back0 = $get_order_id_back1[1];
+            }else{
+                $get_order_id_back0 = null;
+            }
+           //remove unnecessary stuff masking real data
+            $get_order_id_back = substr($get_order_id_back0, 3, 8).substr($get_order_id_back0, 17, 26).'==';
+
 
             // get id order from back link (schema: '#160#000000160#1608539078')    
-            $oderid_decode = base64_decode($get_order_id_back);
+            $oderid_decode1 = base64_decode($get_order_id_back);
 
-            $oderid_decode= explode('#',$oderid_decode);
+            $oderid_decode= explode('#',$oderid_decode1);
    
             if (isset($oderid_decode[1])) {
                 $oderid_back = (int)$oderid_decode[1];

@@ -54,8 +54,8 @@
                 timeout: "<?php echo __('Time intended for waiting for payment confirmation has elapsed. When transaction will be confirmed we will notify you on email. If payment will not be confirmed, please contact with shop owner and give him the order number:').' <b>'.$this->getPageData('order_id_show').'</b>'; ?>",
                 pending: "<?php echo __('Waiting for confirm your payment...').'<br />'.__('It make take up to 2 minutes.'); ?>",
                 success: "<?php echo __('Thank you! The process of payment completed correctly. In a moment you will be able to check the status of your order.'); ?>",
-                error: "<?php echo __('Payment was rejected. Please contact with the seller.'); ?>",
-                tooMany: "<?php echo __('Warning! Payment for this order have already registered. If you bank account has been charged, please contact to seller and give him a name of the order:').' <b>'.$this->getPageData('order_id_show').'</b>'; ?>",
+                error: "<?php echo '<b>'.__('Payment was rejected.').'</b><br />'.__('You can try to pay for your order again by changing the payment method or contact the seller.'); ?>",
+                tooMany: "<?php echo '<b>'.__('Warning!').'</b><br><br>'. __('Payment for this order have already registered. If you bank account has been charged, please contact to seller and give him a name of the order:').' <b>'.$this->getPageData('order_id_show').'</b>'; ?>",
                 unknown: "<?php echo __('It\'s impossible to interprete the response from server.'); ?>"
             },
             target: "<?php echo $this->getPageData('target_url'); ?>",
