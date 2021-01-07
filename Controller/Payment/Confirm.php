@@ -260,6 +260,10 @@ class Confirm extends Dotpay implements CsrfAwareActionInterface
 
        $lastStatus = $order->getStatus();
 
+       $payment->setTransactionId($operation->getNumber());
+       $transaction = $payment->addTransaction(\Magento\Sales\Model\Order\Payment\Transaction::TYPE_PAYMENT, null, false);
+       $transaction->setParentTxnId(null);
+       
         if ($operation->getStatus() === Operation::STATUS_NEW) {  //payment created
             
             //$transaction->setIsClosed(0);
@@ -267,13 +271,10 @@ class Confirm extends Dotpay implements CsrfAwareActionInterface
         }
 
 
+
         // if last status: Pending (dotpay_pending)
         if($lastStatus === $this->configHelper->getStatusPending() ) 
         {
-
-                $payment->setTransactionId($operation->getNumber());
-                $transaction = $payment->addTransaction(\Magento\Sales\Model\Order\Payment\Transaction::TYPE_PAYMENT, null, false);
-                $transaction->setParentTxnId(null);
 
                 if ($operation->getStatus() === Operation::STATUS_COMPLETE) {  //if payment complete
                     
@@ -307,14 +308,21 @@ class Confirm extends Dotpay implements CsrfAwareActionInterface
         else {
 
             // if last status: completed and get status: completed
-
             if($lastStatus === $this->configHelper->getStatusComplete() && $operation->getStatus() === Operation::STATUS_COMPLETE) 
             {
                 $order->addStatusToHistory($this->configHelper->getStatusComplete(), __('The payment is confirmed. Payment number from Dotpay:').' '.$operation->getNumber().' ('.__('payment channel no:').' '.$this->notification->getChannelId().')', false);
                 $order->addStatusToHistory($this->configHelper->getStatusDuplicated(), __('The payment has been confirmed twice - check for possible duplicated payment').' ('.$operation->getNumber().') - '. __('in total:').' '.($this->GetCommentsFromOrder($order,'count') +1).' '. __('separate payments ! Payments made before:').' '.$this->GetCommentsFromOrder($order), false);
                 $order->save();
             }
+
+             // if last status: completed and get status: rejected
+            elseif($lastStatus === $this->configHelper->getStatusComplete() && $operation->getStatus() === Operation::STATUS_REJECTED) 
+            {
+                $order->addStatusToHistory($this->configHelper->getStatusComplete(), __('Another attempt to pay for an order already paid for - this time unsuccessful. The status of this order has not been changed.').' ('.$operation->getNumber().' /'.__('payment channel no:').' '.$this->notification->getChannelId().'/)', false);
+                $order->save();
+            }
           
+            // if last status: duplicated and get status: completed
             elseif($lastStatus === $this->configHelper->getStatusDuplicated() && $operation->getStatus() === Operation::STATUS_COMPLETE) {
                 $order->addStatusToHistory($this->configHelper->getStatusComplete(), __('The payment is confirmed. Payment number from Dotpay:').' '.$operation->getNumber().' ('.__('payment channel no:').' '.$this->notification->getChannelId().')', false);
                 $order->addStatusToHistory($this->configHelper->getStatusDuplicated(), __('The payment has been confirmed more then once - check for possible duplicated payment').' ('.$operation->getNumber().') - '. __('in total:').' '.($this->GetCommentsFromOrder($order,'count') +1).' '. __('separate payments ! Payments made before:').' '.$this->GetCommentsFromOrder($order), false);
@@ -322,14 +330,7 @@ class Confirm extends Dotpay implements CsrfAwareActionInterface
             }
            
 
-            // if last status: completed and get status: rejected
-
-            elseif($lastStatus === $this->configHelper->getStatusComplete() && $operation->getStatus() === Operation::STATUS_REJECTED) 
-            {
-                $order->addStatusToHistory($this->configHelper->getStatusComplete(), __('Another attempt to pay for an order already paid for - this time unsuccessful. The status of this order has not been changed.').' ('.$operation->getNumber().' /'.__('payment channel no:').' '.$this->notification->getChannelId().'/)', false);
-                $order->save();
-            }
-
+            // if last status: canceled and get status: completed
             elseif ($lastStatus === $this->configHelper->getStatusCanceled() && $operation->getStatus() === Operation::STATUS_COMPLETE) 
             {
                 //payment complete
@@ -347,6 +348,7 @@ class Confirm extends Dotpay implements CsrfAwareActionInterface
                 }
             }
 
+            // if last status: canceled and get status: rejected
             elseif($lastStatus === $this->configHelper->getStatusCanceled() && $operation->getStatus() === Operation::STATUS_REJECTED) 
             {
                 $order->addStatusToHistory($this->configHelper->getStatusCanceled(), __('The payment has been confirmed twice - another failed payment attempt.').' ('.$operation->getNumber().' /'.__('payment channel no:').' '.$this->notification->getChannelId().'/)', false);
