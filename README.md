@@ -1,4 +1,7 @@
 Moduł płatności Dotpay dla Magento 2.1
+
+[![](https://img.shields.io/github/release/wpawel/magento2-payment.svg?style=for-the-badge)](https://github.com/wpawel/magento2-payment/releases/latest "Download")
+
 ===================
 Niniejszy moduł płatności jest przygotowany dla **Magento w wersji 2.1 i wyższych**.
 * Magento 2.0: [KLIKNIJ](https://github.com/dotpay/Magento2)
