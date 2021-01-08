@@ -209,8 +209,9 @@ class Confirm extends Dotpay implements CsrfAwareActionInterface
                     if( $comment->getData('status') == 'dotpay_complete') {  //get all comments only for payments completed
 
                         $body1 = $comment->getData('comment');
-                        preg_match_all("/M\d{4,5}\-\d{4,5}/", $body1, $matches);
-                        $body2 = array_unique($matches[0]);
+                        preg_match_all("/\sM\d{4,5}\-\d{4,5}/", $body1, $matches);
+                        $matches1 = str_replace(" ","",$matches[0]);
+                        $body2 = array_unique($matches1);
                         $orderComment1[] = $body2;
                     }                  
                 }
@@ -221,6 +222,7 @@ class Confirm extends Dotpay implements CsrfAwareActionInterface
                     $CompletedTr = json_encode($orderComment1);
                     $CompletedTr = str_replace("[","",$CompletedTr);
                     $CompletedTr = str_replace("]","",$CompletedTr);
+                    $CompletedTr = str_replace(",,",",",$CompletedTr);
                 }else{
                     $CompletedTr = '';
                 }
@@ -311,21 +313,25 @@ class Confirm extends Dotpay implements CsrfAwareActionInterface
             if($lastStatus === $this->configHelper->getStatusComplete() && $operation->getStatus() === Operation::STATUS_COMPLETE) 
             {
                 $order->addStatusToHistory($this->configHelper->getStatusComplete(), __('The payment is confirmed. Payment number from Dotpay:').' '.$operation->getNumber().' ('.__('payment channel no:').' '.$this->notification->getChannelId().')', false);
-                $order->addStatusToHistory($this->configHelper->getStatusDuplicated(), __('The payment has been confirmed twice - check for possible duplicated payment').' ('.$operation->getNumber().') - '. __('in total:').' '.($this->GetCommentsFromOrder($order,'count') +1).' '. __('separate payments ! Payments made before:').' '.$this->GetCommentsFromOrder($order), false);
+                $order->addStatusToHistory($this->configHelper->getStatusDuplicated(), __('The payment has been confirmed twice - check for possible duplicated payment').' ('.$operation->getNumber().') - '. __('in total:').' '.(substr_count($this->GetCommentsFromOrder($order),'-') +1).' '. __('separate payments ! Payments made before:').' '.$this->GetCommentsFromOrder($order), false);
                 $order->save();
             }
 
              // if last status: completed and get status: rejected
             elseif($lastStatus === $this->configHelper->getStatusComplete() && $operation->getStatus() === Operation::STATUS_REJECTED) 
             {
-                $order->addStatusToHistory($this->configHelper->getStatusComplete(), __('Another attempt to pay for an order already paid for - this time unsuccessful. The status of this order has not been changed.').' ('.$operation->getNumber().' /'.__('payment channel no:').' '.$this->notification->getChannelId().'/)', false);
+               // $order->addStatusToHistory($this->configHelper->getStatusComplete(), __('Another attempt to pay for an order already paid for - this time unsuccessful. The status of this order has not been changed.').' ('.$operation->getNumber().' /'.__('payment channel no:').' '.$this->notification->getChannelId().'/)', false);
+                
+                $order->addCommentToStatusHistory(__('Another attempt to pay for an order already paid for - this time unsuccessful. The status of this order has not been changed.').' ('.$operation->getNumber().' ,'.__('payment channel no:').' '.$this->notification->getChannelId().')', $status = false, $isVisibleOnFront = false);
+
                 $order->save();
+
             }
           
             // if last status: duplicated and get status: completed
             elseif($lastStatus === $this->configHelper->getStatusDuplicated() && $operation->getStatus() === Operation::STATUS_COMPLETE) {
                 $order->addStatusToHistory($this->configHelper->getStatusComplete(), __('The payment is confirmed. Payment number from Dotpay:').' '.$operation->getNumber().' ('.__('payment channel no:').' '.$this->notification->getChannelId().')', false);
-                $order->addStatusToHistory($this->configHelper->getStatusDuplicated(), __('The payment has been confirmed more then once - check for possible duplicated payment').' ('.$operation->getNumber().') - '. __('in total:').' '.($this->GetCommentsFromOrder($order,'count') +1).' '. __('separate payments ! Payments made before:').' '.$this->GetCommentsFromOrder($order), false);
+                $order->addStatusToHistory($this->configHelper->getStatusDuplicated(), __('The payment has been confirmed more then once - check for possible duplicated payment').' ('.$operation->getNumber().') - '. __('in total:').' '.(substr_count($this->GetCommentsFromOrder($order),'-') +1).' '. __('separate payments ! Payments made before:').' '.$this->GetCommentsFromOrder($order), false);
                 $order->save();
             }
            
