@@ -1,6 +1,6 @@
 # Moduł płatności Dotpay dla Magento 2.x
 
-[![](https://img.shields.io/github/release/wpawel/magento2-payment.svg?style=for-the-badge)](https://github.com/wpawel/magento2-payment/releases/latest "Download")
+[![](https://img.shields.io/github/release/dotpay/magento2-payment.svg?style=for-the-badge)](https://github.com/dotpay/magento2-payment/releases/latest "Download")
 
 
 
