@@ -74,5 +74,11 @@
             <config_path>payment/dotpay_main/shipping_mapping</config_path>
             <comment><![CDATA[Describe each delivery option by shipping methods defined by Dotpay (for PayPo payments only)]]></comment>
         </field>
+        <field id="dp_control_type" translate="label" type="select" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Control field with NO additional information</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <config_path>payment/dotpay_main/control_type</config_path>
+            <comment><![CDATA[By default, more information is generated in the control field than just the order id. If you want in case of trouble you can use simple form with your order id only. Recommended setting: No.]]></comment>
+        </field>
     </group>
 </include>

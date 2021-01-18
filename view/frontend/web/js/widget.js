@@ -11052,7 +11052,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
             return $('.'+config.view.widgetContainer+' .dotpay-widget-error').html(message).show();
         },
         reset: function() {
-			console.log('ukryte 1');
             return $('.'+config.view.widgetContainer+' .dotpay-widget-error').html('').hide();
         }
     };
@@ -11168,7 +11167,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
  */
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = function($) {
     var config, channels, selected = null;
-    var widgetContainer;
+	var widgetContainer;
+	
+	function isSupportedApplePay() {
+		return window.ApplePaySession && ApplePaySession.canMakePayments();
+	}
+
+
     function renderOneChannel(channel, key) {
         // channel container
         var channelContainer = $(document.createElement('div')).addClass(config.view.channelContainer).attr('data-key', key);
@@ -11202,11 +11207,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
         //bodyContainer.append(label);
 		channelContainer.append(bodyContainer);
         return channelContainer;
-    }
+	}
+	
+
     function renderChannels(channels) {
         var container = $(document.createElement('div')).addClass('dotpay-channels-container');
         for(var key in channels) {
-            container.append(renderOneChannel(channels[key], key));
+			container.append(renderOneChannel(channels[key], key));
 		}
         return container;
     }
@@ -11296,8 +11303,26 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 				widgetContainer.find('.' + config.view.channelContainer).on('mouseout', onOut);
 				widgetContainer.find('.dotpay-channels-container').fadeIn();
 				if( $('div.dotpay-channels-container').length > 0){
+					//console.log('debug: loading channels...');
 					$('div.selectedchannel').hide();
 					$('div.diffchannel').hide();
+
+					// CHECK IF APPLE PAY NOT SUPPORTED by the payer's device
+					if (!isSupportedApplePay()) {
+						console.log('%cYour browser NOT supported apple pay: apple pay has been deleted from the widget!','background: #cfcfcf; color: brown;'); 
+						$("div.dotpay-channels-container > div.dotpay-channel > div.dotpay-logo-container[title~='Apple']").parent("div.dotpay-channels-container > div.dotpay-channel").remove();
+
+						if( $('div#other_channel_262').length > 0){
+							console.log('%cYour browser NOT supported apple pay: the separated payment method has been deleted !','background: #cfcfcf; color: brown;'); 
+							$('div#other_channel_262').remove();
+						}				
+				   } 	
+
+				} 
+				if ( $('div.dotpay-channels-container > div.dotpay-channel').length < 1 ) {
+						console.log('%cThere are no payment methods available for this order!','background: #cfcfcf; color: violet;');
+						$('div.availablechannels').hide();
+						$('div.nodpchannels').show();
 				}
 
 				if( $('div.dotpay-channels-container > div.dotpay-channel').length == 1)

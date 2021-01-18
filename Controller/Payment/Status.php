@@ -112,6 +112,9 @@ class Status extends Dotpay
                 case $this->configHelper->getStatusCanceled():
                     $status->codeError();
                     break;
+                 case $this->configHelper->getStatusDuplicated():
+                        $status->codeTooMany();
+                        break;                  
                 default:
                     $status->codeOtherStatus();
             }

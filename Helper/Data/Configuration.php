@@ -264,6 +264,22 @@ class Configuration implements ConfigurationProviderInterface
         return $this->getData('payment/dotpay_main/shipping_mapping');
     }
 
+    public function getStoreName()
+    {
+        return $this->getData('payment/dotpay_main/shop_name');
+    }
+
+    public function getStoreEmail()
+    {
+        return $this->getData('payment/dotpay_main/shop_email');
+    }
+
+
+    public function getControlDefault()
+    {
+        return $this->getData('payment/dotpay_main/control_type');
+    }
+
     /**
      * Check if refunds requesting is enabled from a shop system.
      *
@@ -302,6 +318,11 @@ class Configuration implements ConfigurationProviderInterface
     public function getShopName()
     {
         return $this->storeManager->getStore()->getName();
+    }
+
+    public function getShopEmail()
+    {
+        return "";
     }
 
     public function getMultimerchant()

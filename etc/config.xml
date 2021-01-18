@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <payment>
@@ -31,6 +31,9 @@
                 <status_refund_new>dotpay_refund_new</status_refund_new>
                 <show_shortcut>1</show_shortcut>
                 <invoice_on_confirm>1</invoice_on_confirm>
+                <shop_name>storeinfo</shop_name>
+                <shop_email>general</shop_email>
+                <control_type>0</control_type>
             </dotpay_main>
             <dotpay_oc translate="title">
                 <active>0</active>

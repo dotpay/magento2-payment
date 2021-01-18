@@ -27,7 +27,7 @@ use Dotpay\Model\Customer;
 class Language implements ArrayInterface
 {
     /**
-     * Return array list list of available languages for Dotpay module.
+     * Return array list of available languages for Dotpay module.
      *
      * @param bool $isMultiselect A flag if multi select functionality is available in frond end field
      *

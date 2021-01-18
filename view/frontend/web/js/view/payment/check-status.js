@@ -61,11 +61,11 @@ function DotpayStatusChecker(parent, config) {
     var counterLimit = config.timeout/config.interval;
     
     var getBaseMessage = function(status) {
-        return config.messages.basic+"<br />"+config.messages.status+':&nbsp;'+status;
+        return config.messages.basic+"<br />"+config.messages.status+':&nbsp;<b>'+status+'</b>';
     };
     
     var getMessageWithStatus = function(message, status) {
-        return message+"<br />"+config.messages.status+':&nbsp;'+status;
+        return message+"<br />"+config.messages.status+':&nbsp;<b>'+status+'</b>';
     };
     
     var finish = function(intervalId) {
@@ -131,7 +131,7 @@ function DotpayStatusChecker(parent, config) {
                     break;
                 case 4://OTHER STATUS
                     finish(checkInt);
-                    setInfoMessage(getBaseMessage(data.status)+additionalMessage);
+                    setWarningMessage(getBaseMessage(data.status)+additionalMessage);
                     break;
                 default://UNKNOWN STATUS
                     finish(checkInt);
