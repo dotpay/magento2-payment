@@ -15,9 +15,9 @@ Instrukcja instalacji
 1. Proszę przejść do katalogu głównego instalacji sklepu Magento
 2. Należy się upewnić, czy w pliku *composer.json* Magento są dodane repozytoria Dotpay. Jeśli nie, trzeba wywołać następujące komendy:
 ```
-composer config repositories.dotpaySDK vcs https://github.com/wpawel/PHP-SDK
+composer config repositories.dotpaySDK vcs https://github.com/dotpay/PHP-SDK
 
-composer config repositories.magento2-payment vcs https://github.com/wpawel/magento2-payment
+composer config repositories.magento2-payment vcs https://github.com/dotpay/magento2-payment
 ```
 3. Instalacja modułu następuje przy pomocy narzędzia *composer*. W katalogu głównym Magento należy wywołać następujące komendy:
 ```
