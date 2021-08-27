@@ -260,6 +260,19 @@ class AbstractAdapter extends PaymentAdapter
     }
 
     /**
+     * Return an information if mode 'server does not use a proxy' is enabled
+     *
+     * @param int/null $storeId Id of the store
+     *
+     * @return boolean
+     */
+    public function getNonProxyMode($storeId = null)
+    {
+        return (bool) $this->getConfiguredMainValue('nonproxy', $storeId);
+    }
+  
+  
+    /**
      * Return an information if Control field with additional information
      *
      * @param int/null $storeId Id of the store
@@ -482,6 +495,7 @@ class AbstractAdapter extends PaymentAdapter
                ->setPin($this->getSellerPin())
                ->setUsername($this->getSellerUsername())
                ->setPassword($this->getSellerPassword())
+               ->setNonProxyMode($this->getNonProxyMode())
                ->setTestMode($this->isTestMode())
                ->setInstructionVisible($this->isInstructionAvailable())
                ->setControlDefault($this->getControlDefault())

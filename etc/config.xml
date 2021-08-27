@@ -7,6 +7,7 @@
                 <id></id>
                 <pin></pin>
                 <test>0</test>
+                <nonproxy>1</nonproxy>
                 <model>DotpayMainAdapter</model>
                 <title>Dotpay payments</title>
                 <username></username>

@@ -1,14 +1,15 @@
 <?php if($block->canShowBlock()) : ?>
     <br />
+    <div style="padding: 20px;background-color: #e2ecf0;width:110%;">
         <div class="admin__page-section-title">
-            <span class="title"><?= __('Generate payment link');?></span>
+            <span class="title">&#128184; <?= __('Generate payment link');?></span>
         </div>
         <?php if($block->getRetryPayments()) : ?>
         <?php if(!$block->canRetry()) : ?>
             <table class="admin__table-secondary">
                 <thead>
                 <tr style="background-color: #c8c8c8;">
-                    <th>URL</th>
+                    <th>&#128279; URL</th>
                     <th><?= __('Action');?></th>
                 </tr>
                 </thead>
@@ -18,10 +19,13 @@
                     <td>
                         <div class="admin__field-control control select-all"><?= $payment->getUrl(); ?></div>
                     </td>
-                    <td><?php if($block->canDelete()) : ?><a href="<?= $block->escapeUrl($block->getDeleteUrl($payment->getEntityId())); ?>"><?= __('delete');?></a><?php endif; ?></td>
+                    <td style="text-align: center;"><?php if($block->canDelete()) : ?><a href="<?= $block->escapeUrl($block->getDeleteUrl($payment->getEntityId())); ?>">&#128686;<br/><?= __('delete');?></a>
+                        <?php else: ?>
+                            &#128683;
+                        <?php endif; ?></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><?= __('Send the generated payment link from the URL column to the Customer');?></td>
+                    <td colspan="2">&#9993; <?= __('Send the generated payment link from the URL column to the Customer');?></td>
                 </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -30,6 +34,7 @@
         <?php endif; ?>
     <?php if($block->canRetry()) : ?>
     <div><?= __('You can generate a payment link for this order and send it to the customer');?></div>
-    <a href="<?= $block->escapeUrl($block->getSaveUrl()); ?>"><?= __('Generate payment link');?></a>
+    <br/><a href="<?= $block->escapeUrl($block->getSaveUrl()); ?>">&#128279; <?= __('Generate payment link');?></a>
     <?php endif; ?>
+    </div>
 <?php endif; ?>

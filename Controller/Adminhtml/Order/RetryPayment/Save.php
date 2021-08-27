@@ -22,11 +22,41 @@ class Save extends RetryPayment {
      */
     const ADMIN_RESOURCE = 'Dotpay_Payment::order_retryPayment';
 
+
+
+    /**
+     * CURRENT: calculate CHK for the PID. - only for 'api_version = next'
+     *
+     * @param $token                  with transaction parameters (pid)
+     * @param string $pin             Seller pin to sign the control sum
+     *
+     * @return string
+     */
+    
+    
+    ## function: counts the checksum from the defined array of all parameters
+
+    public function generateCHKlink($token,$DotpayPin)
+    {
+            $PIDArray = array('api_version' => 'next', 'pid' => $token);
+            ksort($PIDArray);
+            $paramList = implode(';', array_keys($PIDArray));
+            $PIDArray['paramsList'] = $paramList;
+            ksort($PIDArray);
+            $json = json_encode($PIDArray, JSON_UNESCAPED_SLASHES);
+            
+         return hash_hmac('sha256', $json, $DotpayPin, false);
+       
+    }
+
     /**
      * @return void
      */
     public function execute()
     {
+
+        
+
         try {
             $curl = new Curl();
             $order = $this->_initOrder($this->getRequest()->getParam('order_id'));
@@ -38,8 +68,9 @@ class Save extends RetryPayment {
             $paymentLink->setLanguage($locale);
             $seller = Seller::createFromConfiguration($this->config);
             $link = $sellerResource->getNewPaymentLink($seller, $paymentLink);
-            $chk = hash('sha256', $this->config->getPin().$link['token']);
-            $url = $link['payment_url'] . "&chk=" . $chk;
+            $chk = $this->generateCHKlink($link['token'],$this->config->getPin());
+            
+            $url = $link['payment_url'] . "&api_version=next&chk=" . $chk;
             $this->_objectManager->create(OrderRetryPayment::class)
                 ->setOrderId($order->getEntityId())
                 ->setUrl($url)

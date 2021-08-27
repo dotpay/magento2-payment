@@ -57,10 +57,18 @@ class WidgetConfigProvider extends AbstractConfigProvider
     private function getWidgetConfiguration()
     {
         $request = self::$agreements->getRequest();
+        $amount1 = $request->getAmount();
+
+        if($amount1 != '' && $amount1 > 0 ){
+				$amount = $amount1;		
+		}else{
+			    $amount = '307.77';	 //fix for empty request to the dotpay api 
+		}
+
         $widgetConfig = [
             'payment' => [
                 'sellerId' => $request->getSellerId(),
-                'amount' => $request->getAmount(),
+                'amount' => $amount,
                 'currency' => $request->getCurrency(),
                 'lang' => $request->getLanguage(),
             ],

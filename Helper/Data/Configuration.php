@@ -84,6 +84,11 @@ class Configuration implements ConfigurationProviderInterface
         return $this->getData('payment/dotpay_main/test');
     }
 
+    public function getNonProxyMode()
+    {
+        return $this->getData('payment/dotpay_main/nonproxy');
+    }
+
     public function getUsername()
     {
         return $this->getData('payment/dotpay_main/username');
@@ -332,7 +337,8 @@ class Configuration implements ConfigurationProviderInterface
 
     public function getApi()
     {
-        return 'dev';
+       // return 'dev'; // depreciated
+        return 'next';  // current - new method for calculating the chk parameter
     }
 
     public function getShowShortcut()

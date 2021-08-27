@@ -20,6 +20,10 @@
             img.payment-icon {
                 height:44px;
             }
+            .dp_blik_rend {
+                padding: 5px;
+                margin-left: 15px;
+            }
         </style>
         <input type="radio"
                name="payment[method]"
@@ -33,9 +37,11 @@
         </label>
     </div>
     <div class="payment-method-content">
-        
-        <input data-bind="attr: {'placeholder': $t('BLIK code')}, value: blikCode, event:{input: validateAgreements}" pattern="[0-9]{6}" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" id="dotpay_blik_code" size="6" maxlength="6"/>
-        
+        <span class="dp_blik_rend">
+            <div data-bind="text: $t('Generate a BLIK code in your bank\'s app')"></div><br>
+            <span  data-bind="text: $t('Enter the BLIK code')"></span>:&nbsp;
+            <input data-bind="attr: {'placeholder': $t('BLIK code')}, value: blikCode, event:{input: validateAgreements}" pattern="[0-9]{6}" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" id="dotpay_blik_code" size="6" maxlength="6" required/>
+        </span>
         <div class="payment-method-billing-address">
             <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
             <!-- ko template: getTemplate() --><!-- /ko -->
