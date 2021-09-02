@@ -11068,7 +11068,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = function($) {
     var config, error, view, data;
     function buildUrl(config) {
-        return config.request.host + "?id=" + config.payment.sellerId + "&amount=" + config.payment.amount + "&currency=" + config.payment.currency + "&lang=" + config.payment.lang + "&format=json";
+        return config.request.host + "?currency=" + config.payment.currency + "&amount=" + config.payment.amount + "&id=" + config.payment.sellerId + "&lang=" + config.payment.lang + "&format=json";
     }
     function call(callback, data, field) {
         if(typeof field === 'undefined') {
