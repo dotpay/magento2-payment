@@ -105,7 +105,7 @@ define(
 				var agreements1 = this.getConfigData().agreements;
 
 				//get web lang
-                console.log('detect language:' + $("html").attr("lang"));
+                console.log('detect website language:' + $("html").attr("lang"));
 				
 				// attention! this is a hack for languages not officially supported in api dotpay //
 				
@@ -114,37 +114,64 @@ define(
 					console.log('change agreements text to the Dutch (nl)');
 					
 					if (agreements1[0]['description_html'] && agreements1[0]['description_html'].length){
-						agreements1[0]['description_html'] = 'Ik accepteer de <a title="\betalingsvoorschriften\" target=\"_blank\" href=\"https://ssl.dotpay.pl/test_payment/cloudfs2/magellan_media/regulamin_platnosci\">betalingsvoorschriften</a> PayPro TEST S.A..';		
+						agreements1[0]['description_html'] = 'Ik accepteer de <a title="\betalingsvoorschriften\" target=\"_blank\" href=\"https://ssl.dotpay.pl/t2/cloudfs1/magellan_media/regulations_of_payments\">betalingsvoorschriften</a> PayPro S.A..';		
 					}
 					if (agreements1[1]['description_html'] && agreements1[1]['description_html'].length){
-						agreements1[1]['description_html'] = 'Ik erken dat om de betaling te verwerken, de beheerder van mijn persoonlijke gegevens PayPro S.A.. (KRS 0000347935), 60-327 Poznań (Polen), Kanclerska 15, +48126882600, <a href=\"mailto:bok@dotpay.pl\">bok@dotpay.pl</a>, zie <a title=\"regelgeving\" target=\"_blank\" href=\"https://ssl.dotpay.pl/test_payment/cloudfs2/magellan_media/rodo\">de volledige tekst van de informatieclausule</a>.';
+						agreements1[1]['description_html'] = 'Ik erken dat om de betaling te verwerken, de beheerder van mijn persoonlijke gegevens PayPro S.A.. (KRS 0000347935), 60-327 Poznań (Polen), Kanclerska 15, +48126882600, <a href=\"mailto:bok@dotpay.pl\">bok@dotpay.pl</a>, zie <a title=\"regelgeving\" target=\"_blank\" href=\"https://ssl.dotpay.pl/t2/cloudfs1/magellan_media/rodo_en\">de volledige tekst van de informatieclausule</a>.';
 					}
 				}
+
 				// Croatian
 				if ( $("html:lang(hr)").length > 0 ) {
 					console.log('change agreements text to the Croatian (hr)');
 					
 					if (agreements1[0]['description_html'] && agreements1[0]['description_html'].length){
-						agreements1[0]['description_html'] = 'Ik accepteer de <a title="\betalingsvoorschriften\" target=\"_blank\" href=\"https://ssl.dotpay.pl/test_payment/cloudfs2/magellan_media/regulamin_platnosci\">betalingsvoorschriften</a> PayPro TEST S.A..';		
+						agreements1[0]['description_html'] = 'Prihvaćam <a title="\Uvjete plaćanja\" target=\"_blank\" href=\"https://ssl.dotpay.pl/t2/cloudfs1/magellan_media/regulations_of_payments\">Uvjete plaćanja</a> PayPro S.A..';		
 					}
 					if (agreements1[1]['description_html'] && agreements1[1]['description_html'].length){
-						agreements1[1]['description_html'] = 'Ik erken dat om de betaling te verwerken, de beheerder van mijn persoonlijke gegevens PayPro S.A.. (KRS 0000347935), 60-327 Poznań (Polen), Kanclerska 15, +48126882600, <a href=\"mailto:bok@dotpay.pl\">bok@dotpay.pl</a>, zie <a title=\"regelgeving\" target=\"_blank\" href=\"https://ssl.dotpay.pl/test_payment/cloudfs2/magellan_media/rodo\">de volledige tekst van de informatieclausule</a>.';
+						agreements1[1]['description_html'] = 'Primam k znaju da je, u svrhu provedbe postupka plaćanja, Administrator mojih podataka PayPro S.A.. (Nacionalni sudski registar-KRS 0000347935), 60-327 Poznań (Poljska), Kanclerska 15, +48126882600, <a href=\"mailto:bok@dotpay.pl\">bok@dotpay.pl</a>, pogledjte puni sadržaj <a title=\"informativne klauzule\" target=\"_blank\" href=\"https://ssl.dotpay.pl/t2/cloudfs1/magellan_media/rodo_en">informativne klauzule</a>.';
 					}		
 
-				}					
+				}	
+
 				// Bulgarian
 				if ( $("html:lang(bg)").length > 0 ) {
 					console.log('change agreements text to the Bulgarian (bg)');
 					
 					if (agreements1[0]['description_html'] && agreements1[0]['description_html'].length){
-						agreements1[0]['description_html'] = 'Приемам <a title="\Правилника\" target=\"_blank\" href=\"https://ssl.dotpay.pl/test_payment/cloudfs2/magellan_media/regulamin_platnosci\">Правилника</a> за плащане на PayPro S.A..';		
+						agreements1[0]['description_html'] = 'Приемам <a title="\Правилника\" target=\"_blank\" href=\"https://ssl.dotpay.pl/t2/cloudfs1/magellan_media/regulations_of_payments\">Правилника</a> за плащане на PayPro S.A..';		
 					}
 					if (agreements1[1]['description_html'] && agreements1[1]['description_html'].length){
-						agreements1[1]['description_html'] = 'Приемам, че за реализиране на процеса на плащане, Администраторът на моите лични данни е PayPro S.A.. (KRS 0000347935), 60-327 Poznań (Полша), Kanclerska 15, +48126882600, <a href=\"mailto:bok@dotpay.pl\">bok@dotpay.pl</a>, виж пълния текст на <a title=\"регламенти\" target=\"_blank\" href=\"https://ssl.dotpay.pl/test_payment/cloudfs2/magellan_media/rodo\">информационната клауза</a>.';
+						agreements1[1]['description_html'] = 'Приемам, че за реализиране на процеса на плащане, Администраторът на моите лични данни е PayPro S.A.. (KRS 0000347935), 60-327 Poznań (Полша), Kanclerska 15, +48126882600, <a href=\"mailto:bok@dotpay.pl\">bok@dotpay.pl</a>, виж пълния текст на <a title=\"регламенти\" target=\"_blank\" href=\"https://ssl.dotpay.pl/t2/cloudfs1/magellan_media/rodo_en\">информационната клауза</a>.';
 					}		
 
 				}
-	
+
+				//Estonian
+				if ( $("html:lang(et)").length > 0 ) {
+					console.log('change agreements text to the Estonian (et)');
+					
+					if (agreements1[0]['description_html'] && agreements1[0]['description_html'].length){
+						agreements1[0]['description_html'] = 'Nõustun PayPro S.A. <a title="\maksete tingimustega\" target=\"_blank\" href=\"https://ssl.dotpay.pl/t2/cloudfs1/magellan_media/regulations_of_payments\">maksete tingimustega</a>.';		
+					}
+					if (agreements1[1]['description_html'] && agreements1[1]['description_html'].length){
+						agreements1[1]['description_html'] = 'Võtan teadmiseks, et makseteenuse realiseerimise eesmärgil on minu isikuandmete töötleja PayPro S.A.. (KRS 0000347935), 60-327 Poznań (Polska), Kanclerska 15, +48616006170, <a href=\"mailto:bok@dotpay.pl\">bok@dotpay.pl</a>, vt <a title=\"infoklausli täisteksti\" target=\"_blank\" href=\"https://ssl.dotpay.pl/t2/cloudfs1/magellan_media/rodo_en\">infoklausli täisteksti</a>.';
+					}
+				}
+
+				//Portuguese
+				if ( $("html:lang(pt)").length > 0 ) {
+					console.log('change agreements text to the Portuguese (pt)');
+					
+					if (agreements1[0]['description_html'] && agreements1[0]['description_html'].length){
+						agreements1[0]['description_html'] = 'Aceito os <a title="\regulamentos de pagamento\" target=\"_blank\" href=\"https://ssl.dotpay.pl/t2/cloudfs1/magellan_media/regulations_of_payments\">regulamentos de pagamento</a> da PayPro S.A..';		
+					}
+					if (agreements1[1]['description_html'] && agreements1[1]['description_html'].length){
+						agreements1[1]['description_html'] = 'Reconheço que, para realizar o processo de pagamento, o Administrador dos meus dados pessoais é a PayPro S.A.. (KRS 0000347935), 60-327 Poznań (Polska), Kanclerska 15, +48616006170, <a href=\"mailto:bok@dotpay.pl\">bok@dotpay.pl</a>, veja o texto completo das <a title=\"informações da cláusula\" target=\"_blank\" href=\"https://ssl.dotpay.pl/t2/cloudfs1/magellan_media/rodo_en\">informações da cláusula</a>.';
+					}
+				}
+
+
 			   
 			   	// add space before one click agreements
 				if ($('input.dotpay_oc').siblings('br').length < 1){
