@@ -19,7 +19,7 @@
 namespace Dotpay\Payment\Model\Config\Backend;
 
 use Dotpay\Validator\Id as IdValidator;
-use Dotpay\Exception\BadParameter\PinException;
+use Dotpay\Exception\BadParameter\IdException;
 
 /**
  * Model of seller identifier used in module configuration.
@@ -37,7 +37,7 @@ class Id extends Value
     {
         $value = $this->getValue();
         if ($this->isEnabled() && !IdValidator::validate($value)) {
-            throw new PinException($value);
+            throw new IdException($value);
         }
 
         return parent::beforeSave();

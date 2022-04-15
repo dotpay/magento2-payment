@@ -281,17 +281,19 @@ class Confirm extends Dotpay implements CsrfAwareActionInterface
                 if ($operation->getStatus() === Operation::STATUS_COMPLETE) {  //if payment complete
                     
                     $message = __('The payment is confirmed. Payment number from Dotpay:').' '.$operation->getNumber().' ('.__('payment channel no:').' '.$this->notification->getChannelId().')';
+
                     $transaction->setIsClosed(1);
                     $order->addStatusToHistory($this->configHelper->getStatusComplete(), $message, true);
                     if ($this->configHelper->getInvoiceOnConfirm() && $order->canInvoice()) {
                         $invoice = $order->prepareInvoice();
                         $invoice->setRequestedCaptureCase(\Magento\Sales\Model\Order\Invoice::CAPTURE_ONLINE);
                         $invoice->register();
+                       $invoice->setTransactionId($operation->getNumber()); 
                         $dbTransaction = $this->objectManager->create('Magento\Framework\DB\Transaction')
                             ->addObject($invoice)
-                            ->addObject($invoice->getOrder());
-                        $dbTransaction->save();
-                    }
+                            ->addObject($invoice->getOrder()); 
+                        $dbTransaction->save();               
+                        }
                 } elseif ($operation->getStatus() === Operation::STATUS_REJECTED) {    //if payment rejected
                   
                     $message = __('The payment is rejected. Payment number from Dotpay:').' '.$operation->getNumber().' ('.__('payment channel no:').' '.$this->notification->getChannelId().')';

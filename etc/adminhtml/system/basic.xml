@@ -9,70 +9,78 @@
             <config_path>payment/dotpay_main/active</config_path>
             <comment><![CDATA[Activate payments via Dotpay]]></comment>
         </field>
-        <field id="dp_id" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>🆔 ID</label>
-            <backend_model>Dotpay\Payment\Model\Config\Backend\Id</backend_model>
-            <config_path>payment/dotpay_main/id</config_path>
-            <comment><![CDATA[Copy from Dotpay seller panel]]></comment>
-            <validate>required-entry validate-digits</validate>
-        </field>
-        <field id="dp_pin" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>🔑 PIN</label>
-            <config_path>payment/dotpay_main/pin</config_path>
-            <comment><![CDATA[Copy from Dotpay seller panel]]></comment>
-            <validate>required-entry</validate>
-        </field>
-        <field id="dp_mode" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>🧪 Test Mode</label>
-            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-            <config_path>payment/dotpay_main/test</config_path>
-            <tooltip><![CDATA[You require Dotpay test account if you want to use this option]]></tooltip>
-            <comment><![CDATA[<a target='_blank' href='https://www.dotpay.pl/developer/sandbox/en/?affiliate_id=magento2_module'>Register test account</a>]]></comment>
-        </field>
-        <field id="dp_proxy" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>⚔️ My server does not use a proxy</label>
-            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-            <config_path>payment/dotpay_main/nonproxy</config_path>
-            <tooltip><![CDATA[Disable this feature if your server incorrectly recognizes IP addresses using the variable <b>$ _SERVER &#91;&#39;REMOTE_ADDR&#39;&#93;</b>]]></tooltip>
-            <comment><![CDATA[By default, we recommend that you set it on (no proxy).<br>If you are sure otherwise or you have problems receiving confirmations about the completed payment - set it to off.]]></comment>
-        </field>
-        <field id="dp_widget" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>📋 Enable payment channels widget</label>
-            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-            <config_path>payment/dotpay_widget/widget</config_path>
-            <tooltip><![CDATA[Disable this feature if you are using modules modifying checkout page]]></tooltip>
-            <comment><![CDATA[This allows to display Dotpay widget on the shop site]]></comment>
-        </field>
-        <field id="dp_main_currencies" translate="label" type="multiselect" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>Currencies disabling main channel</label>
-            <source_model>Dotpay\Payment\Model\Adminhtml\System\Config\Currency</source_model>
-            <config_path>payment/dotpay_widget/disable_currencies</config_path>
-            <tooltip><![CDATA[You can select more than one currency]]></tooltip>
-            <comment><![CDATA[You can select currencies. When one of them is used, main payment channel will be not displayed.]]></comment>
-        </field>
-        <field id="dp_show_logo" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>Display logo</label>
-            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-            <config_path>payment/dotpay_main/display_logo</config_path>
-            <comment><![CDATA[You can decide if payment channel logos will be displayed on the shop site]]></comment>
-        </field>
-        <field id="dp_invoice_on_confirm" translate="label" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>Automatically invoice orders</label>
-            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-            <config_path>payment/dotpay_main/invoice_on_confirm</config_path>
-            <comment><![CDATA[You can decide if during confirmation of a successful order an invoice should be generated]]></comment>
-        </field>
-        <field id="dp_shop_name" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>Set the store name from:</label>
-            <source_model>Dotpay\Payment\Model\Adminhtml\System\Config\ShopName</source_model>
-            <config_path>payment/dotpay_main/shop_name</config_path>
-            <comment><![CDATA[Store name used for presentation to the payer in the payment process (confirmation generated in the Dotpay system).]]></comment>
-        </field>
-        <field id="dp_shop_email" translate="label" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>Set the store email from:</label>
-            <source_model>Dotpay\Payment\Model\Adminhtml\System\Config\ShopEmail</source_model>
-            <config_path>payment/dotpay_main/shop_email</config_path>
-            <comment><![CDATA[Store email used for presentation to the payer in the payment process (confirmation generated in the Dotpay system).]]></comment>
-        </field>
+
+            <group id="dotpay_basic_visible" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[Complete the required configuration information]]></label>
+                <comment><![CDATA[You must enter the correct data of your account (ID, PIN) to use Dotpay payments]]></comment>
+                <field id="dp_id" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>🆔 ID</label>
+                    <backend_model>Dotpay\Payment\Model\Config\Backend\Id</backend_model>
+                    <config_path>payment/dotpay_main/id</config_path>
+                    <comment><![CDATA[Copy from Dotpay seller panel]]></comment>
+                    <validate>required-entry validate-digits</validate>
+                </field>
+                <field id="dp_pin" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>🔑 PIN</label>
+                    <config_path>payment/dotpay_main/pin</config_path>
+                    <comment><![CDATA[Copy from Dotpay seller panel]]></comment>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="dp_mode" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>🧪 Test Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>payment/dotpay_main/test</config_path>
+                    <tooltip><![CDATA[You require Dotpay test account if you want to use this option]]></tooltip>
+                    <comment><![CDATA[<a target='_blank' href='https://www.dotpay.pl/developer/sandbox/en/?affiliate_id=magento2_module'>Register test account</a>]]></comment>
+                </field>
+                <field id="dp_proxy" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>⚔️ My server does not use a proxy</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>payment/dotpay_main/nonproxy</config_path>
+                    <tooltip><![CDATA[Disable this feature if your server incorrectly recognizes IP addresses using the variable <b>$ _SERVER &#91;&#39;REMOTE_ADDR&#39;&#93;</b>]]></tooltip>
+                    <comment><![CDATA[By default, we recommend that you set it on (no proxy).<br>If you are sure otherwise or you have problems receiving confirmations about the completed payment - set it to off.]]></comment>
+                </field>
+                <field id="dp_widget" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>📋 Enable payment channels widget</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>payment/dotpay_widget/widget</config_path>
+                    <tooltip><![CDATA[Disable this feature if you are using modules modifying checkout page]]></tooltip>
+                    <comment><![CDATA[This allows to display Dotpay widget on the shop site]]></comment>
+                </field>
+                <field id="dp_main_currencies" translate="label" type="multiselect" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Currencies disabling main channel</label>
+                    <source_model>Dotpay\Payment\Model\Adminhtml\System\Config\Currency</source_model>
+                    <config_path>payment/dotpay_widget/disable_currencies</config_path>
+                    <tooltip><![CDATA[You can select more than one currency]]></tooltip>
+                    <comment><![CDATA[You can select currencies. When one of them is used, main payment channel will be not displayed.]]></comment>
+                </field>
+                <field id="dp_show_logo" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display logo</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>payment/dotpay_main/display_logo</config_path>
+                    <comment><![CDATA[You can decide if payment channel logos will be displayed on the shop site]]></comment>
+                </field>
+                <field id="dp_invoice_on_confirm" translate="label" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Automatically invoice orders</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>payment/dotpay_main/invoice_on_confirm</config_path>
+                    <comment><![CDATA[You can decide if during confirmation of a successful order an invoice should be generated]]></comment>
+                </field>
+                <field id="dp_shop_name" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Set the store name from:</label>
+                    <source_model>Dotpay\Payment\Model\Adminhtml\System\Config\ShopName</source_model>
+                    <config_path>payment/dotpay_main/shop_name</config_path>
+                    <comment><![CDATA[Store name used for presentation to the payer in the payment process (confirmation generated in the Dotpay system).]]></comment>
+                </field>
+                <field id="dp_shop_email" translate="label" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Set the store email from:</label>
+                    <source_model>Dotpay\Payment\Model\Adminhtml\System\Config\ShopEmail</source_model>
+                    <config_path>payment/dotpay_main/shop_email</config_path>
+                    <comment><![CDATA[Store email used for presentation to the payer in the payment process (confirmation generated in the Dotpay system).]]></comment>
+                </field>
+                <depends>
+                    <field id="dp_active">1</field>
+                </depends>
+            </group>
     </group>
 </include>

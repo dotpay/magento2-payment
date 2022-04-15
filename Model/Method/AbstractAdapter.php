@@ -528,7 +528,7 @@ class AbstractAdapter extends PaymentAdapter
             $payment->getLastTransId(),
             $amount,
             $order->getEntityId(),
-            _("Refund for order no ") . $order->getRealOrderId()
+            __("Refund for order no") ." ". $order->getRealOrderId()
         );
         $seller->makeRefund($refund);
 

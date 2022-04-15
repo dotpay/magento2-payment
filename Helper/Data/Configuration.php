@@ -71,7 +71,7 @@ class Configuration implements ConfigurationProviderInterface
 
     public function getId()
     {
-        return $this->getData('payment/dotpay_main/id');
+        return (string) $this->getData('payment/dotpay_main/id');
     }
 
     public function getPin()
